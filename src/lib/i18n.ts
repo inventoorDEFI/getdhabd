@@ -108,72 +108,114 @@ export const T = {
 
   navHome: { ar: 'ضبط', en: 'Dhabt' },
 
-  // --- landing ---------------------------------------------------------------
-  heroKicker: { ar: 'مراجعة مسبقة قبل الرفع على بلدي', en: 'Pre-submission review, before Balady' },
-  heroSub: {
-    ar: 'كل دورة رفض تكلفك أسبوعين وإعادة رسم. ضبط يقرأ حزمة المخططات ويعطيك قائمة بما لن يجتاز المراجعة، ومعه رقم البند وموقعه على اللوحة، قبل أن ترفع وقبل أن تبني.',
-    en: 'Every rejection cycle costs two weeks and a redraw. Dhabt reads the drawing set and lists what will not pass, with the clause number and its location on the sheet, before you submit and before you build.',
+  // --- landing: hero ---------------------------------------------------------
+  // Adjusted from the brief: the app checks the plot envelope and life safety,
+  // not facades or architectural style. See LANDING-NOTES.md conflict 4.
+  heroLine: {
+    ar: 'افحص تصميمك قبل التقديم، وتأكد من مطابقته للاشتراطات قبل ما يرجع لك',
+    en: 'Check your design before you submit, so it matches the requirements the first time.',
   },
-  ctaPrimary: { ar: 'شاهد تقريرًا كاملًا', en: 'See a full report' },
-  ctaSecondary: { ar: 'جرّب الأداة', en: 'Open the tool' },
+  heroSupport: {
+    ar: 'ضبط يقرأ مخططات المشروع ويطابقها مع اشتراطات البناء السكني وكود البناء السعودي، ويعطيك تقريرًا واضحًا بكل ملاحظة قبل ما ترفعها على بلدي.',
+    en: 'Dhabt reads your drawings, checks them against the residential building requirements and the Saudi Building Code, and gives you a clear report on every issue before you submit to Balady.',
+  },
+  ctaPrimary: { ar: 'ابدأ الفحص', en: 'Start a check' },
+  ctaHow: { ar: 'كيف يعمل', en: 'How it works' },
 
-  problemTitle: { ar: 'الرفض يكلف أكثر مما يبدو', en: 'Rejection costs more than it looks' },
-  problem1T: { ar: 'أسبوعان في المتوسط', en: 'Two weeks, on average' },
-  problem1B: {
-    ar: 'دورة الرفض الواحدة تعني تعديل المخطط وإعادة الرفع وانتظار دور جديد في المراجعة.',
-    en: 'One rejection cycle means editing the drawing, resubmitting, and waiting for a new place in the queue.',
+  // --- problem ---------------------------------------------------------------
+  problemTitle: { ar: 'الفحص اليوم يدوي بالكامل', en: 'Checking is manual today' },
+  problemP1: {
+    ar: 'المكتب الهندسي يفتح الاشتراطات، ويقرأ البند، ويقيس على المخطط بنفسه. كل ارتداد وكل عرض درج وكل نسبة بناء تُراجع بالعين والمسطرة، على عشرات اللوحات.',
+    en: 'The engineering office opens the requirements, reads the clause, and measures against the drawing by hand. Every setback, every stair width, every coverage ratio is checked by eye across dozens of sheets.',
   },
-  problem2T: { ar: 'الأسباب متكررة', en: 'The reasons repeat' },
-  problem2B: {
-    ar: 'ارتداد ناقص بعشرة سنتيمترات، درج أضيق من المطلوب، نسبة بناء تجاوزت الحد. أخطاء تُكتشف بالقياس لا بالخبرة.',
-    en: 'A setback ten centimetres short, a stair narrower than required, a coverage ratio over the limit. Errors found by measuring, not by experience.',
+  problemP2: {
+    ar: 'والأخطاء التي ترجع المعاملة غالبًا بسيطة ومتكررة: ارتداد ناقص بعشرة سنتيمترات، درج أضيق من الحد، نسبة بناء تجاوزت المسموح. أخطاء تُكتشف بالقياس لا بالخبرة، ولا أحد يملك وقتًا لقياس كل شيء مرتين.',
+    en: 'The errors that send an application back are usually small and repetitive: a setback ten centimetres short, a stair narrower than the limit, a coverage ratio over the allowance. Errors found by measuring, not by experience, and nobody has time to measure everything twice.',
   },
-  problem3T: { ar: 'وبعضها يظهر بعد البناء', en: 'And some surface after building' },
-  problem3B: {
-    ar: 'ما يمر في المراجعة ولا يطابق الكود يظهر عند الفحص الميداني، حين تكون الخرسانة قد صُبّت.',
-    en: 'What passes review but does not match the code surfaces at site inspection, once the concrete is poured.',
+  problemP3: {
+    ar: 'وبعضها لا يظهر إلا بعد البناء، عند الفحص الميداني، حين تكون الخرسانة قد صُبّت وتكلفة التعديل صارت حقيقية.',
+    en: 'Some do not surface until after building, at site inspection, once the concrete is poured and the cost of changing it is real.',
   },
 
-  promiseTitle: { ar: 'ولا يخترع بندًا، أبدًا', en: 'And it never invents a clause' },
-  promiseBody: {
-    ar: 'أداة تختلق رقم بند أسوأ من لا أداة، لأن المهندس سيعتمد عليها. كل نتيجة في ضبط مربوطة ببند محمّل فعليًا في النظام، بصفحته في المستند المصدر. وما لا يستطيع النظام ربطه ببند، يعرضه «لم يُفحص» ولا يخمّن.',
-    en: 'A tool that fabricates a clause number is worse than no tool, because an engineer will rely on it. Every finding in Dhabt is tied to a clause actually loaded into the system, with its page in the source document. Anything it cannot tie to a clause is shown as not checked, never guessed.',
-  },
-  promise1T: { ar: 'البند بصفحته', en: 'The clause, with its page' },
-  promise1B: { ar: 'كل نتيجة تحمل رقم البند والصفحة ورابط المستند المصدر.', en: 'Every finding carries the clause number, the page, and a link to the source document.' },
-  promise2T: { ar: '«لم يُفحص» ظاهر', en: 'Not checked, shown' },
-  promise2B: { ar: 'البنود التي لم تُفحص تظهر بنفس ثقل المخالفات، لا تُخفى ولا تُطوى.', en: 'Unchecked items appear with the same weight as violations. Never hidden, never collapsed.' },
-  promise3T: { ar: 'الموقع على اللوحة', en: 'Located on the sheet' },
-  promise3B: { ar: 'اسم اللوحة والإحداثي، حتى تصل للمشكلة مباشرة.', en: 'Sheet name and coordinate, so you go straight to the problem.' },
-
+  // --- how it works ----------------------------------------------------------
   howTitle: { ar: 'كيف يعمل', en: 'How it works' },
-  how1T: { ar: 'ارفع الحزمة', en: 'Upload the set' },
-  how1B: { ar: 'ملف PDF واحد، مع أبعاد الأرض والنطاق ونوع المبنى.', en: 'One PDF, with the plot dimensions, zone and building type.' },
-  how2T: { ar: 'يُقرأ المخطط', en: 'The drawing is read' },
-  how2B: { ar: 'تمييز اللوحات واستخراج الأبعاد والتعليقات، بالعربي والإنجليزي.', en: 'Sheets identified, dimensions and annotations extracted, Arabic and English.' },
-  how3T: { ar: 'تُطابق البنود', en: 'Matched to clauses' },
-  how3B: { ar: 'مقارنة ما استُخرج بالبنود المحمّلة، لا بما يتذكره نموذج.', en: 'What was extracted is compared to loaded clauses, not to what a model remembers.' },
-  how4T: { ar: 'تقرير جاهز', en: 'A report to hand over' },
-  how4B: { ar: 'ملف بالعربي تعطيه لفريق التصميم مباشرة.', en: 'An Arabic file you hand to the design team as is.' },
-
-  checksTitle: { ar: 'ما يفحصه اليوم', en: 'What it checks today' },
-  checksSub: {
-    ar: 'الفلل السكنية أولًا، وهي أعلى أنواع الرخص عددًا وأبسطها هندسة.',
-    en: 'Residential villas first: the highest permit volume and the simplest geometry.',
+  how1T: { ar: 'ارفع المخططات', en: 'Upload the drawings' },
+  how1B: {
+    ar: 'المكتب يرفع حزمة المخططات كملف واحد، مع أبعاد الأرض والنطاق.',
+    en: 'The office uploads the drawing set as one file, with the plot dimensions and the zone.',
+  },
+  // Adjusted: there is no architectural style identification in the app.
+  how2T: { ar: 'يحدد البنود المنطبقة', en: 'It scopes the rules' },
+  how2B: {
+    ar: 'نوع المبنى والنطاق والأمانة يحددون أي البنود المحمّلة تنطبق على هذا المشروع.',
+    en: 'Building type, zone and municipality decide which of the loaded clauses apply to this project.',
+  },
+  how3T: { ar: 'يقيس ويطابق', en: 'It measures and compares' },
+  how3B: {
+    ar: 'يستخرج الأبعاد من اللوحات ويقارنها بالحدود في البنود، لا بما يتذكره نموذج.',
+    en: 'Dimensions are read off the sheets and compared with the limits in the clauses, not with what a model remembers.',
+  },
+  how4T: { ar: 'تقرير بالعربي', en: 'An Arabic report' },
+  how4B: {
+    ar: 'كل ملاحظة ومعها موقعها على اللوحة، ورقم البند وصفحته، وسبب الملاحظة.',
+    en: 'Every issue with its location on the sheet, the clause number and page, and the reason behind it.',
   },
 
-  sourcesTitle: { ar: 'من أين تأتي البنود', en: 'Where the clauses come from' },
-  sourcesBody: {
-    ar: 'اشتراطات إنشاء المباني السكنية الصادرة عن وزارة الشؤون البلدية والإسكان للارتدادات والارتفاع ونسبة البناء والمواقف، وكود البناء السعودي الصادر عن المركز السعودي لكود البناء للدرج والممرات والأبواب والمخارج. لكل بند نسخته وتاريخ إصداره وبصمة الملف المصدر.',
-    en: 'The MOMAH residential building requirements for setbacks, height, coverage and parking, and the Saudi Building Code from the Saudi Building Code Center for stairs, corridors, doors and exits. Each clause carries its edition, issue date and a hash of the source file.',
+  // --- why -------------------------------------------------------------------
+  whyTitle: { ar: 'ليش ضبط', en: 'Why Dhabt exists' },
+  whyBody: {
+    ar: 'الخبرة في الاشتراطات موجودة، لكنها محصورة في عدد محدود من المكاتب الكبيرة. ضبط ينقل هذه الخبرة إلى يد من يصمم، قبل التقديم لا بعد الرجوع. مكتب صغير في الأحساء أو أبها يحصل على نفس المراجعة التي يحصل عليها مكتب كبير في الرياض.',
+    en: 'The expertise exists, but it sits with a small number of large firms. Dhabt puts it in the hands of the people designing, before submission rather than after a return. A small office in Al-Ahsa or Abha gets the same review a large Riyadh firm gets.',
   },
 
+  // --- who -------------------------------------------------------------------
+  whoTitle: { ar: 'لمن', en: 'Who it is for' },
+  who1: {
+    ar: 'المكاتب الهندسية المعتمدة في بلدي والمعماريون الذين يجهزون معاملات الرخص.',
+    en: 'Balady-approved engineering offices and architects preparing permit submissions.',
+  },
+  who2: {
+    ar: 'المطورون الذين تقع مشاريعهم تحت اشتراطات البناء السكني.',
+    en: 'Developers whose projects fall under the residential building requirements.',
+  },
+
+  // --- boundaries ------------------------------------------------------------
+  notTitle: { ar: 'ما الذي لا يفعله ضبط', en: 'What Dhabt is not' },
+  not1: {
+    ar: 'ضبط لا يصدر رخصًا، وليس تابعًا لبلدي ولا لوزارة الشؤون البلدية والإسكان ولا لمركز دعم هيئات التطوير.',
+    en: 'Dhabt does not issue permits and is not affiliated with Balady, the Ministry of Municipalities and Housing, or the Development Authorities Support Center.',
+  },
+  not2: {
+    ar: 'هو أداة مساندة للقرار. القرار التصميمي النهائي والاعتماد يبقيان عند المهندس المرخص.',
+    en: 'It is a decision-support tool. The final design decision and sign-off stay with the licensed engineer.',
+  },
+  not3: {
+    ar: 'ولا يغني عن مراجعة الاستوديو التصميمي.',
+    en: 'It does not replace the design studio review.',
+  },
+
+  // --- coming soon: the design guidelines layer, explicitly not built ---------
+  soonLabel: { ar: 'قريبًا', en: 'Coming soon' },
+  soonTitle: { ar: 'موجهات العمارة السعودية', en: 'Saudi Architecture design guidelines' },
+  soonBody: {
+    ar: 'في ١٦ مارس ٢٠٢٥ أُطلقت خارطة طُرز العمارة السعودية بتسعة عشر طرازًا، لكل طراز ما يعكس جغرافية منطقته ومناخها وثقافتها، وثلاثة أنماط: تقليدي وانتقالي ومعاصر. الموجهات جزء من رحلة رخصة البناء وتُطبَّق على المدن على مراحل، وفيها قواعد قابلة للقياس مثل حدود نسبة الفتحات في الواجهة ونسب ألوان التمييز.',
+    en: 'On 16 March 2025 the Saudi Architecture Characters Map launched with nineteen styles, each reflecting the geography, climate and culture of its region, and each with three patterns: traditional, transitional and contemporary. The guidelines are part of the building permit journey and are being applied city by city in phases, and they contain measurable rules such as limits on the share of a facade given to openings and on accent colours.',
+  },
+  soonNote: {
+    ar: 'فحص الواجهات مقابل هذه الموجهات غير مبني بعد في ضبط. الفحوصات الحالية تغطي الارتدادات والارتفاع ونسبة البناء والمواقف والدرج والممرات والأبواب والمخارج.',
+    en: 'Checking elevations against these guidelines is not built in Dhabt yet. The current checks cover setbacks, height, coverage, parking, stairs, corridors, doors and exits.',
+  },
+
+  // --- status ----------------------------------------------------------------
   statusTitle: { ar: 'قيد التطوير', en: 'In development' },
   statusBody: {
-    ar: 'ضبط تحت البناء الآن. البنود المعروضة في التقرير التجريبي بيانات اختبار وليست بنودًا نظامية، وكل بند فيها موسوم بذلك. سيفتح التسجيل للمكاتب الهندسية عند تحميل أول مجموعة بنود موثقة.',
-    en: 'Dhabt is being built. The clauses in the sample report are test data, not regulatory clauses, and each one is marked as such. Registration opens to engineering offices once the first verified clause set is loaded.',
+    ar: 'ضبط تحت البناء الآن. قراءة ملفات PDF واستخراج الأبعاد لم تكتمل بعد، والبنود المعروضة في التقرير التجريبي بيانات اختبار وليست بنودًا نظامية، وكل بند فيها موسوم بذلك.',
+    en: 'Dhabt is being built. PDF reading and dimension extraction are not finished, and the clauses in the sample report are test data rather than regulatory clauses, each one marked as such.',
   },
-  statusCta: { ar: 'تواصل معنا', en: 'Get in touch' },
+
+  closeTitle: { ar: 'جاهز تبدأ', en: 'Ready to start' },
+  seeSampleShort: { ar: 'شاهد تقريرًا تجريبيًا', en: 'See a sample report' },
+  copyright: { ar: '© ٢٠٢٦ ضبط', en: '© 2026 Dhabt' },
 
   langSwitch: { ar: 'English', en: 'العربية' },
 } as const
