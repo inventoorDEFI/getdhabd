@@ -3,9 +3,35 @@ import { BRAND } from '@/lib/brand'
 import { T } from '@/lib/i18n'
 import './globals.css'
 
+const SITE = 'https://getdhabd.com'
+const TITLE_AR = `${BRAND.nameAr} · ${T.productTagline.ar}`
+const DESC_AR =
+  'افحص تصميمك قبل التقديم على بلدي. ضبط يطابق مخططاتك مع اشتراطات البناء السكني وكود البناء السعودي، ويعطيك تقريرًا واضحًا بكل ملاحظة.'
+const DESC_EN =
+  'Check your design before submitting to Balady. Dhabt matches your drawings against the residential building requirements and the Saudi Building Code, and reports every issue clearly.'
+
 export const metadata: Metadata = {
-  title: `${BRAND.nameAr} · ${T.productTagline.ar}`,
-  description: BRAND.descriptionAr,
+  metadataBase: new URL(SITE),
+  title: TITLE_AR,
+  description: DESC_AR,
+  alternates: {
+    canonical: '/',
+    languages: { ar: '/', en: '/?lang=en' },
+  },
+  openGraph: {
+    type: 'website',
+    url: SITE,
+    siteName: BRAND.nameAr,
+    locale: 'ar_SA',
+    alternateLocale: 'en_US',
+    title: TITLE_AR,
+    description: DESC_AR,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE_AR,
+    description: `${DESC_AR} · ${DESC_EN}`,
+  },
   /**
    * Not indexable while the corpus is fixture data.
    *

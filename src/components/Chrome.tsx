@@ -20,7 +20,7 @@ export function Chrome({
   const otherQ = other === 'en' ? '?lang=en' : ''
 
   const nav = [
-    { key: 'review' as const, href: `/review${q}`, label: t('navReview', lang) },
+    { key: 'review' as const, href: `/app${q}`, label: t('navReview', lang) },
     { key: 'corpus' as const, href: `/corpus${q}`, label: t('navCorpus', lang) },
     { key: 'report' as const, href: `/reports/demo${q}`, label: t('navReport', lang) },
   ]
@@ -53,7 +53,7 @@ export function Chrome({
               current === 'home'
                 ? '/'
                 : current === 'review'
-                  ? '/review'
+                  ? '/app'
                   : current === 'corpus'
                     ? '/corpus'
                     : '/reports/demo'

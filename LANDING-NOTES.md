@@ -139,3 +139,113 @@ drawing-sheet grid, hairline rules, a dark ink hero, a large faint symbol, and
 an inline SVG technical drawing. If it still reads flat, say so and I will put
 the accent back on the eyebrows, step numbers and links.
 
+---
+
+## Step 4, verification results
+
+Run against `next dev` on port 4020, and a clean production build.
+
+| Check | Result |
+| --- | --- |
+| Type check (`npm run typecheck`) | pass |
+| Linter | **not run: no linter is configured in this repo.** No `lint` script, no ESLint config. Not added, since guardrail 7 says not to install what the page does not need. |
+| Production build (`npm run build`) | pass, 7 routes |
+| Unit tests (`npm test`) | 203 pass |
+| `/` renders the landing in Arabic by default | yes, `dir="rtl"`, `lang="ar"` |
+| English version | yes, `/?lang=en`, `dir="ltr"` |
+| `/app` renders the tool formerly at `/review` | yes, upload form present |
+| `/corpus` | 200, both languages |
+| `/reports/demo` | 200, both languages |
+| `/opengraph-image` | 200, generated from the symbol |
+| Language switch on landing and in app | works both directions |
+| Logo and favicon | lockup inline in header and hero, favicon `dhabt-favicon.svg` |
+| Arabic font actually loads | verified with `document.fonts.check`: IBM Plex Sans Arabic, Sans and Mono all report loaded, not fallback |
+| 375px, no horizontal scroll | `scrollWidth` 375 equals viewport 375 |
+| Console errors | none |
+| Every call to action goes to `/app` | 3 links, zero references to `/review` remain |
+| No em dashes | none in any copy file |
+| Forbidden content (pricing, signup, testimonials, partners, usage numbers) | none present |
+
+---
+
+## What changed, file by file
+
+| File | Change |
+| --- | --- |
+| `app/review/` → `app/app/` | Real `git mv`. The tool is at `/app`. Not duplicated, no redirect. |
+| `app/page.tsx` | Rewritten as the briefed landing: hero, 01 problem, 02 how it works, 03 what it checks, 04 why, 05 who, 06 coming soon, 07 boundaries, status, close. |
+| `app/layout.tsx` | Metadata expanded: Arabic and English descriptions, canonical, `hreflang` alternates, Open Graph, Twitter card. |
+| `app/opengraph-image.tsx` | New. Share card generated at build time from the symbol on white via `next/og`, which ships with Next. No new dependency. |
+| `app/globals.css` | Added the brief's tokens by their own names: `slate` `#5B6169`, `wash` `#F2F3F4`, `rule` `#C9CCD0`. |
+| `src/lib/i18n.ts` | Landing strings replaced with the briefed sections, Arabic and English. |
+| `src/components/Chrome.tsx` | Nav and language switch repointed to `/app`. |
+| `LANDING-NOTES.md` | This file. |
+
+### On the colour tokens
+I added `slate`, `wash` and `rule` rather than renaming the existing ones.
+`--color-line` is `#E4E6E8` and is used across the app; redefining it to the
+brief's `#C9CCD0` would have darkened every border on `/app`, `/corpus` and the
+report. The landing uses `border-rule`, the app keeps `border-line`.
+
+---
+
+## Decisions for you to review
+
+1. **The copy describes the envelope and life-safety checks, not facades.**
+   See conflict 4. The brief's facade and architectural style material is in
+   section 06 under a "قريبًا" label with an explicit line saying it is not
+   built. If you want the page to lead with the facade product, that framing
+   has to stay until the checks exist.
+
+2. **The hero says Dhabt "reads your drawings".** PDF parsing is not built.
+   I kept the line because it states the product's purpose and the "قيد
+   التطوير" block says plainly that reading and extraction are unfinished. If
+   you want the hero itself hedged, say so.
+
+3. **The drawing is an elevation with a height check, not an opening ratio.**
+   The brief asked for an opening-ratio overlay. Dhabt does not check openings,
+   so the overlay measures the height limit instead, which it does check. The
+   building is generic and is not any real building.
+
+4. **Monochrome, per the brief.** This contradicts your feedback an hour ago.
+   See conflict 5. One line restores the accent.
+
+5. **The wordmark still reads "dhabt" while the domain is getdhabd.com.**
+   The lockup renders only its ink paths, so the Latin is not shown anywhere,
+   but the artwork files still spell it with a t.
+
+---
+
+## Deployment
+
+**Not deployed. Branch pushed, unmerged, per guardrail 5.**
+
+Production deploys trigger on push to `main`. The Vercel project sits in the
+scope `quintes-7e00b320`, which my Vercel credentials cannot see, so I cannot
+read the preview URL, promote a deployment, or roll one back. Merging would have
+gone straight to production with no preview step I could verify, which guardrail
+5 forbids.
+
+Pushing this branch should produce a preview deployment automatically. Find its
+URL in the Vercel dashboard under the branch name, or on the pull request.
+
+### To ship it
+```bash
+git checkout main
+git merge feat/landing-page
+git push origin main
+```
+
+### To roll back
+Before merging, nothing to undo; just delete the branch.
+
+After merging, either revert the merge:
+```bash
+git revert -m 1 <merge-commit-sha>
+git push origin main
+```
+or, faster, in the Vercel dashboard open Deployments, find the last good
+production deployment (the one before this merge) and use "Promote to
+Production". That takes effect immediately and does not need a git change.
+
+**No DNS, nameserver or Namecheap setting was touched, per guardrail 1.**

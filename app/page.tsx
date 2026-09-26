@@ -13,320 +13,282 @@ export default async function LandingPage({
   const report = await getDemoReport()
   const q = lang === 'en' ? '?lang=en' : ''
 
-  const checks = [...report.groundableRules]
-    .map((r) => r.ruleKey)
-    .filter((k, i, a) => a.indexOf(k) === i)
-    .sort()
+  const checks = [...new Set(report.groundableRules.map((r) => r.ruleKey))].sort()
 
   return (
     <Chrome lang={lang} current="home">
-      {/* ---------------- hero ---------------- */}
+      {/* ================= hero, the one dark section ================= */}
       <section className="relative -mx-6 overflow-hidden bg-ink px-6 text-on-ink">
-        <div className="drafting-grid absolute inset-0" aria-hidden="true" />
-        {/* A drawn margin rule, as a sheet has */}
-        <div className="absolute inset-y-0 end-6 w-px bg-white/10 sm:end-10" aria-hidden="true" />
+        <SheetGrid />
+        {/* The symbol used once, large and very faint, as a sheet watermark */}
+        <Symbol
+          size={520}
+          className="pointer-events-none absolute -bottom-32 start-[-90px] text-white/[0.035]"
+        />
 
-        <div className="relative grid items-center gap-10 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:py-20">
-          <div className="grid gap-6">
-            <Lockup height={44} className="text-on-ink" />
+        <div className="relative grid items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
+          <div className="grid gap-7">
+            <Lockup height={46} className="text-on-ink" />
 
-            <p className="flex items-center gap-2.5 font-[family-name:var(--font-mo)] text-[11.5px] tracking-[0.12em] text-accent-on-ink uppercase">
-              {t('heroKicker', lang)}
-            </p>
-
-            <h1 className="max-w-[17ch] text-[clamp(32px,5.4vw,52px)] leading-[1.2] font-semibold tracking-tight text-balance">
-              {t('heroTitle', lang)}
+            <h1 className="max-w-[20ch] text-[clamp(28px,4.6vw,44px)] leading-[1.32] font-semibold tracking-tight text-balance">
+              {t('heroLine', lang)}
             </h1>
 
-            <p className="max-w-[52ch] text-[16px] leading-[1.85] text-muted-on-ink">
-              {t('heroSub', lang)}
+            <p className="max-w-[54ch] text-[16px] leading-[1.9] text-muted-on-ink">
+              {t('heroSupport', lang)}
             </p>
 
-            <div className="mt-2 flex flex-wrap gap-3">
+            <div className="mt-1 flex flex-wrap items-center gap-x-7 gap-y-3">
               <Link
-                href={`/reports/demo${q}`}
-                className="rounded bg-on-ink px-5 py-3 text-[14.5px] font-semibold text-ink hover:opacity-90"
+                href={`/app${q}`}
+                className="rounded bg-on-ink px-6 py-3 text-[15px] font-semibold text-ink hover:opacity-90"
               >
                 {t('ctaPrimary', lang)}
               </Link>
-              <Link
-                href={`/review${q}`}
-                className="rounded border border-white/25 px-5 py-3 text-[14.5px] font-medium text-on-ink hover:border-white/60"
+              <a
+                href="#how"
+                className="border-b border-white/30 pb-0.5 text-[14px] text-muted-on-ink hover:border-white/70 hover:text-on-ink"
               >
-                {t('ctaSecondary', lang)}
-              </Link>
+                {t('ctaHow', lang)}
+              </a>
             </div>
           </div>
 
-          <PlotDiagram lang={lang} />
+          <FacadeDrawing lang={lang} />
         </div>
       </section>
 
-      {/* ---------------- problem ---------------- */}
-      <Section eyebrow="01" title={t('problemTitle', lang)}>
-        <div className="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
-          {[
-            [t('problem1T', lang), t('problem1B', lang)],
-            [t('problem2T', lang), t('problem2B', lang)],
-            [t('problem3T', lang), t('problem3B', lang)],
-          ].map(([head, body]) => (
-            <div key={head} className="bg-card px-5 py-5">
-              <h3 className="mb-1.5 text-[14.5px] font-semibold">{head}</h3>
-              <p className="text-[13.5px] leading-[1.7] text-muted">{body}</p>
-            </div>
-          ))}
+      {/* ================= 01 the problem ================= */}
+      <Sheet n="01" title={t('problemTitle', lang)}>
+        <div className="grid max-w-[68ch] gap-4 text-[15px] leading-[1.95] text-slate">
+          <p>{t('problemP1', lang)}</p>
+          <p>{t('problemP2', lang)}</p>
+          <p>{t('problemP3', lang)}</p>
         </div>
-      </Section>
+      </Sheet>
 
-      {/* ---------------- the promise: the whole argument ---------------- */}
-      <section className="relative mt-20 overflow-hidden rounded-xl border border-accent-line bg-accent-soft">
-        <div className="drafting-grid-light absolute inset-0" aria-hidden="true" />
-        <div className="relative grid gap-8 px-7 py-9 lg:grid-cols-[1fr_1fr] lg:gap-12">
-          <div>
-            <p className="eyebrow mb-2.5">02</p>
-            <h2 className="mb-3 max-w-[20ch] text-[clamp(22px,2.6vw,28px)] leading-[1.3] font-semibold tracking-tight text-balance">
-              {t('promiseTitle', lang)}
-            </h2>
-            <p className="max-w-[48ch] text-[14.5px] leading-[1.85] text-muted">
-              {t('promiseBody', lang)}
-            </p>
-            <ul className="mt-6 grid gap-3.5">
-              {[
-                [t('promise1T', lang), t('promise1B', lang)],
-                [t('promise2T', lang), t('promise2B', lang)],
-                [t('promise3T', lang), t('promise3B', lang)],
-              ].map(([head, body]) => (
-                <li key={head} className="flex gap-3">
-                  <Symbol size={15} className="mt-1 shrink-0 text-accent" />
-                  <span>
-                    <b className="text-[13.5px] font-semibold text-ink">{head}</b>
-                    <span className="block text-[13px] leading-[1.6] text-muted">{body}</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* A real report row, rendered from the same objects the report page uses */}
-          <ReportPreview lang={lang} />
-        </div>
-      </section>
-
-      {/* ---------------- how ---------------- */}
-      <Section eyebrow="03" title={t('howTitle', lang)}>
-        <ol className="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+      {/* ================= 02 how it works ================= */}
+      <Sheet n="02" title={t('howTitle', lang)} id="how">
+        <ol className="grid border-t border-rule sm:grid-cols-2 lg:grid-cols-4">
           {[
             [t('how1T', lang), t('how1B', lang)],
             [t('how2T', lang), t('how2B', lang)],
             [t('how3T', lang), t('how3B', lang)],
             [t('how4T', lang), t('how4B', lang)],
           ].map(([head, body], i) => (
-            <li key={head} className="bg-card px-5 py-5">
-              {/* Numbered because these are sequential stages, not a list of features */}
-              <span className="mono mb-2.5 block text-[13px] font-medium text-accent">{`0${i + 1}`}</span>
-              <h3 className="mb-1.5 text-[14.5px] font-semibold">{head}</h3>
-              <p className="text-[13px] leading-[1.7] text-muted">{body}</p>
+            <li
+              key={head}
+              className="border-b border-rule py-6 pe-6 sm:border-e sm:last:border-e-0 lg:pe-7"
+            >
+              <span className="mono mb-3 block text-[12px] tracking-[0.1em] text-slate">
+                {`0${i + 1}`}
+              </span>
+              <h3 className="mb-2 text-[15px] font-semibold">{head}</h3>
+              <p className="text-[13.5px] leading-[1.75] text-slate">{body}</p>
             </li>
           ))}
         </ol>
-      </Section>
+      </Sheet>
 
-      {/* ---------------- checks ---------------- */}
-      <Section eyebrow="04" title={t('checksTitle', lang)} sub={t('checksSub', lang)}>
-        <div className="flex flex-wrap gap-2">
+      {/* ================= 03 what it checks ================= */}
+      <Sheet n="03" title={lang === 'ar' ? 'ما يفحصه اليوم' : 'What it checks today'}>
+        <ul className="grid gap-x-8 gap-y-0 border-t border-rule sm:grid-cols-2 lg:grid-cols-3">
           {checks.map((key) => (
-            <span
+            <li
               key={key}
-              className="rounded-full border border-line bg-card px-3.5 py-1.5 text-[13px] hover:border-accent-line hover:text-accent"
+              className="flex items-center gap-3 border-b border-rule py-3 text-[14px]"
             >
+              <Symbol size={13} className="shrink-0 text-ink" />
               {checkName(key, lang)}
-            </span>
+            </li>
           ))}
-        </div>
-      </Section>
-
-      {/* ---------------- sources ---------------- */}
-      <Section eyebrow="05" title={t('sourcesTitle', lang)}>
-        <p className="max-w-[68ch] text-[14.5px] leading-[1.85] text-muted">
-          {t('sourcesBody', lang)}
+        </ul>
+        <p className="mt-5 text-[13.5px] text-slate">
+          {lang === 'ar'
+            ? 'الفلل السكنية أولًا، وهي أعلى أنواع الرخص عددًا وأبسطها هندسة.'
+            : 'Residential villas first: the highest permit volume and the simplest geometry.'}
         </p>
-      </Section>
+      </Sheet>
 
-      {/* ---------------- status ---------------- */}
-      <section className="mt-20 rounded-lg border border-nc-line bg-nc-bg px-6 py-6">
-        <p className="eyebrow mb-2">06</p>
-        <h2 className="mb-2 text-[17px] font-semibold">{t('statusTitle', lang)}</h2>
-        <p className="max-w-[64ch] text-[14px] leading-[1.8] text-nc-fg">{t('statusBody', lang)}</p>
+      {/* ================= 04 why ================= */}
+      <Sheet n="04" title={t('whyTitle', lang)}>
+        <p className="max-w-[66ch] text-[15px] leading-[1.95] text-slate">{t('whyBody', lang)}</p>
+      </Sheet>
+
+      {/* ================= 05 who ================= */}
+      <Sheet n="05" title={t('whoTitle', lang)}>
+        <ul className="grid max-w-[66ch] border-t border-rule">
+          {[t('who1', lang), t('who2', lang)].map((line) => (
+            <li key={line} className="border-b border-rule py-4 text-[15px] leading-[1.8]">
+              {line}
+            </li>
+          ))}
+        </ul>
+      </Sheet>
+
+      {/* ================= 06 coming soon ================= */}
+      <Sheet n="06" title={t('soonTitle', lang)} label={t('soonLabel', lang)}>
+        <p className="max-w-[68ch] text-[15px] leading-[1.95] text-slate">{t('soonBody', lang)}</p>
+        <p className="mt-4 max-w-[68ch] border-s-2 border-ink ps-4 text-[14px] leading-[1.85]">
+          {t('soonNote', lang)}
+        </p>
+      </Sheet>
+
+      {/* ================= 07 boundaries ================= */}
+      <Sheet n="07" title={t('notTitle', lang)}>
+        <ul className="grid max-w-[68ch] border-t border-rule">
+          {[t('not1', lang), t('not2', lang), t('not3', lang)].map((line) => (
+            <li
+              key={line}
+              className="border-b border-rule py-4 text-[14.5px] leading-[1.85] text-slate"
+            >
+              {line}
+            </li>
+          ))}
+        </ul>
+      </Sheet>
+
+      {/* ================= status ================= */}
+      <section className="mt-16 border border-rule bg-wash px-6 py-6">
+        <p className="mono mb-2 text-[11px] tracking-[0.12em] text-slate uppercase">
+          {t('statusTitle', lang)}
+        </p>
+        <p className="max-w-[66ch] text-[14px] leading-[1.85] text-slate">
+          {t('statusBody', lang)}
+        </p>
+      </section>
+
+      {/* ================= close ================= */}
+      <section className="mt-16 border-t-2 border-ink pt-10 pb-4">
+        <h2 className="text-[clamp(22px,3vw,30px)] font-semibold tracking-tight">
+          {t('closeTitle', lang)}
+        </h2>
+        <div className="mt-5 flex flex-wrap items-center gap-x-7 gap-y-3">
+          <Link
+            href={`/app${q}`}
+            className="rounded bg-ink px-6 py-3 text-[15px] font-semibold text-on-ink hover:opacity-90"
+          >
+            {t('ctaPrimary', lang)}
+          </Link>
+          <Link
+            href={`/reports/demo${q}`}
+            className="border-b border-rule pb-0.5 text-[14px] text-slate hover:border-ink hover:text-ink"
+          >
+            {t('seeSampleShort', lang)}
+          </Link>
+        </div>
       </section>
     </Chrome>
   )
 }
 
-function Section({
-  eyebrow,
+/**
+ * A numbered sheet section.
+ *
+ * The number is not decoration: these are read in order, and a drawing set
+ * numbers its sheets. The rule above each one is the sheet edge.
+ */
+function Sheet({
+  n,
   title,
-  sub,
+  label,
+  id,
   children,
 }: {
-  eyebrow: string
+  n: string
   title: string
-  sub?: string
+  label?: string
+  id?: string
   children: React.ReactNode
 }) {
   return (
-    <section className="mt-20">
-      {/* The eyebrow numbers the sheet, the way a title block does */}
-      <p className="eyebrow mb-2.5">{eyebrow}</p>
-      <h2 className="max-w-[24ch] text-[clamp(22px,2.6vw,28px)] leading-[1.3] font-semibold tracking-tight text-balance">
-        {title}
-      </h2>
-      {sub ? <p className="mt-2 max-w-[60ch] text-[14.5px] text-muted">{sub}</p> : null}
-      <div className="mt-6">{children}</div>
+    <section id={id} className="mt-16 scroll-mt-20">
+      <div className="mb-6 flex items-baseline gap-4 border-b-2 border-ink pb-3">
+        <span className="mono text-[12px] tracking-[0.1em] text-slate">{n}</span>
+        <h2 className="text-[clamp(19px,2.3vw,24px)] font-semibold tracking-tight text-balance">
+          {title}
+        </h2>
+        {label ? (
+          <span className="mono ms-auto shrink-0 border border-rule px-2 py-0.5 text-[10.5px] tracking-[0.08em] text-slate uppercase">
+            {label}
+          </span>
+        ) : null}
+      </div>
+      {children}
     </section>
   )
 }
 
+/** The sheet ruling behind the dark hero. Decorative only. */
+function SheetGrid() {
+  return (
+    <div className="absolute inset-0" aria-hidden="true">
+      <div className="drafting-grid absolute inset-0" />
+      <div className="absolute inset-y-0 end-6 w-px bg-white/10 sm:end-10" />
+      <div className="absolute inset-x-0 top-6 h-px bg-white/10" />
+    </div>
+  )
+}
+
 /**
- * A villa plot with its setbacks.
+ * A generic villa elevation with a measurement overlay.
  *
- * The same figure the logo abstracts: boundary lines with a footprint between
- * them. Three distinct things, because conflating them is the mistake the
- * drawing exists to prevent: the plot, the buildable envelope the setbacks
- * leave, and the actual footprint, which is smaller again because coverage is
- * capped at 60 per cent.
+ * The brief asked for a facade with an opening-ratio check. Dhabt does not check
+ * facades, so the overlay measures something it does check: the height limit and
+ * the floor count, read off a section. The building is abstract and is not any
+ * real building.
  *
- * Only numbers sit inside the SVG. Wording lives in the HTML legend below,
- * where it uses the real Arabic face, stays legible when the drawing scales
- * down, and cannot collide with a dimension line.
+ * Ink and slate only, no fills beyond flat tone, so it reads as a drawing rather
+ * than an illustration.
  */
-function PlotDiagram({ lang }: { lang: Lang }) {
+function FacadeDrawing({ lang }: { lang: Lang }) {
   const ar = lang === 'ar'
   const L = ar
-    ? { plot: 'قطعة ٢٠ × ٣٠ م', street: 'الشارع',
-        legPlot: 'حدود الأرض', legEnv: 'حدود البناء بعد الارتدادات', legFoot: 'مسقط الدور الأرضي، ٦٠٪',
-        front: 'أمامي', rear: 'خلفي', side: 'جانبي' }
-    : { plot: 'Plot 20 × 30 m', street: 'Street',
-        legPlot: 'Plot boundary', legEnv: 'Buildable after setbacks', legFoot: 'Ground floor footprint, 60%',
-        front: 'Front', rear: 'Rear', side: 'Side' }
-
-  const M = 11
-  const x0 = 78, y0 = 30, w = 20 * M, h = 30 * M
-  const ex = x0 + 1.5 * M, ey = y0 + 2 * M
-  const ew = w - 3 * M, eh = h - 5 * M
-  const fw = 16 * M, fh = 22.5 * M
-  const fx = ex + (ew - fw) / 2, fy = ey + (eh - fh) / 2
+    ? { h: 'الارتفاع', limit: 'الحد ١٢٫٠٠ م', g: 'أرضي', f: 'أول', a: 'ملحق', street: 'منسوب الشارع' }
+    : { h: 'Height', limit: 'Limit 12.00 m', g: 'Ground', f: 'First', a: 'Annex', street: 'Street level' }
 
   return (
-    <div className="rounded-lg border border-line bg-card p-5">
-      <svg viewBox="0 0 380 400" className="h-auto w-full" role="img" aria-label={L.plot}>
-        <rect x={x0} y={y0} width={w} height={h}
-              fill="var(--color-sunken)" stroke="var(--color-line-strong)" strokeWidth="1.5" />
-        <rect x={ex} y={ey} width={ew} height={eh}
-              fill="none" stroke="var(--color-muted)" strokeWidth="1.2" strokeDasharray="5 4" />
-        <rect x={fx} y={fy} width={fw} height={fh} fill="var(--color-ink)" opacity="0.9" />
+    <figure className="m-0 border border-white/15 bg-white/[0.03] p-5">
+      <svg viewBox="0 0 420 330" className="h-auto w-full" role="img"
+           aria-label={ar ? 'رسم توضيحي لواجهة فيلا مع فحص الارتفاع' : 'Villa elevation with a height check'}>
+        <g stroke="#C9CCD0" strokeWidth="1.2" fill="none">
+          {/* massing: ground, first, annex */}
+          <rect x="92" y="196" width="230" height="86" />
+          <rect x="92" y="112" width="230" height="84" />
+          <rect x="150" y="56" width="114" height="56" />
+          {/* openings */}
+          <rect x="116" y="220" width="34" height="42" />
+          <rect x="166" y="220" width="34" height="42" />
+          <rect x="248" y="214" width="54" height="48" />
+          <rect x="116" y="136" width="34" height="38" />
+          <rect x="166" y="136" width="34" height="38" />
+          <rect x="216" y="136" width="34" height="38" />
+          <rect x="266" y="136" width="34" height="38" />
+          <rect x="176" y="76" width="62" height="24" />
+        </g>
 
-        {/* Numbers only. Font size chosen so it stays readable once scaled down. */}
-        <Dim x1={x0 + w / 2} y1={ey + eh} x2={x0 + w / 2} y2={y0 + h} />
-        <text x={x0 + w / 2 + 10} y={ey + eh + 24} fontSize="15"
-              fill="var(--color-ink)" fontFamily="var(--font-mo)">3.00</text>
+        {/* ground line */}
+        <line x1="56" y1="282" x2="372" y2="282" stroke="#C9CCD0" strokeWidth="2" />
+        <text x="214" y="300" fontSize="11" textAnchor="middle" fill="#5B6169"
+              fontFamily="var(--font-ar)">{L.street}</text>
 
-        <Dim x1={x0 + w / 2} y1={y0} x2={x0 + w / 2} y2={ey} />
-        <text x={x0 + w / 2 + 10} y={y0 + 17} fontSize="15"
-              fill="var(--color-ink)" fontFamily="var(--font-mo)">2.00</text>
+        {/* the measured dimension, in white so it reads as the overlay */}
+        <g stroke="#FFFFFF" strokeWidth="1.3" fill="none">
+          <line x1="56" y1="56" x2="56" y2="282" />
+          <path d="M 52 60 L 56 56 L 60 60" />
+          <path d="M 52 278 L 56 282 L 60 278" />
+          <line x1="48" y1="56" x2="92" y2="56" strokeDasharray="4 3" strokeWidth="1" />
+        </g>
+        <text x="66" y="150" fontSize="12" fill="#FFFFFF" fontFamily="var(--font-ar)">{L.h}</text>
+        <text x="66" y="168" fontSize="12" fill="#FFFFFF" fontFamily="var(--font-mo)">11.20</text>
+        <text x="66" y="186" fontSize="10.5" fill="#C9CCD0" fontFamily="var(--font-ar)">{L.limit}</text>
 
-        <Dim x1={x0} y1={y0 + h / 2} x2={ex} y2={y0 + h / 2} horizontal />
-        <text x={x0 - 12} y={y0 + h / 2 + 5} fontSize="15" textAnchor="end"
-              fill="var(--color-ink)" fontFamily="var(--font-mo)">1.50</text>
-
-        <line x1={x0 - 18} y1={y0 + h + 26} x2={x0 + w + 18} y2={y0 + h + 26}
-              stroke="var(--color-line-strong)" strokeWidth="2.5" />
+        {/* floor labels */}
+        {[[239, L.g], [155, L.f], [90, L.a]].map(([y, label]) => (
+          <text key={String(label)} x="340" y={y as number} fontSize="10.5" fill="#5B6169"
+                fontFamily="var(--font-ar)">{label as string}</text>
+        ))}
       </svg>
-
-      <div className="mt-1 grid gap-2 border-t border-line pt-3 text-[12px]">
-        <Legend swatch={<span className="block h-3 w-3 border border-line-strong bg-sunken" />}
-                label={L.legPlot} value={L.plot} />
-        <Legend swatch={<span className="block h-3 w-3 border border-dashed border-muted" />}
-                label={L.legEnv}
-                value={`${L.front} 3.00 · ${L.rear} 2.00 · ${L.side} 1.50`} />
-        <Legend swatch={<span className="block h-3 w-3 bg-ink" />} label={L.legFoot} value="" />
-      </div>
-    </div>
-  )
-}
-
-function Legend({
-  swatch, label, value,
-}: {
-  swatch: React.ReactNode; label: string; value: string
-}) {
-  return (
-    <div className="flex items-center gap-2.5">
-      <span className="shrink-0">{swatch}</span>
-      <span className="text-ink">{label}</span>
-      {value ? <span className="mono ms-auto text-[11px] text-muted">{value}</span> : null}
-    </div>
-  )
-}
-
-/** A dimension line with arrowheads at both ends. */
-function Dim({
-  x1, y1, x2, y2, horizontal = false,
-}: {
-  x1: number; y1: number; x2: number; y2: number; horizontal?: boolean
-}) {
-  const head = (x: number, y: number, dir: 1 | -1) =>
-    horizontal
-      ? `M ${x + 4 * dir} ${y - 4} L ${x} ${y} L ${x + 4 * dir} ${y + 4}`
-      : `M ${x - 4} ${y + 4 * dir} L ${x} ${y} L ${x + 4} ${y + 4 * dir}`
-
-  return (
-    <g stroke="var(--color-ink)" strokeWidth="1.2" fill="none">
-      <line x1={x1} y1={y1} x2={x2} y2={y2} />
-      <path d={head(x1, y1, 1)} />
-      <path d={head(x2, y2, -1)} />
-    </g>
-  )
-}
-
-/** One failing row and one "not checked" row, the two states that matter. */
-function ReportPreview({ lang }: { lang: Lang }) {
-  return (
-    <div className="grid content-start gap-3 rounded-lg bg-card p-4 text-ink">
-      <div className="grid gap-2 rounded border-s-[3px] border-s-fail-fg bg-fail-bg px-3.5 py-3">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="rounded-sm border border-fail-line bg-card px-2 py-0.5 text-[10.5px] font-semibold text-fail-fg">
-            {t('fail', lang)}
-          </span>
-          <span className="text-[13.5px] font-semibold">{checkName('setback.front.min', lang)}</span>
-        </div>
-        <div className="flex flex-wrap gap-4 text-[12.5px]">
-          <span className="text-muted">
-            {t('observed', lang)} <b className="fig text-fail-fg">2.40</b>
-          </span>
-          <span className="text-muted">
-            {t('minimum', lang)} <b className="fig text-ink">3.00</b>
-          </span>
-        </div>
-        <div className="mono text-[10.5px] text-muted">
-          {t('clause', lang)} F.1.1 · {t('page', lang)} 3 · A-101
-        </div>
-      </div>
-
-      <div className="grid gap-2 rounded border-s-[3px] border-s-nc-line bg-nc-bg px-3.5 py-3">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="rounded-sm border border-nc-line bg-card px-2 py-0.5 text-[10.5px] font-semibold text-nc-fg">
-            {t('notChecked', lang)}
-          </span>
-          <span className="text-[13.5px] font-semibold">
-            {checkName('egress.travel_distance.max', lang)}
-          </span>
-        </div>
-        <p className="text-[12.5px] leading-[1.6] text-nc-fg">
-          {lang === 'ar'
-            ? 'لم يُعثر على بيانات كافية في المخططات. راجعه يدويًا.'
-            : 'Not enough data in the drawings. Review it manually.'}
-        </p>
-      </div>
-    </div>
+    </figure>
   )
 }
