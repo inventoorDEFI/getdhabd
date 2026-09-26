@@ -12,7 +12,7 @@ export function Chrome({
   children,
 }: {
   lang: Lang
-  current: 'review' | 'corpus' | 'report'
+  current: 'home' | 'review' | 'corpus' | 'report'
   children: React.ReactNode
 }) {
   const q = lang === 'en' ? '?lang=en' : ''
@@ -20,7 +20,7 @@ export function Chrome({
   const otherQ = other === 'en' ? '?lang=en' : ''
 
   const nav = [
-    { key: 'review' as const, href: `/${q}`, label: t('navReview', lang) },
+    { key: 'review' as const, href: `/review${q}`, label: t('navReview', lang) },
     { key: 'corpus' as const, href: `/corpus${q}`, label: t('navCorpus', lang) },
     { key: 'report' as const, href: `/reports/demo${q}`, label: t('navReport', lang) },
   ]
@@ -49,7 +49,15 @@ export function Chrome({
             ))}
           </nav>
           <Link
-            href={`${current === 'review' ? '/' : current === 'corpus' ? '/corpus' : '/reports/demo'}${otherQ}`}
+            href={`${
+              current === 'home'
+                ? '/'
+                : current === 'review'
+                  ? '/review'
+                  : current === 'corpus'
+                    ? '/corpus'
+                    : '/reports/demo'
+            }${otherQ}`}
             className="mono ms-auto rounded border border-line px-2.5 py-1 text-[11px] text-muted hover:border-line-strong hover:text-ink"
           >
             {t('langSwitch', lang)}
