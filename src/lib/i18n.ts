@@ -170,8 +170,8 @@ export const T = {
 
   statusTitle: { ar: 'قيد التطوير', en: 'In development' },
   statusBody: {
-    ar: 'ضبط تحت البناء الآن. البنود المعروضة في التقرير التجريبي بيانات اختبار، وليست بنودًا نظامية. إن كنت مكتب استشارات هندسية وتريد أن تكون من أوائل المستخدمين، تواصل معنا.',
-    en: 'Dhabt is being built. The clauses shown in the sample report are test data, not regulatory clauses. If you run an engineering consultancy and want early access, get in touch.',
+    ar: 'ضبط تحت البناء الآن. البنود المعروضة في التقرير التجريبي بيانات اختبار وليست بنودًا نظامية، وكل بند فيها موسوم بذلك. سيفتح التسجيل للمكاتب الهندسية عند تحميل أول مجموعة بنود موثقة.',
+    en: 'Dhabt is being built. The clauses in the sample report are test data, not regulatory clauses, and each one is marked as such. Registration opens to engineering offices once the first verified clause set is loaded.',
   },
   statusCta: { ar: 'تواصل معنا', en: 'Get in touch' },
 

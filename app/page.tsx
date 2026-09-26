@@ -141,12 +141,6 @@ export default async function LandingPage({
       <section className="mt-16 rounded-lg border border-nc-line bg-nc-bg px-6 py-6">
         <h2 className="mb-2 text-[16px] font-semibold">{t('statusTitle', lang)}</h2>
         <p className="max-w-[64ch] text-[14px] leading-[1.8] text-nc-fg">{t('statusBody', lang)}</p>
-        <a
-          href="mailto:hello@getdhabd.com"
-          className="mt-4 inline-block rounded bg-ink px-5 py-2.5 text-[14px] font-medium text-on-ink hover:opacity-90"
-        >
-          {t('statusCta', lang)}
-        </a>
       </section>
     </Chrome>
   )
