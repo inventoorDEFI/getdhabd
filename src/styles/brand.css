@@ -1,0 +1,119 @@
+/**
+ * ضبط / dhabt design tokens.
+ *
+ * Mirrors src/lib/brand.ts. tests/brand.test.ts asserts the two agree, so a
+ * colour changed in one place and not the other fails the build rather than
+ * shipping a slightly-off shade into the PDF report.
+ *
+ * RTL is the default. Every spacing property here is logical (inline-start,
+ * inline-end), never left and right, so the Arabic and English layouts are the
+ * same stylesheet rather than two that drift apart.
+ */
+
+:root {
+  /* Brand, exactly as supplied in the artwork */
+  --dh-ink: #15181C;
+  --dh-on-ink: #FFFFFF;
+  --dh-muted: #5B6169;
+  --dh-muted-on-ink: #C9CCD0;
+
+  /* Surfaces, all derived from the ink hue */
+  --dh-page: #FAFAFA;
+  --dh-card: #FFFFFF;
+  --dh-sunken: #F2F3F4;
+  --dh-line: #E4E6E8;
+  --dh-line-strong: #C9CCD0;
+
+  /* Verdicts. The only saturated colour in the product. */
+  --dh-fail-fg: #8C1D18;
+  --dh-fail-bg: #FCEEEC;
+  --dh-fail-line: #E8B4AE;
+
+  --dh-pass-fg: #1B5E44;
+  --dh-pass-bg: #EAF5EF;
+  --dh-pass-line: #A9D4BD;
+
+  --dh-nc-fg: #5B6169;
+  --dh-nc-bg: #F2F3F4;
+  --dh-nc-line: #D6D9DC;
+
+  /* Severity */
+  --dh-sev-blocking: #8C1D18;
+  --dh-sev-major: #9A5B14;
+  --dh-sev-minor: #5B6169;
+  --dh-sev-advisory: #7A828C;
+
+  /* Type */
+  --dh-font-ar: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', system-ui, sans-serif;
+  --dh-font-latin: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --dh-font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Scale, in a 4px grid */
+  --dh-space-1: 4px;
+  --dh-space-2: 8px;
+  --dh-space-3: 12px;
+  --dh-space-4: 16px;
+  --dh-space-5: 24px;
+  --dh-space-6: 32px;
+  --dh-space-7: 48px;
+  --dh-space-8: 64px;
+
+  --dh-radius-sm: 4px;
+  --dh-radius: 8px;
+  --dh-radius-lg: 12px;
+
+  /* The mark is square-cornered, so shadows stay tight and neutral */
+  --dh-shadow-sm: 0 1px 2px rgba(21, 24, 28, 0.06);
+  --dh-shadow: 0 2px 8px rgba(21, 24, 28, 0.08);
+}
+
+html[dir='rtl'] { --dh-font-ui: var(--dh-font-ar); }
+html[dir='ltr'] { --dh-font-ui: var(--dh-font-latin); }
+
+html { color-scheme: light; }
+
+body {
+  margin: 0;
+  background: var(--dh-page);
+  color: var(--dh-ink);
+  font-family: var(--dh-font-ui, var(--dh-font-ar));
+  /* Arabic needs more leading than Latin at the same size. */
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/**
+ * Arabic-Indic numerals for display.
+ *
+ * Applied by class, never globally: a dimension the engineer has to read off a
+ * drawing and compare with a figure in a field should match the drawing. Numbers
+ * that will be computed with or copied are left in Western digits.
+ */
+.dh-numerals-ar { font-feature-settings: 'anum' 1; }
+
+/* Clause numbers, dimensions, anything that should align in a column */
+.dh-figure {
+  font-family: var(--dh-font-mono);
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/**
+ * Verbatim clause text.
+ *
+ * Visually distinct from everything the product wrote itself. An engineer should
+ * be able to tell at a glance which words are the code and which are ours, so
+ * quoted clause text always carries the ink rule on its inline start edge and
+ * never shares a treatment with our own prose.
+ */
+.dh-clause {
+  border-inline-start: 3px solid var(--dh-ink);
+  padding-inline-start: var(--dh-space-4);
+  background: var(--dh-sunken);
+  padding-block: var(--dh-space-3);
+  border-radius: 0 var(--dh-radius-sm) var(--dh-radius-sm) 0;
+  font-size: 0.95rem;
+}
+
+html[dir='ltr'] .dh-clause { border-radius: var(--dh-radius-sm) 0 0 var(--dh-radius-sm); }

@@ -1,0 +1,243 @@
+# FIXTURE DOCUMENT. NOT A REAL CODE. NOT SBC. NOT A MUNICIPAL REGULATION.
+# ---------------------------------------------------------------------------
+# Synthetic clauses with invented numbers and invented text, for developing the
+# pipeline and for tests. code_system is FIXTURE, which the grounding gate treats
+# as unpublishable: a rule citing this document is suppressed from every report
+# unless DHABT_ALLOW_FIXTURE_CODES=1, which is a local development switch only.
+#
+# Every clause text below opens with the marker [نص تجريبي] so that if one ever
+# does reach a screen, it says so itself.
+#
+# The figures here are round numbers chosen to make test arithmetic obvious. They
+# are not the real requirements and must never be copied into a real pack.
+
+pack_version: 1
+
+document:
+  code_system: FIXTURE
+  doc_code: FIXTURE-VILLA-01
+  edition_year: 2025
+  title_ar: مستند تجريبي للتطوير، ليس مرجعًا نظاميًا
+  title_en: Development fixture, not a regulatory reference
+  source_file_name: fixture-villa-demo.yaml
+  source_sha256: bed838f4abd56e5f69e019de301a7f2d19d1498e3704bda9d7284085c5235a09
+  total_pages: 12
+  jurisdiction: KSA
+
+  # Set to not_permitted deliberately. We wrote this text ourselves, so we
+  # could mark it permitted, but then the demo would show a report no real
+  # document can produce. Research of 26 Sept 2026 found that neither the
+  # Saudi Building Code Center nor MOMAH grants commercial reuse, so every
+  # real report will show Dhabt's own restatement plus a link. The fixture
+  # models that, which is the whole point of a fixture.
+  reproduction_rights: not_permitted
+
+clauses:
+  - clause_number: "F.1.1"
+    page_number: 3
+    heading_ar: الارتداد الأمامي
+    text_ar: >-
+      [نص تجريبي] لا يقل الارتداد الأمامي للفيلا السكنية عن ٣٫٠٠ أمتار من حد
+      الملكية المطل على الشارع.
+    bbox: { x0: 72, y0: 520, x1: 523, y1: 560 }
+
+  - clause_number: "F.1.2"
+    page_number: 3
+    heading_ar: الارتداد الخلفي
+    text_ar: >-
+      [نص تجريبي] لا يقل الارتداد الخلفي للفيلا السكنية عن ٢٫٠٠ متر من حد
+      الملكية الخلفي.
+
+  - clause_number: "F.1.3"
+    page_number: 4
+    heading_ar: الارتداد الجانبي
+    text_ar: >-
+      [نص تجريبي] لا يقل الارتداد الجانبي عن ١٫٥٠ متر على كل جانب، ويجوز البناء
+      على حد الملكية في جانب واحد إذا كان عرض الأرض أقل من ١٢٫٥٠ مترًا.
+
+  - clause_number: "F.2.1"
+    page_number: 5
+    heading_ar: الارتفاع وعدد الأدوار
+    text_ar: >-
+      [نص تجريبي] لا يزيد ارتفاع الفيلا السكنية عن ١٢٫٠٠ مترًا مقيسًا من منسوب
+      الشارع، ولا يزيد عدد الأدوار عن دورين وملحق علوي.
+
+  - clause_number: "F.3.1"
+    page_number: 6
+    heading_ar: نسبة البناء
+    text_ar: >-
+      [نص تجريبي] لا تزيد نسبة البناء في الدور الأرضي عن ٦٠٪ من مساحة الأرض.
+
+  - clause_number: "F.4.1"
+    page_number: 7
+    heading_ar: المواقف
+    text_ar: >-
+      [نص تجريبي] يخصص موقفان لكل وحدة سكنية داخل حدود الأرض.
+
+  - clause_number: "F.5.1"
+    page_number: 8
+    heading_ar: عرض الدرج
+    text_ar: >-
+      [نص تجريبي] لا يقل عرض الدرج الصافي بين الدرابزينات عن ٩٠٠ مليمتر.
+
+  - clause_number: "F.5.2"
+    page_number: 8
+    heading_ar: القائمة والنائمة
+    text_ar: >-
+      [نص تجريبي] لا تزيد القائمة عن ١٨٠ مليمترًا ولا تقل النائمة عن ٢٨٠
+      مليمترًا.
+
+  - clause_number: "F.6.1"
+    page_number: 9
+    heading_ar: عرض الممر
+    text_ar: >-
+      [نص تجريبي] لا يقل عرض الممر الصافي عن ١١٠٠ مليمتر.
+
+  - clause_number: "F.6.2"
+    page_number: 9
+    heading_ar: عرض الباب الصافي
+    text_ar: >-
+      [نص تجريبي] لا يقل عرض فتحة الباب الصافية عن ٨٠٠ مليمتر عند فتح الضلفة
+      بزاوية تسعين درجة.
+
+  - clause_number: "F.7.1"
+    page_number: 10
+    heading_ar: مسافة الانتقال
+    text_ar: >-
+      [نص تجريبي] لا تزيد مسافة الانتقال إلى أقرب مخرج عن ٣٠٫٠٠ مترًا في المباني
+      غير المزودة بمرشات آلية.
+
+  - clause_number: "F.7.2"
+    page_number: 11
+    heading_ar: عدد المخارج
+    text_ar: >-
+      [نص تجريبي] يجب توفير مخرجين على الأقل لكل دور تزيد مساحته عن ٢٠٠ متر
+      مربع.
+
+rules:
+  - rule_key: setback.front.min
+    summary_ar: الارتداد الأمامي للفيلا لا يقل عن ٣٫٠٠ أمتار من حد الملكية على الشارع.
+    check_type: setback.min
+    clause_number: "F.1.1"
+    building_type: residential_villa
+    parameters: { direction: front, min_m: 3.0 }
+    unit: m
+    severity: blocking
+
+  - rule_key: setback.rear.min
+    summary_ar: الارتداد الخلفي للفيلا لا يقل عن ٢٫٠٠ متر من حد الملكية الخلفي.
+    check_type: setback.min
+    clause_number: "F.1.2"
+    building_type: residential_villa
+    parameters: { direction: rear, min_m: 2.0 }
+    unit: m
+    severity: blocking
+
+  - rule_key: setback.side.min
+    summary_ar: الارتداد الجانبي لا يقل عن ١٫٥٠ متر على كل جانب، ويسمح بالبناء على حد الملكية في جانب واحد إذا قل عرض الأرض عن ١٢٫٥٠ مترًا.
+    check_type: setback.min
+    clause_number: "F.1.3"
+    building_type: residential_villa
+    parameters: { direction: side, min_m: 1.5, boundary_build_allowed_below_plot_width_m: 12.5 }
+    unit: m
+    severity: blocking
+
+  - rule_key: height.max
+    summary_ar: ارتفاع الفيلا لا يتجاوز ١٢٫٠٠ مترًا من منسوب الشارع.
+    check_type: height.max
+    clause_number: "F.2.1"
+    building_type: residential_villa
+    parameters: { max_m: 12.0, measured_from: street_level }
+    unit: m
+    severity: blocking
+
+  - rule_key: floors.max
+    summary_ar: عدد أدوار الفيلا لا يتجاوز دورين، ويسمح بملحق علوي.
+    check_type: floors.max
+    clause_number: "F.2.1"
+    building_type: residential_villa
+    parameters: { max_floors: 2, annex_allowed: true, counts_basement: false }
+    unit: floor
+    severity: blocking
+
+  - rule_key: coverage.ratio.max
+    summary_ar: نسبة البناء في الدور الأرضي لا تتجاوز ٦٠٪ من مساحة الأرض.
+    check_type: coverage.ratio.max
+    clause_number: "F.3.1"
+    building_type: residential_villa
+    parameters: { max_ratio: 0.6, basis: ground_floor_footprint }
+    unit: ratio
+    severity: blocking
+
+  - rule_key: parking.count.min
+    summary_ar: موقفان لكل وحدة سكنية داخل حدود الأرض.
+    check_type: parking.count.min
+    clause_number: "F.4.1"
+    building_type: residential_villa
+    parameters: { spaces_per_unit: 2 }
+    unit: space
+    severity: major
+
+  - rule_key: stair.width.min
+    summary_ar: عرض الدرج الصافي بين الدرابزينات لا يقل عن ٩٠٠ مليمتر.
+    check_type: stair.width.min
+    clause_number: "F.5.1"
+    building_type: residential_villa
+    parameters: { min_mm: 900, measurement: clear_between_handrails }
+    unit: mm
+    severity: blocking
+
+  - rule_key: stair.riser.max
+    summary_ar: ارتفاع القائمة لا يتجاوز ١٨٠ مليمترًا.
+    check_type: stair.riser.max
+    clause_number: "F.5.2"
+    building_type: residential_villa
+    parameters: { max_mm: 180 }
+    unit: mm
+    severity: blocking
+
+  - rule_key: stair.going.min
+    summary_ar: عرض النائمة لا يقل عن ٢٨٠ مليمترًا.
+    check_type: stair.going.min
+    clause_number: "F.5.2"
+    building_type: residential_villa
+    parameters: { min_mm: 280 }
+    unit: mm
+    severity: blocking
+
+  - rule_key: corridor.width.min
+    summary_ar: عرض الممر الصافي لا يقل عن ١١٠٠ مليمتر.
+    check_type: corridor.width.min
+    clause_number: "F.6.1"
+    building_type: residential_villa
+    parameters: { min_mm: 1100 }
+    unit: mm
+    severity: major
+
+  - rule_key: door.clear_width.min
+    summary_ar: عرض فتحة الباب الصافية لا يقل عن ٨٠٠ مليمتر عند فتح الضلفة تسعين درجة.
+    check_type: door.clear_width.min
+    clause_number: "F.6.2"
+    building_type: residential_villa
+    parameters: { min_mm: 800, measurement: clear_opening }
+    unit: mm
+    severity: major
+
+  - rule_key: egress.travel_distance.max
+    summary_ar: مسافة الانتقال إلى أقرب مخرج لا تتجاوز ٣٠٫٠٠ مترًا في المباني غير المزودة بمرشات.
+    check_type: egress.travel_distance.max
+    clause_number: "F.7.1"
+    building_type: residential_villa
+    parameters: { max_m: 30.0 }
+    unit: m
+    severity: blocking
+    applies_when: { sprinklered: false }
+
+  - rule_key: egress.exit_count.min
+    summary_ar: مخرجان على الأقل لكل دور تتجاوز مساحته ٢٠٠ متر مربع.
+    check_type: egress.exit_count.min
+    clause_number: "F.7.2"
+    building_type: residential_villa
+    parameters: { min_exits: 2, above_floor_area_m2: 200 }
+    unit: exit
+    severity: blocking

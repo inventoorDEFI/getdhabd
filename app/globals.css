@@ -1,0 +1,91 @@
+@import 'tailwindcss';
+
+/**
+ * ضبط / dhabt tokens, exposed to Tailwind.
+ *
+ * @theme makes each of these available as a utility (bg-ink, text-muted) while
+ * staying a real custom property, so the same values drive hand written CSS and
+ * the PDF report renderer. Values mirror src/lib/brand.ts, which
+ * tests/brand.test.ts asserts against the logo artwork.
+ */
+@theme {
+  --color-ink: #15181c;
+  --color-on-ink: #ffffff;
+  --color-muted: #5b6169;
+  --color-muted-on-ink: #c9ccd0;
+
+  --color-page: #fafafa;
+  --color-card: #ffffff;
+  --color-sunken: #f2f3f4;
+  --color-line: #e4e6e8;
+  --color-line-strong: #c9ccd0;
+
+  --color-fail-fg: #8c1d18;
+  --color-fail-bg: #fceeec;
+  --color-fail-line: #e8b4ae;
+  --color-pass-fg: #1b5e44;
+  --color-pass-bg: #eaf5ef;
+  --color-pass-line: #a9d4bd;
+  --color-nc-fg: #5b6169;
+  --color-nc-bg: #f2f3f4;
+  --color-nc-line: #d6d9dc;
+
+  --color-sev-blocking: #8c1d18;
+  --color-sev-major: #9a5b14;
+  --color-sev-minor: #5b6169;
+  --color-sev-advisory: #7a828c;
+
+  --font-ar: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', system-ui, sans-serif;
+  --font-la: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mo: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+}
+
+html { color-scheme: light; }
+
+body {
+  background: var(--color-page);
+  color: var(--color-ink);
+  /* Arabic needs more leading than Latin at the same size. */
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+[dir='rtl'] body, body[dir='rtl'] { font-family: var(--font-ar); }
+[dir='ltr'] body, body[dir='ltr'] { font-family: var(--font-la); }
+
+/**
+ * Figures are isolated from surrounding text direction.
+ *
+ * Without this, "2.40 m" inside an RTL paragraph reorders, and a setback printed
+ * as "04.2" in a compliance report is worse than printing nothing.
+ */
+.fig {
+  font-family: var(--font-mo);
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/**
+ * Mono type WITHOUT a direction change, for rows that mix Arabic labels with
+ * figures. .fig is for leaf nodes only: putting it on a flex container forces
+ * the whole row to lay out left to right inside an RTL page.
+ */
+.mono { font-family: var(--font-mo); font-variant-numeric: tabular-nums; }
+
+.latin { font-family: var(--font-la); direction: ltr; unicode-bidi: isolate; display: inline-block; }
+
+/** Verbatim clause text. Never shares a treatment with copy we wrote ourselves. */
+.clause-quote {
+  border-inline-start: 3px solid var(--color-ink);
+  background: var(--color-sunken);
+  padding: 0.8rem 1.05rem;
+  border-start-end-radius: 4px;
+  border-end-end-radius: 4px;
+}
+
+:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

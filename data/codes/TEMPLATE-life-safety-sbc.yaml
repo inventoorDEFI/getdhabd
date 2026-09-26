@@ -1,0 +1,178 @@
+# Transcription template: stairs, corridors, doors and egress
+# ---------------------------------------------------------------------------
+# Covers stair width, riser and going, corridor and door clear widths, egress
+# travel distance and exit count.
+#
+# Source, verified September 2026:
+#   SBC 201, "Saudi Building Code - General". Chapter 10, Means of Egress.
+#
+#   ISSUER: the Saudi Building Code Center (المركز السعودي لكود البناء). Council
+#   of Ministers Decision 656 of 4 Ramadan 1446 (4 March 2025) converted the
+#   former National Committee (SBCNC) into the Center. Amendments to the code are
+#   now issued by decision of the Minister of Municipalities and Housing.
+#
+#   EDITION: 2024, mandatory from 30 June 2025 per SPA, after a 180-day
+#   transition from January 2025 during which 2018 still applied. (Some secondary
+#   sources say 1 July 2025; prefer the SPA date.) No later edition found as of
+#   26 September 2026.
+#
+#   SECTION MAP, verified at section level only:
+#     1006  Number of exits and exit access doorways
+#     1010  Doors, gates and turnstiles
+#     1011  Stairways            (width, riser, tread)
+#     1017  Exit access travel distance
+#     1020  Corridors
+#   Subsection numbers (1011.2, 1010.1.1, Table 1017.2 and so on) were NOT
+#   verified for SBC. They match IBC numbering, but do not assume that. Read the
+#   real subsection number off the PDF.
+#
+#   Download: https://sbc.gov.sa  (Code Requirements "CR" is the normative text;
+#   the "CC" Code and Commentaries edition adds non-normative commentary. Cite
+#   from CR, never from the commentary.)
+#
+# Clause numbers and clause text below still say <<TRANSCRIBE>> because they must
+# be copied from the PDF itself. Do not fill them from a summary or from memory.
+#
+# Residential villas may fall under reduced requirements compared with other
+# occupancies. Transcribe the clause that applies to the occupancy you are
+# checking, and record the occupancy condition in applies_when.
+#
+# Load with:  npm run codes:load -- data/codes/TEMPLATE-life-safety-sbc.yaml \
+#               --source path/to/sbc.pdf --by "your name"
+
+pack_version: 1
+
+document:
+  code_system: SBC
+  doc_code: SBC 201               # verified: Saudi Building Code - General
+  edition_year: 2024              # in force since 2025-07-01
+  title_ar: كود البناء السعودي العام
+  title_en: null
+  source_file_name: SBC201_CR_241224-FA.pdf
+  source_path: null
+  source_url: https://sbc.gov.sa
+
+  # The 2018 front matter reserves all rights: no part may be reproduced or
+  # distributed by any electronic means without prior written permission. The
+  # 2024 wording was not verified. Until the Center grants permission in writing,
+  # this stays not_permitted and every rule below needs a summary_ar.
+  reproduction_rights: not_permitted
+  total_pages: null
+  jurisdiction: KSA
+
+clauses:
+  - clause_number: <<TRANSCRIBE>>
+    page_number: 1
+    heading_ar: <<TRANSCRIBE>>
+    text_ar: <<TRANSCRIBE>>
+    transcriber_note: >
+      Minimum stair width (عرض الدرج). Note whether the figure is a clear width
+      between handrails or a nominal width, and record which in the rule
+      parameters. The two are not interchangeable.
+
+  - clause_number: <<TRANSCRIBE>>
+    page_number: 1
+    heading_ar: <<TRANSCRIBE>>
+    text_ar: <<TRANSCRIBE>>
+    transcriber_note: >
+      Maximum riser (القائمة) and minimum going or tread (النائمة). Often one
+      clause. If so, cite it from both rules.
+
+  - clause_number: <<TRANSCRIBE>>
+    page_number: 1
+    heading_ar: <<TRANSCRIBE>>
+    text_ar: <<TRANSCRIBE>>
+    transcriber_note: Minimum corridor clear width (عرض الممر).
+
+  - clause_number: <<TRANSCRIBE>>
+    page_number: 1
+    heading_ar: <<TRANSCRIBE>>
+    text_ar: <<TRANSCRIBE>>
+    transcriber_note: >
+      Minimum door clear width (عرض الباب الصافي). Record whether the figure is
+      the leaf width or the clear opening with the leaf at ninety degrees.
+
+  - clause_number: <<TRANSCRIBE>>
+    page_number: 1
+    heading_ar: <<TRANSCRIBE>>
+    text_ar: <<TRANSCRIBE>>
+    transcriber_note: >
+      Maximum travel distance to an exit (مسافة الانتقال). Note whether the limit
+      differs for sprinklered and unsprinklered buildings, and put that condition
+      in applies_when.
+
+  - clause_number: <<TRANSCRIBE>>
+    page_number: 1
+    heading_ar: <<TRANSCRIBE>>
+    text_ar: <<TRANSCRIBE>>
+    transcriber_note: >
+      Minimum number of exits (عدد المخارج) and the occupant load or area above
+      which a second exit becomes required.
+
+rules:
+  - rule_key: stair.width.min
+    check_type: stair.width.min
+    clause_number: <<TRANSCRIBE>>
+    building_type: residential_villa
+    parameters:
+      min_mm: 0
+      measurement: <<TRANSCRIBE>>   # clear_between_handrails or nominal
+    unit: mm
+    severity: blocking
+
+  - rule_key: stair.riser.max
+    check_type: stair.riser.max
+    clause_number: <<TRANSCRIBE>>
+    building_type: residential_villa
+    parameters:
+      max_mm: 0
+    unit: mm
+    severity: blocking
+
+  - rule_key: stair.going.min
+    check_type: stair.going.min
+    clause_number: <<TRANSCRIBE>>
+    building_type: residential_villa
+    parameters:
+      min_mm: 0
+    unit: mm
+    severity: blocking
+
+  - rule_key: corridor.width.min
+    check_type: corridor.width.min
+    clause_number: <<TRANSCRIBE>>
+    building_type: residential_villa
+    parameters:
+      min_mm: 0
+    unit: mm
+    severity: major
+
+  - rule_key: door.clear_width.min
+    check_type: door.clear_width.min
+    clause_number: <<TRANSCRIBE>>
+    building_type: residential_villa
+    parameters:
+      min_mm: 0
+      measurement: <<TRANSCRIBE>>   # clear_opening or leaf_width
+    unit: mm
+    severity: major
+
+  - rule_key: egress.travel_distance.max
+    check_type: egress.travel_distance.max
+    clause_number: <<TRANSCRIBE>>
+    building_type: residential_villa
+    parameters:
+      max_m: 0
+    unit: m
+    severity: blocking
+    applies_when:
+      sprinklered: false
+
+  - rule_key: egress.exit_count.min
+    check_type: egress.exit_count.min
+    clause_number: <<TRANSCRIBE>>
+    building_type: residential_villa
+    parameters:
+      min_exits: 0
+    unit: exit
+    severity: blocking

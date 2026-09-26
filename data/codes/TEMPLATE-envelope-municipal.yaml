@@ -1,0 +1,193 @@
+# Transcription template: plot envelope controls
+# ---------------------------------------------------------------------------
+# Covers setbacks, height, floor count, plot coverage and parking.
+#
+# Source, verified September 2026:
+#   "اشتراطات إنشاء المباني السكنية", issued by the Ministry of Municipalities
+#   and Housing (MOMAH). National baseline for residential setbacks, heights,
+#   coverage and parking. NOT part of the Saudi Building Code.
+#
+#   WHICH FILE: use the 2025-11 upload listed at momah.gov.sa node 15715, which
+#   is marked ساري (in force).
+#     https://momah.gov.sa/sites/default/files/2025-11/ashtratat%20ansha%20almbany%20alsknyt9%20ywlyh%202024.pdf
+#   The July 2024 listing (node 14697), carrying Ministerial Decision
+#   4500943139, is marked ملغي (cancelled) as of 23/11/2025. Do not load it.
+#   MOMAH does not state whether the 2025-11 file is a substantive amendment or
+#   a re-upload; the values read from both match.
+#
+#   SECTION MAP: section 4 "متطلبات التنظيم المكاني" holds the envelope rules.
+#   Villas are 4-1, apartment buildings 4-2. Values read by an automated page
+#   reader, each needing a manual check against the PDF:
+#     4-1 item 1   ground floor coverage, max 75% of plot
+#     4-1 item 2   first floor coverage, max 75%
+#     4-1 item 3   upper annex, max 70% of the floor below
+#     4-1 item 4   setbacks, 1/5 of street width; min 3 m front, 2 m side/rear
+#     4-1 item 5   min 6 m front on streets 30 m and wider
+#     4-1 item 14  parking, 1 space if plot <= 400 m2, 2 spaces if > 400 m2
+#     section 5    villa max height 14 m from street level (clause number unverified)
+#     section 3    villa = two floors plus upper annex
+#   FLAGGED as conflicting across reads: the parking threshold wording, the rear
+#   setback (2 m vs 3 m), and the villa height clause number. Check all three.
+#
+#   An amana (أمانة) may issue stricter local requirements on top of this
+#   baseline, so confirm against the amana you are targeting and load a separate
+#   pack per municipality where they differ. jurisdiction distinguishes them.
+#
+# Every <<TRANSCRIBE>> must be replaced with text copied from the source document
+# in front of you. The loader refuses this file while any placeholder remains,
+# and a database CHECK constraint refuses it a second time. Do not fill these in
+# from memory or from a summary: the clause text here is what an engineer will
+# read and act on.
+#
+# How to fill a clause entry:
+#   clause_number  the reference exactly as printed, e.g. "5.2.1"
+#   page_number    the page in the PDF where the clause appears
+#   text_ar        the clause text, copied character for character, including
+#                  diacritics and line breaks. Do not tidy it.
+#   heading_ar     the clause heading as printed, if it has one
+#
+# Load with:  npm run codes:load -- data/codes/TEMPLATE-envelope-municipal.yaml \
+#               --source path/to/regulations.pdf --by "your name"
+
+pack_version: 1
+
+document:
+  code_system: MOMRA              # MOMAH issued it; MUNICIPAL is for amana level documents
+  doc_code: <<TRANSCRIBE>>        # the ministerial decision number as printed
+  edition_year: 2024              # 1446H
+  title_ar: اشتراطات إنشاء المباني السكنية
+  title_en: null
+  source_file_name: <<TRANSCRIBE>>
+  source_path: null               # path to the PDF; the loader hashes it
+  source_url: https://momah.gov.sa/ar/node/15715
+
+  # MOMAH's usage policy reserves all rights and its open data policy says data
+  # is "intended solely for educational purposes". No commercial reuse is
+  # granted, so clause text stays unpublishable and every rule needs summary_ar.
+  reproduction_rights: not_permitted
+  total_pages: null
+  jurisdiction: <<TRANSCRIBE>>    # e.g. "KSA/Riyadh" — one pack per municipality
+
+clauses:
+  - clause_number: <<TRANSCRIBE>>
+    page_number: 1
+    heading_ar: <<TRANSCRIBE>>
+    text_ar: <<TRANSCRIBE>>
+    transcriber_note: >
+      Front setback (الارتداد الأمامي) minimum for a residential villa.
+      Look for the table or clause giving الارتداد الأمامي by street width or
+      zone. If the requirement is a table rather than a single figure, transcribe
+      the clause that introduces the table and record the figures in the rule
+      parameters below, one rule per zone.
+
+  - clause_number: <<TRANSCRIBE>>
+    page_number: 1
+    heading_ar: <<TRANSCRIBE>>
+    text_ar: <<TRANSCRIBE>>
+    transcriber_note: Rear setback (الارتداد الخلفي) minimum.
+
+  - clause_number: <<TRANSCRIBE>>
+    page_number: 1
+    heading_ar: <<TRANSCRIBE>>
+    text_ar: <<TRANSCRIBE>>
+    transcriber_note: >
+      Side setback (الارتداد الجانبي) minimum. Note whether the regulation
+      permits building on the boundary on one side, and whether the figure
+      depends on plot width. Those conditions go in applies_when.
+
+  - clause_number: <<TRANSCRIBE>>
+    page_number: 1
+    heading_ar: <<TRANSCRIBE>>
+    text_ar: <<TRANSCRIBE>>
+    transcriber_note: >
+      Maximum building height (الارتفاع) and maximum number of floors
+      (عدد الأدوار). If one clause covers both, cite it from both rules using
+      the same clause_number.
+
+  - clause_number: <<TRANSCRIBE>>
+    page_number: 1
+    heading_ar: <<TRANSCRIBE>>
+    text_ar: <<TRANSCRIBE>>
+    transcriber_note: >
+      Plot coverage ratio (نسبة البناء). Record whether the stated percentage
+      applies to the ground floor footprint or to total built area, and whether
+      annexes and basements are counted. Put that in the rule parameters.
+
+  - clause_number: <<TRANSCRIBE>>
+    page_number: 1
+    heading_ar: <<TRANSCRIBE>>
+    text_ar: <<TRANSCRIBE>>
+    transcriber_note: >
+      Required parking (المواقف) per dwelling unit for a residential villa.
+
+rules:
+  - rule_key: setback.front.min
+    check_type: setback.min
+    clause_number: <<TRANSCRIBE>>   # must match a clause_number above
+    building_type: residential_villa
+    zone_code: null                 # set if the figure is zone specific
+    parameters:
+      direction: front
+      min_m: 0                      # replace with the figure from the clause
+    unit: m
+    severity: blocking
+
+  - rule_key: setback.rear.min
+    check_type: setback.min
+    clause_number: <<TRANSCRIBE>>
+    building_type: residential_villa
+    parameters:
+      direction: rear
+      min_m: 0
+    unit: m
+    severity: blocking
+
+  - rule_key: setback.side.min
+    check_type: setback.min
+    clause_number: <<TRANSCRIBE>>
+    building_type: residential_villa
+    parameters:
+      direction: side
+      min_m: 0
+    unit: m
+    severity: blocking
+
+  - rule_key: height.max
+    check_type: height.max
+    clause_number: <<TRANSCRIBE>>
+    building_type: residential_villa
+    parameters:
+      max_m: 0
+      measured_from: <<TRANSCRIBE>>  # e.g. street level, as the clause defines it
+    unit: m
+    severity: blocking
+
+  - rule_key: floors.max
+    check_type: floors.max
+    clause_number: <<TRANSCRIBE>>
+    building_type: residential_villa
+    parameters:
+      max_floors: 0
+      counts_basement: false
+      counts_annex: false
+    unit: floor
+    severity: blocking
+
+  - rule_key: coverage.ratio.max
+    check_type: coverage.ratio.max
+    clause_number: <<TRANSCRIBE>>
+    building_type: residential_villa
+    parameters:
+      max_ratio: 0.0                # 0.60 for sixty percent
+      basis: <<TRANSCRIBE>>         # ground_floor_footprint or total_built_area
+    unit: ratio
+    severity: blocking
+
+  - rule_key: parking.count.min
+    check_type: parking.count.min
+    clause_number: <<TRANSCRIBE>>
+    building_type: residential_villa
+    parameters:
+      spaces_per_unit: 0
+    unit: space
+    severity: major
