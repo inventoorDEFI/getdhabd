@@ -30,6 +30,11 @@
   --color-nc-bg: #f2f3f4;
   --color-nc-line: #d6d9dc;
 
+  --color-accent: #15548a;
+  --color-accent-soft: #edf3f8;
+  --color-accent-line: #c3d6e6;
+  --color-accent-on-ink: #7fb3dc;
+
   --color-sev-blocking: #8c1d18;
   --color-sev-major: #9a5b14;
   --color-sev-minor: #5b6169;
@@ -88,4 +93,39 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+
+/**
+ * Drafting grid.
+ *
+ * A 5 mm minor grid with a heavier line every fifth, which is how a gridded
+ * drawing sheet is ruled. Used behind dark panels so the page reads as drawing
+ * paper rather than a generic dark section. Purely decorative, so it is drawn
+ * with gradients rather than markup and disappears for anyone who cannot see it.
+ */
+.drafting-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.10) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.10) 1px, transparent 1px);
+  background-size: 16px 16px, 16px 16px, 80px 80px, 80px 80px;
+}
+
+/** The same, on a light ground. */
+.drafting-grid-light {
+  background-image:
+    linear-gradient(to right, rgba(21, 24, 28, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(21, 24, 28, 0.045) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/** Small uppercase label, letterspaced, the way a title block is set. */
+.eyebrow {
+  font-family: var(--font-mo);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
 }

@@ -30,7 +30,7 @@ export function Chrome({
       <header className="border-b border-line bg-card">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-7 gap-y-3 px-6 py-3.5">
           <Link href={`/${q}`} className="shrink-0" aria-label="ضبط">
-            <Lockup width={104} />
+            <Lockup height={26} />
           </Link>
           <nav className="flex gap-5 text-[13.5px]">
             {nav.map((item) => (

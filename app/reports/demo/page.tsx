@@ -26,7 +26,7 @@ export default async function DemoReportPage({
     <Chrome lang={lang} current="report">
       <article className="mt-8 overflow-hidden rounded-lg border border-line-strong bg-card shadow-[0_1px_2px_rgba(21,24,28,0.05)]">
         <header className="flex flex-wrap items-start gap-5 border-b border-line px-6 py-5">
-          <Lockup width={104} className="shrink-0" />
+          <Lockup height={26} className="shrink-0 text-ink" />
           <div className="min-w-[200px] flex-1">
             <h1 className="text-[16px] font-semibold">{t('reportTitle', lang)}</h1>
             <p className="text-[12.5px] text-muted">

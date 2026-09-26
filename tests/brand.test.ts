@@ -2,6 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
+  ACCENT,
   BRAND,
   COLOURS,
   LOGO,
@@ -52,6 +53,20 @@ describe('colour tokens', () => {
 
   it.each(all)('%s is a clean six digit hex', (_name, value) => {
     expect(value).toMatch(HEX)
+  })
+
+  it.each(Object.entries(ACCENT))('ACCENT.%s is a clean six digit hex', (_k, v) => {
+    expect(v.toUpperCase()).toMatch(HEX)
+  })
+
+  it('keeps the accent clear of the verdict hues', () => {
+    // Colour means a verdict on a compliance report. An accent that drifted
+    // toward red or green would make a neutral element look like an outcome.
+    const verdictHues = [VERDICT.fail.fg, VERDICT.pass.fg, SEVERITY.major]
+    expect(verdictHues).not.toContain(ACCENT.base)
+    // Blue channel dominant, red channel low: a drafting blue, not a red or green.
+    const [r, , b] = [1, 3, 5].map((i) => parseInt(ACCENT.base.slice(i, i + 2), 16))
+    expect(b).toBeGreaterThan(r! * 1.5)
   })
 
   it('has no duplicate values inside the core palette', () => {
@@ -129,6 +144,10 @@ describe('brand.css agrees with brand.ts', () => {
     ['dh-sev-major', SEVERITY.major],
     ['dh-sev-minor', SEVERITY.minor],
     ['dh-sev-advisory', SEVERITY.advisory],
+    ['dh-accent', ACCENT.base],
+    ['dh-accent-soft', ACCENT.soft],
+    ['dh-accent-line', ACCENT.line],
+    ['dh-accent-on-ink', ACCENT.onInk],
   ]
 
   it.each(pairs)('--%s equals the token', (name, value) => {

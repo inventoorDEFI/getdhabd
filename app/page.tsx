@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Chrome, langFrom } from '@/components/Chrome'
-import { Symbol } from '@/components/Logo'
+import { Lockup, Symbol } from '@/components/Logo'
 import { checkName, t, type Lang } from '@/lib/i18n'
 import { getDemoReport } from '@/lib/demo/corpus'
 
@@ -21,36 +21,49 @@ export default async function LandingPage({
   return (
     <Chrome lang={lang} current="home">
       {/* ---------------- hero ---------------- */}
-      <section className="grid items-center gap-10 pt-14 pb-16 lg:grid-cols-[1.15fr_1fr]">
-        <div className="grid gap-5">
-          <p className="mono flex items-center gap-2 text-[11.5px] tracking-wide text-muted">
-            <Symbol size={14} className="text-ink" />
-            {t('heroKicker', lang)}
-          </p>
-          <h1 className="max-w-[18ch] text-[clamp(30px,5vw,46px)] leading-[1.25] font-semibold tracking-tight text-balance">
-            {t('heroTitle', lang)}
-          </h1>
-          <p className="max-w-[54ch] text-[15.5px] leading-[1.8] text-muted">{t('heroSub', lang)}</p>
-          <div className="mt-1 flex flex-wrap gap-3">
-            <Link
-              href={`/reports/demo${q}`}
-              className="rounded bg-ink px-5 py-2.5 text-[14px] font-medium text-on-ink hover:opacity-90"
-            >
-              {t('ctaPrimary', lang)}
-            </Link>
-            <Link
-              href={`/review${q}`}
-              className="rounded border border-line-strong px-5 py-2.5 text-[14px] font-medium hover:border-ink"
-            >
-              {t('ctaSecondary', lang)}
-            </Link>
+      <section className="relative -mx-6 overflow-hidden bg-ink px-6 text-on-ink">
+        <div className="drafting-grid absolute inset-0" aria-hidden="true" />
+        {/* A drawn margin rule, as a sheet has */}
+        <div className="absolute inset-y-0 end-6 w-px bg-white/10 sm:end-10" aria-hidden="true" />
+
+        <div className="relative grid items-center gap-10 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:py-20">
+          <div className="grid gap-6">
+            <Lockup height={44} className="text-on-ink" />
+
+            <p className="flex items-center gap-2.5 font-[family-name:var(--font-mo)] text-[11.5px] tracking-[0.12em] text-accent-on-ink uppercase">
+              {t('heroKicker', lang)}
+            </p>
+
+            <h1 className="max-w-[17ch] text-[clamp(32px,5.4vw,52px)] leading-[1.2] font-semibold tracking-tight text-balance">
+              {t('heroTitle', lang)}
+            </h1>
+
+            <p className="max-w-[52ch] text-[16px] leading-[1.85] text-muted-on-ink">
+              {t('heroSub', lang)}
+            </p>
+
+            <div className="mt-2 flex flex-wrap gap-3">
+              <Link
+                href={`/reports/demo${q}`}
+                className="rounded bg-on-ink px-5 py-3 text-[14.5px] font-semibold text-ink hover:opacity-90"
+              >
+                {t('ctaPrimary', lang)}
+              </Link>
+              <Link
+                href={`/review${q}`}
+                className="rounded border border-white/25 px-5 py-3 text-[14.5px] font-medium text-on-ink hover:border-white/60"
+              >
+                {t('ctaSecondary', lang)}
+              </Link>
+            </div>
           </div>
+
+          <PlotDiagram lang={lang} />
         </div>
-        <PlotDiagram lang={lang} />
       </section>
 
       {/* ---------------- problem ---------------- */}
-      <Section title={t('problemTitle', lang)}>
+      <Section eyebrow="01" title={t('problemTitle', lang)}>
         <div className="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
           {[
             [t('problem1T', lang), t('problem1B', lang)],
@@ -66,13 +79,15 @@ export default async function LandingPage({
       </Section>
 
       {/* ---------------- the promise: the whole argument ---------------- */}
-      <section className="mt-16 overflow-hidden rounded-lg border border-ink bg-ink text-on-ink">
-        <div className="grid gap-7 px-7 py-9 lg:grid-cols-[1fr_1fr] lg:gap-12">
+      <section className="relative mt-20 overflow-hidden rounded-xl border border-accent-line bg-accent-soft">
+        <div className="drafting-grid-light absolute inset-0" aria-hidden="true" />
+        <div className="relative grid gap-8 px-7 py-9 lg:grid-cols-[1fr_1fr] lg:gap-12">
           <div>
-            <h2 className="mb-3 text-[24px] leading-[1.35] font-semibold text-balance">
+            <p className="eyebrow mb-2.5">02</p>
+            <h2 className="mb-3 max-w-[20ch] text-[clamp(22px,2.6vw,28px)] leading-[1.3] font-semibold tracking-tight text-balance">
               {t('promiseTitle', lang)}
             </h2>
-            <p className="max-w-[48ch] text-[14.5px] leading-[1.85] text-muted-on-ink">
+            <p className="max-w-[48ch] text-[14.5px] leading-[1.85] text-muted">
               {t('promiseBody', lang)}
             </p>
             <ul className="mt-6 grid gap-3.5">
@@ -82,10 +97,10 @@ export default async function LandingPage({
                 [t('promise3T', lang), t('promise3B', lang)],
               ].map(([head, body]) => (
                 <li key={head} className="flex gap-3">
-                  <Symbol size={15} className="mt-1 shrink-0 text-on-ink" />
+                  <Symbol size={15} className="mt-1 shrink-0 text-accent" />
                   <span>
-                    <b className="text-[13.5px] font-semibold">{head}</b>
-                    <span className="block text-[13px] leading-[1.6] text-muted-on-ink">{body}</span>
+                    <b className="text-[13.5px] font-semibold text-ink">{head}</b>
+                    <span className="block text-[13px] leading-[1.6] text-muted">{body}</span>
                   </span>
                 </li>
               ))}
@@ -98,7 +113,7 @@ export default async function LandingPage({
       </section>
 
       {/* ---------------- how ---------------- */}
-      <Section title={t('howTitle', lang)}>
+      <Section eyebrow="03" title={t('howTitle', lang)}>
         <ol className="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
           {[
             [t('how1T', lang), t('how1B', lang)],
@@ -108,7 +123,7 @@ export default async function LandingPage({
           ].map(([head, body], i) => (
             <li key={head} className="bg-card px-5 py-5">
               {/* Numbered because these are sequential stages, not a list of features */}
-              <span className="mono mb-2 block text-[11px] text-muted">{`0${i + 1}`}</span>
+              <span className="mono mb-2.5 block text-[13px] font-medium text-accent">{`0${i + 1}`}</span>
               <h3 className="mb-1.5 text-[14.5px] font-semibold">{head}</h3>
               <p className="text-[13px] leading-[1.7] text-muted">{body}</p>
             </li>
@@ -117,12 +132,12 @@ export default async function LandingPage({
       </Section>
 
       {/* ---------------- checks ---------------- */}
-      <Section title={t('checksTitle', lang)} sub={t('checksSub', lang)}>
+      <Section eyebrow="04" title={t('checksTitle', lang)} sub={t('checksSub', lang)}>
         <div className="flex flex-wrap gap-2">
           {checks.map((key) => (
             <span
               key={key}
-              className="rounded border border-line bg-card px-3 py-1.5 text-[13px]"
+              className="rounded-full border border-line bg-card px-3.5 py-1.5 text-[13px] hover:border-accent-line hover:text-accent"
             >
               {checkName(key, lang)}
             </span>
@@ -131,15 +146,16 @@ export default async function LandingPage({
       </Section>
 
       {/* ---------------- sources ---------------- */}
-      <Section title={t('sourcesTitle', lang)}>
+      <Section eyebrow="05" title={t('sourcesTitle', lang)}>
         <p className="max-w-[68ch] text-[14.5px] leading-[1.85] text-muted">
           {t('sourcesBody', lang)}
         </p>
       </Section>
 
       {/* ---------------- status ---------------- */}
-      <section className="mt-16 rounded-lg border border-nc-line bg-nc-bg px-6 py-6">
-        <h2 className="mb-2 text-[16px] font-semibold">{t('statusTitle', lang)}</h2>
+      <section className="mt-20 rounded-lg border border-nc-line bg-nc-bg px-6 py-6">
+        <p className="eyebrow mb-2">06</p>
+        <h2 className="mb-2 text-[17px] font-semibold">{t('statusTitle', lang)}</h2>
         <p className="max-w-[64ch] text-[14px] leading-[1.8] text-nc-fg">{t('statusBody', lang)}</p>
       </section>
     </Chrome>
@@ -147,19 +163,25 @@ export default async function LandingPage({
 }
 
 function Section({
+  eyebrow,
   title,
   sub,
   children,
 }: {
+  eyebrow: string
   title: string
   sub?: string
   children: React.ReactNode
 }) {
   return (
-    <section className="mt-16">
-      <h2 className="text-[22px] font-semibold tracking-tight text-balance">{title}</h2>
-      {sub ? <p className="mt-1.5 max-w-[60ch] text-[14px] text-muted">{sub}</p> : null}
-      <div className="mt-5">{children}</div>
+    <section className="mt-20">
+      {/* The eyebrow numbers the sheet, the way a title block does */}
+      <p className="eyebrow mb-2.5">{eyebrow}</p>
+      <h2 className="max-w-[24ch] text-[clamp(22px,2.6vw,28px)] leading-[1.3] font-semibold tracking-tight text-balance">
+        {title}
+      </h2>
+      {sub ? <p className="mt-2 max-w-[60ch] text-[14.5px] text-muted">{sub}</p> : null}
+      <div className="mt-6">{children}</div>
     </section>
   )
 }

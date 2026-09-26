@@ -44,6 +44,31 @@ export const COLOURS = {
 } as const
 
 /**
+ * Interface accent.
+ *
+ * NOT from the logo. The artwork is monochrome, which is right for a mark and
+ * wrong for a website: with only ink and grey the page reads as unfinished.
+ *
+ * Chosen as a drafting blue for two reasons. It is the colour of technical
+ * drawing, which is what this audience looks at all day, so it belongs to the
+ * subject rather than being decoration. And the brand ink #15181C is already a
+ * blue-black, so this is analogous to it and sits quietly beside the mark
+ * instead of fighting it.
+ *
+ * Deliberately not red, amber or green: those three are reserved for verdicts,
+ * and on a compliance report colour has to mean a verdict and nothing else.
+ */
+export const ACCENT = {
+  base: '#15548A',
+  /** For large tinted surfaces. */
+  soft: '#EDF3F8',
+  /** Hairlines and borders on tinted surfaces. */
+  line: '#C3D6E6',
+  /** On ink, where the base is too dark to read. */
+  onInk: '#7FB3DC',
+} as const
+
+/**
  * Derived surface and line tones.
  *
  * Every one of these is the ink hue at a reduced strength rather than a new hue,

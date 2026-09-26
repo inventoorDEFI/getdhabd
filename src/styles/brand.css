@@ -24,7 +24,13 @@
   --dh-line: #E4E6E8;
   --dh-line-strong: #C9CCD0;
 
-  /* Verdicts. The only saturated colour in the product. */
+  /* Interface accent. Not from the logo; see ACCENT in src/lib/brand.ts. */
+  --dh-accent: #15548A;
+  --dh-accent-soft: #EDF3F8;
+  --dh-accent-line: #C3D6E6;
+  --dh-accent-on-ink: #7FB3DC;
+
+  /* Verdicts. Reserved for outcomes; the accent never uses these hues. */
   --dh-fail-fg: #8C1D18;
   --dh-fail-bg: #FCEEEC;
   --dh-fail-line: #E8B4AE;
