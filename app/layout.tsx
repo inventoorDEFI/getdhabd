@@ -6,6 +6,16 @@ import './globals.css'
 export const metadata: Metadata = {
   title: `${BRAND.nameAr} · ${T.productTagline.ar}`,
   description: BRAND.descriptionAr,
+  /**
+   * Not indexable while the corpus is fixture data.
+   *
+   * Must live inside `metadata`. A standalone `export const robots` is not a
+   * Next.js metadata export and emits nothing, which is how this shipped
+   * unprotected the first time.
+   *
+   * Delete this the day a verified, licensed corpus is loaded.
+   */
+  robots: { index: false, follow: false },
   icons: {
     icon: [
       { url: '/brand/dhabt-favicon.svg', type: 'image/svg+xml' },
@@ -17,18 +27,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: '#15181C' }
 
-/**
- * Not indexable yet.
- *
- * Every clause currently loaded is invented fixture data. The pages badge it as
- * FIXTURE, but a Saudi engineer arriving from a search result at a polished
- * Arabic compliance report may not read the badge. For a product whose thesis is
- * "never state a requirement we cannot source", being findable while the corpus
- * is synthetic is the one failure mode everything else here prevents.
- *
- * Delete this export the day a verified, licensed corpus is loaded.
- */
-export const robots = { index: false, follow: false }
+
 
 /**
  * Arabic and RTL are the document default, set on <html> rather than applied to
