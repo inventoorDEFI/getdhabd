@@ -18,6 +18,19 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: '#15181C' }
 
 /**
+ * Not indexable yet.
+ *
+ * Every clause currently loaded is invented fixture data. The pages badge it as
+ * FIXTURE, but a Saudi engineer arriving from a search result at a polished
+ * Arabic compliance report may not read the badge. For a product whose thesis is
+ * "never state a requirement we cannot source", being findable while the corpus
+ * is synthetic is the one failure mode everything else here prevents.
+ *
+ * Delete this export the day a verified, licensed corpus is loaded.
+ */
+export const robots = { index: false, follow: false }
+
+/**
  * Arabic and RTL are the document default, set on <html> rather than applied to
  * a wrapper. A page opts into English, not out of it.
  */
