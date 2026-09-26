@@ -1,4 +1,4 @@
-# ضبط / dhabt
+# ضبط / dhabd
 
 Pre-submission compliance review for Saudi building permit applications.
 An engineering consultant uploads a drawing set before submitting it through
@@ -158,8 +158,12 @@ than the in-memory mirror. Run it after any change to `db/migrations`.
 
 ## Brand
 
-The name is ضبط, set in ink, with **dhabt** lowercase in the secondary tone beside
-it. The symbol is two boundary lines with a footprint between them, which is a
+The name is ضبط. The domain is getdhabd.com.
+
+The supplied lockups set the Latin wordmark as "dhabt", ending in t, which no
+longer matches the domain. Until a designer regenerates them, the app shows the
+Arabic-only wordmark, which carries no Latin and is correct either way. The
+lockup files are still in public/brand and are still what tests assert against. The symbol is two boundary lines with a footprint between them, which is a
 plot with its setbacks, the first thing the system checks.
 
 The palette is four values taken from the supplied artwork and nothing else:

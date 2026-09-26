@@ -1,5 +1,5 @@
 /**
- * Brand tokens for ضبط / dhabt.
+ * Brand tokens for ضبط / dhabd.
  *
  * Single source of truth. Colours, names and asset paths live here and nowhere
  * else, so a brand change is one edit rather than a search across components.
@@ -10,8 +10,15 @@
 export const BRAND = {
   /** Arabic is the primary name. The logo sets Arabic in ink and Latin in grey. */
   nameAr: 'ضبط',
-  /** Latin wordmark is set lowercase in the logo. Keep it lowercase in copy too. */
-  nameLatin: 'dhabt',
+  /**
+   * Latin name, lowercase, matching the domain getdhabd.com.
+   *
+   * NOTE: the supplied logo artwork still spells "dhabt" as outlined letterforms
+   * in the two lockups and cannot be edited by code. Until a designer regenerates
+   * them, the app shows the Arabic-only wordmark so nothing on screen contradicts
+   * this. See LOGO.wordmarkAr and src/components/Logo.tsx.
+   */
+  nameLatin: 'dhabd',
 
   taglineAr: 'مراجعة مسبقة لرخص البناء',
   taglineEn: 'Pre-submission review for building permits',

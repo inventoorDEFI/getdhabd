@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 /**
- * ضبط / dhabt tokens, exposed to Tailwind.
+ * ضبط / dhabd tokens, exposed to Tailwind.
  *
  * @theme makes each of these available as a utility (bg-ink, text-muted) while
  * staying a real custom property, so the same values drive hand written CSS and

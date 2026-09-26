@@ -23,17 +23,24 @@ export function Symbol({ size = 24, className = '' }: { size?: number; className
 }
 
 /**
- * The Arabic lockup. Served as a file rather than inlined because it is custom
- * lettering, not type, and it is large enough that inlining it on every page
- * would cost more than the request saves.
+ * The brand mark.
+ *
+ * Uses the Arabic-only wordmark (ضبط) rather than the full lockup. The lockup
+ * sets the Latin wordmark as "dhabt" in outlined letterforms, and the product
+ * now lives at getdhabd.com, so showing it would put a contradiction in the
+ * header of every page. The Arabic wordmark carries no Latin and is correct
+ * either way.
+ *
+ * To restore the full lockup once the artwork is regenerated, swap src back to
+ * LOGO.lockupAr.ink and the aspect ratio to 365/716.
  */
 export function Lockup({ width = 132, className = '' }: { width?: number; className?: string }) {
   return (
     <img
-      src="/brand/dhabt-lockup-arabic-ink.svg"
+      src="/brand/dhabt-wordmark-arabic-ink.svg"
       alt="ضبط"
       width={width}
-      height={Math.round((width * 365) / 716)}
+      height={Math.round((width * 270) / 480)}
       className={className}
       style={{ width, height: 'auto' }}
     />

@@ -1,5 +1,5 @@
 /**
- * ضبط / dhabt design tokens.
+ * ضبط / dhabd design tokens.
  *
  * Mirrors src/lib/brand.ts. tests/brand.test.ts asserts the two agree, so a
  * colour changed in one place and not the other fails the build rather than

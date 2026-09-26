@@ -188,8 +188,14 @@ describe('assets', () => {
 // --- naming -----------------------------------------------------------------
 
 describe('naming', () => {
-  it('sets the Latin wordmark lowercase, matching the logo', () => {
+  it('sets the Latin name lowercase', () => {
     expect(BRAND.nameLatin).toBe(BRAND.nameLatin.toLowerCase())
+  })
+
+  it('matches the domain the product is served from', () => {
+    // getdhabd.com. If this ever diverges again, the header and the address bar
+    // disagree and the brand reads as a typo.
+    expect(`get${BRAND.nameLatin}.com`).toBe('getdhabd.com')
   })
 
   it('carries the Arabic name as the primary', () => {
