@@ -1,251 +1,198 @@
-# Landing page work, notes for Rand
+# Landing redesign, notes for Rand
 
-Branch `feat/landing-page`. Written as I went. Read the conflicts section first:
-four premises in the brief do not match the repository, and two of them change
-what the page is allowed to say.
-
----
-
-## Step 0, orientation
-
-### Framework and routing
-- Next.js 15.5.26, React 19.3.0, App Router.
-- Routes are directories under `app/`, each with `page.tsx`.
-- TypeScript strict. `npm run typecheck` exists.
-- **There is no linter configured.** No `lint` script, no ESLint config. I ran
-  the type check and the production build instead, and say so in Step 4.
-
-### Routes that exist today
-| Route | Renders |
-| --- | --- |
-| `/` | Landing page (already exists, see conflict 2) |
-| `/review` | The tool: upload form, plot inputs, corpus counters |
-| `/reports/demo` | Full sample compliance report |
-| `/corpus` | Table of clauses currently loaded and checkable |
-
-All four must still work at the end. They do; see Step 4.
-
-### What the app actually does today
-Reading the code rather than the brief:
-
-- **A rules corpus.** Clause records carrying verbatim source text, a part and
-  clause number, a page number, and a SHA-256 of the source file.
-- **A grounding gate.** Every model-proposed finding is resolved against loaded
-  rules. Anything that cannot be tied to a loaded clause is dropped and logged,
-  and its rule is reported as "not checked" rather than omitted.
-- **A reproduction-rights gate.** Neither the Saudi Building Code Center nor
-  MOMAH grants commercial reuse, so clause text is withheld unless a document is
-  explicitly marked as permitted. The report shows Dhabt's own restatement plus
-  a link to the source.
-- **Arabic normalisation.** Alef forms, alef maqsura, ta marbuta, tatweel,
-  diacritics, bidi controls, presentation forms, Arabic-Indic digits.
-- **A sample report** rendered from real pipeline output, not hardcoded markup.
-
-**Fourteen checks are implemented**, all on residential villas:
-setbacks front/rear/side, building height, floor count, plot coverage ratio,
-parking count, stair width, stair riser, stair going, corridor clear width,
-door clear width, egress travel distance, exit count.
-
-**Not built:** PDF parsing, dimension extraction, database connection, upload
-handling. The tool page exists with the submit button deliberately disabled.
-Every loaded clause is synthetic fixture data, badged `FIXTURE` in the UI.
-
-### Language switching
-`src/lib/i18n.ts` holds a `T` dictionary keyed by string, each with `ar` and
-`en`. `t(key, lang)` reads it. Language comes from `?lang=en` on the URL, parsed
-by `langFrom()` in `src/components/Chrome.tsx`, defaulting to Arabic. `Chrome`
-sets `dir` and the font family per language. Reused as is for the landing page.
-
-### Styling and tokens
-- Tailwind v4, CSS-first. Tokens declared in `@theme` in `app/globals.css`.
-- `src/lib/brand.ts` is the source of truth, mirrored in `src/styles/brand.css`.
-- `tests/brand.test.ts` asserts the two agree, that the palette matches the logo
-  artwork, and that the inline symbol path data matches the shipped SVG.
-
-### Deployment
-- GitHub `inventoorDEFI/getdhabd`, remote over SSH, working tree clean.
-- Vercel, connected to that repo. **Production deploys trigger on push to
-  `main`.** Pushing any other branch produces a preview deployment.
-- The Vercel project sits in the scope `quintes-7e00b320`, which my Vercel
-  credentials cannot see. I cannot read preview URLs, promote, or roll back.
-  Per guardrail 5, I push the branch and stop.
+Branch `feat/landing-redesign`, off `main` at `c5b82e1`.
+Source design: `design/landing.html`, kept in the repo as reference and not served.
 
 ---
 
-## Conflicts between the brief and the repository
+## What the design is
 
-### 1. The domain in the brief does not exist
-The brief says the site is live at **getdhabt.com**, ending in t. That domain is
-**not registered**. WHOIS returns no match.
-
-The live site is **getdhabd.com**, ending in d, registered at NameCheap, serving
-HTTP 200 with a valid certificate. The repo is `getdhabd`.
-
-Nothing in this branch touches DNS, per guardrail 1. Flagging it because the
-brief's premise is wrong, and because the brand wordmark still reads "dhabt".
-
-### 2. The root is already a landing page
-The brief says the root "opens straight into the app". It did until earlier
-today. A landing page already sits at `/` and the tool already moved to
-`/review`.
-
-So this is not a first build, it is a revision: rewriting the landing content to
-the brief's structure, and moving the tool from `/review` to `/app`.
-
-### 3. Brand assets are not at `brand/logo/`
-They are at `public/brand/`, ten SVGs plus PNGs, already stripped of their C2PA
-`<metadata>` blocks (that stripping took them from 107 KB to 29 KB). No stop
-needed; the filenames the brief lists all exist.
-
-### 4. The app does not do what the brief's copy describes
-**This is the important one.**
-
-The brief's hero and Section 2 describe checking **elevations against the Saudi
-Architecture design guidelines**: 19 architectural styles, facade opening
-ratios, accent colour shares.
-
-The app checks none of that. It has no facade check, no elevation reading, no
-architectural style model. Its fourteen checks are the **plot envelope**
-(setbacks, height, floors, coverage, parking) and **life safety** (stairs,
-corridors, doors, egress), drawn from MOMAH building requirements and the Saudi
-Building Code.
-
-The brief says: "If Step 0 showed the app does something narrower or different,
-adjust these lines to describe what it really does, and note the change." So:
-
-- Hero and "how it works" now describe the envelope and life-safety checks.
-- The Saudi Architecture guidelines material from Section 2 moved into a section
-  explicitly headed **قريبًا / Coming soon**, and is described as not yet built.
-- Step 2 of "how it works" was "Dhabt identifies the architectural style". There
-  is no style identification. Replaced with what actually happens: the plot and
-  zone determine which loaded rules apply.
-
-**Review this.** If you would rather the page describe the facade product you
-intend to build, it needs the "coming soon" framing kept, or the page will
-promise something that does not exist, which is the failure mode the whole
-product is built to avoid.
-
-### 5. Monochrome instruction conflicts with your feedback an hour ago
-The brief specifies five monochrome tokens and says "the brand is monochrome".
-Earlier today you said the site had "no colors" and looked "so much basic", and
-I added a drafting blue accent, `#15548A`.
-
-I followed the brief: **the landing page is monochrome.** The `ACCENT` export
-stays in `src/lib/brand.ts` and is still used elsewhere, so restoring it on the
-landing is a small change, not a rebuild.
-
-To compensate without colour I leaned hard on the brief's own visual direction:
-drawing-sheet grid, hairline rules, a dark ink hero, a large faint symbol, and
-an inline SVG technical drawing. If it still reads flat, say so and I will put
-the accent back on the eyebrows, step numbers and links.
+A drawing-sheet layout. Dark hero (sheet A-00) with a title block, the ضبط mark
+set very large, and an animated elevation where one window is measured, flagged
+at a 42% opening ratio against a 35% limit, then corrected to 33%. Then six
+numbered sheets on white: A-01 the problem, A-02 four steps, A-03 a report mock,
+A-04 three patterns, A-05 the schedule of 19 styles, A-06 sources. Closes on a
+second dark sheet (A-07) with a repeated call to action and a title-block footer.
 
 ---
 
-## Step 4, verification results
-
-Run against `next dev` on port 4020, and a clean production build.
-
-| Check | Result |
-| --- | --- |
-| Type check (`npm run typecheck`) | pass |
-| Linter | **not run: no linter is configured in this repo.** No `lint` script, no ESLint config. Not added, since guardrail 7 says not to install what the page does not need. |
-| Production build (`npm run build`) | pass, 7 routes |
-| Unit tests (`npm test`) | 203 pass |
-| `/` renders the landing in Arabic by default | yes, `dir="rtl"`, `lang="ar"` |
-| English version | yes, `/?lang=en`, `dir="ltr"` |
-| `/app` renders the tool formerly at `/review` | yes, upload form present |
-| `/corpus` | 200, both languages |
-| `/reports/demo` | 200, both languages |
-| `/opengraph-image` | 200, generated from the symbol |
-| Language switch on landing and in app | works both directions |
-| Logo and favicon | lockup inline in header and hero, favicon `dhabt-favicon.svg` |
-| Arabic font actually loads | verified with `document.fonts.check`: IBM Plex Sans Arabic, Sans and Mono all report loaded, not fallback |
-| 375px, no horizontal scroll | `scrollWidth` 375 equals viewport 375 |
-| Console errors | none |
-| Every call to action goes to `/app` | 3 links, zero references to `/review` remain |
-| No em dashes | none in any copy file |
-| Forbidden content (pricing, signup, testimonials, partners, usage numbers) | none present |
-
----
-
-## What changed, file by file
+## Changes, file by file
 
 | File | Change |
 | --- | --- |
-| `app/review/` → `app/app/` | Real `git mv`. The tool is at `/app`. Not duplicated, no redirect. |
-| `app/page.tsx` | Rewritten as the briefed landing: hero, 01 problem, 02 how it works, 03 what it checks, 04 why, 05 who, 06 coming soon, 07 boundaries, status, close. |
-| `app/layout.tsx` | Metadata expanded: Arabic and English descriptions, canonical, `hreflang` alternates, Open Graph, Twitter card. |
-| `app/opengraph-image.tsx` | New. Share card generated at build time from the symbol on white via `next/og`, which ships with Next. No new dependency. |
-| `app/globals.css` | Added the brief's tokens by their own names: `slate` `#5B6169`, `wash` `#F2F3F4`, `rule` `#C9CCD0`. |
-| `src/lib/i18n.ts` | Landing strings replaced with the briefed sections, Arabic and English. |
-| `src/components/Chrome.tsx` | Nav and language switch repointed to `/app`. |
-| `LANDING-NOTES.md` | This file. |
+| `design/landing.html` | Added. The designer's reference, unmodified apart from the filename. Sits outside `app/` and `public/`, so Next never serves it. Confirmed: `/design/landing.html` returns 404. |
+| `design/_ds/...` | Added. The design-system bundle that shipped with it. Reference only, not imported by the app. |
+| `app/page.tsx` | Rewritten. The full sheet layout as server components, plus local components for the title block, sheets, buttons, the report mock and the pattern elevations. |
+| `src/components/landing/HeroFigure.tsx` | New, client. The animated hero elevation. The only client component on the page. |
+| `src/components/landing/HtmlLang.tsx` | New, client. Syncs `<html lang>` and `<html dir>` with the page language. See decision 5. |
+| `src/lib/i18n.ts` | The design's copy dictionary ported into `T`. Lists (steps, findings, sources) added as `LANDING_STEPS`, `LANDING_FINDINGS`, `LANDING_SOURCES`, since `t()` returns `string`. `ARCH_STYLES` added for the 19 names. The previous landing's keys were removed after confirming none were used outside `app/page.tsx`. |
+| `app/globals.css` | Added `--color-issue` and `--color-ok`, and the `.sheet-rule` and `.sheet-wrap` utilities. |
 
-### On the colour tokens
-I added `slate`, `wash` and `rule` rather than renaming the existing ones.
-`--color-line` is `#E4E6E8` and is used across the app; redefining it to the
-brief's `#C9CCD0` would have darkened every border on `/app`, `/corpus` and the
-report. The landing uses `border-rule`, the app keeps `border-line`.
+No route changed. `/` is the landing, `/app` is the tool, `/corpus` and
+`/reports/demo` are untouched.
 
 ---
 
-## Decisions for you to review
+## The 19 architectural styles
 
-1. **The copy describes the envelope and life-safety checks, not facades.**
-   See conflict 4. The brief's facade and architectural style material is in
-   section 06 under a "قريبًا" label with an explicit line saying it is not
-   built. If you want the page to lead with the facade product, that framing
-   has to stay until the checks exist.
+The design shipped a `VERIFY NAMES` placeholder repeated nineteen times. Replaced
+with real names in `ARCH_STYLES` (`src/lib/i18n.ts`).
 
-2. **The hero says Dhabt "reads your drawings".** PDF parsing is not built.
-   I kept the line because it states the product's purpose and the "قيد
-   التطوير" block says plainly that reading and extraction are unfinished. If
-   you want the hero itself hedged, say so.
+**Source:** https://architsaudi.dasc.gov.sa
 
-3. **The drawing is an elevation with a height check, not an opening ratio.**
-   The brief asked for an opening-ratio overlay. Dhabt does not check openings,
-   so the overlay measures the height limit instead, which it does check. The
-   building is generic and is not any real building.
+**Ten were read directly off that site** and carry `verified: true`:
+مرتفعات أبها · جزر فرسان · أصدار عسير · بيشة الصحراوية · النجدية الشرقية ·
+ساحل تهامة · سفوح تهامة · ريف المدينة المنورة · ساحل تبوك · الحجازية الساحلية
 
-4. **Monochrome, per the brief.** This contradicts your feedback an hour ago.
-   See conflict 5. One line restores the accent.
+**Nine did not render on the page I fetched**, which appears to load its style
+list progressively. They are marked `verified: false` and come from corroborating
+coverage that matches the verified ten exactly:
+النجدية · النجدية الشمالية · المدينة المنورة · الطائف · جبال السروات · نجران ·
+واحات الأحساء · القطيف · الساحل الشرقي
 
-5. **The wordmark still reads "dhabt" while the domain is getdhabd.com.**
-   The lockup renders only its ink paths, so the Latin is not shown anywhere,
-   but the artwork files still spell it with a t.
+Corroborating sources:
+- https://arabic.cnn.com/style/article/2025/03/17/saudi-architcture
+- https://saudipedia.com/en/saudi-architecture-characters-map
+
+**Review this.** Nine of nineteen are not first-party verified. The
+`verified` flag is on each record so you can query it. The Arabic keeps the
+official orthography with diacritics (`عِمَارَة`).
+
+The English names are transliterations, not official. The programme publishes no
+English style names, so anything shown in the English view is our rendering.
 
 ---
 
-## Deployment
+## Decisions to review
 
-**Not deployed. Branch pushed, unmerged, per guardrail 5.**
+### 1. The design describes a product that does not exist
+The biggest one, and it is a content decision, not a technical one.
 
-Production deploys trigger on push to `main`. The Vercel project sits in the
-scope `quintes-7e00b320`, which my Vercel credentials cannot see, so I cannot
-read the preview URL, promote a deployment, or roll one back. Merging would have
-gone straight to production with no preview step I could verify, which guardrail
-5 forbids.
+The design's copy says Dhabt "reads your project elevations, identifies the
+architectural style that applies to the site, and compares the design with the
+Saudi Architecture design guidelines". The steps are style identification and
+facade measurement. The report mock shows opening ratios, parapet heights and
+colour areas.
 
-Pushing this branch should produce a preview deployment automatically. Find its
-URL in the Vercel dashboard under the branch name, or on the pull request.
+**The app does none of that.** It has no facade check, no elevation reading and
+no architectural style model. Its fourteen implemented checks are the plot
+envelope (setbacks, height, floors, coverage, parking) and life safety (stairs,
+corridors, doors, egress), from MOMAH requirements and the Saudi Building Code.
+There is also no PDF parsing yet, so nothing reads anything.
 
-### To ship it
-```bash
-git checkout main
-git merge feat/landing-page
+You said to follow the design, so I ported the copy unchanged. But this ships a
+landing page describing a product that does not exist, on a site whose entire
+argument is that a confident wrong answer is worse than no answer.
+
+The design does carry a disclaimer about affiliation, and the report mock is
+labelled "مثال توضيحي". Neither says the product is unbuilt.
+
+**I did not add a development-status note**, because that would be unfaithful to
+a design you commissioned. Decide whether you want one before this goes public.
+The previous landing had a "قيد التطوير" section for exactly this reason.
+
+### 2. Page width: the design wins, as instructed
+The design runs to 1320px. The app's `Chrome` constrains to `max-w-5xl`, 1024px.
+The landing uses a `.sheet-wrap` utility at 1320px and does not use `Chrome` at
+all, because the design replaces the header and footer with a title block. App
+pages keep their own 1024px measure.
+
+### 3. Verdict colours
+The design uses `#B4413C` for issues and `#3F7D58` for passes, lighter than the
+app's `#8C1D18` and `#1B5E44`. The design labels them "product visuals only", so
+they went in as new tokens (`--color-issue`, `--color-ok`) rather than
+redefining the app's. Two verdict palettes now exist. Worth reconciling later.
+
+### 4. Language switch: app convention wins over the design's mechanism
+The design switches language with a button that rewrites the URL via
+`history.replaceState` and re-renders in place. The app uses `?lang=` links.
+
+I kept the app's mechanism, styled to match. It is a real navigation, works with
+JavaScript disabled, and the brief said to use the app's language switching. The
+visual result is identical.
+
+### 5. `<html dir>` and the query-parameter locale
+The root layout hardcodes `lang="ar" dir="rtl"`, because a Next App Router layout
+cannot read `searchParams`. On the English page the document element therefore
+claimed Arabic and RTL, even though the visual layout was correct (the page sets
+`dir` on its own wrapper).
+
+`HtmlLang` now corrects it on mount, which is what the design's own script does.
+Verified: `/?lang=en` reports `dir="ltr"`, `lang="en"`.
+
+**The real fix is route-based locales** (`/ar`, `/en`) instead of a query
+parameter, which is a larger change than this branch should make. The app pages
+have the same behaviour and are not fixed here.
+
+### 6. Sheet-number labels
+The design hardcodes the Arabic word "المقياس" next to the scale. I left it
+hardcoded to match, so it stays Arabic in the English view. Tell me if it should
+be translated; it is a one-line change.
+
+---
+
+## Verification
+
+Run on the branch, against `next dev` and a production build.
+
+| Check | Result |
+| --- | --- |
+| Type check (`npm run typecheck`) | Pass |
+| Linter | **Not run. The project has no linter.** No `lint` script, no ESLint or Biome config. Flagged in `REPO-FACTS.md`. |
+| Production build (`npm run build`) | Pass, 8 static pages generated |
+| Unit tests (`npm test`) | Pass |
+| `/` in Arabic by default | Pass. `dir=rtl`, Arabic h1, no `lang` param needed |
+| English version | Pass. `/?lang=en` gives `dir=ltr`, `lang=en`, Latin face |
+| `/app` works | Pass, 200 in both languages |
+| `/corpus`, `/reports/demo` | Pass, 200 in both languages |
+| Language switch everywhere | Pass. Title block header and footer both carry it; all three CTAs carry `?lang=en` in the English view |
+| Logo and favicon | Favicons resolve (`dhabt-favicon.svg`, `favicon-32.png`, `apple-touch-icon-180.png`). **Note:** the design sets the brand as a text wordmark in the title block, not the logo SVG, so the mark does not appear as artwork on this page. That is the design's choice, not an omission. |
+| Arabic fonts and RTL | Pass. Computed font on the Arabic h1 includes `IBM Plex Sans Arabic`. No duplicate font loading: the page uses the app's existing Google Fonts link. |
+| 375px, no horizontal scroll | Pass. `document.body.scrollWidth === innerWidth === 375`, no element wider than the viewport |
+| Reduced motion | Pass. `HeroFigure` checks `prefers-reduced-motion` and never starts its interval, parking on the resolved state. The design's global `transition: none` rule is preserved in `globals.css`. |
+| Console errors | None |
+| Em dashes | None in `i18n.ts`, `app/page.tsx` or the landing components |
+| `design/landing.html` not served | Pass, 404 |
+
+---
+
+## What I could not do
+
+- **Linter:** none exists in this project.
+- **Preview deployment:** the Vercel project is in the scope `quintes-7e00b320`,
+  which my credentials cannot see. I cannot read a preview URL, promote, or roll
+  back from the dashboard.
+- **Production promotion:** not done, deliberately. Production deploys trigger on
+  push to `main`, and per the brief I push the branch and stop.
+
+---
+
+## Preview and production
+
+- **Preview URL:** not available to me. Pushing this branch produces one
+  automatically; find it on the branch's deployment in Vercel, or on the PR.
+- **Production reference:** unchanged. `main` is still `c5b82e1`.
+
+---
+
+## Rollback
+
+Nothing shipped, so there is nothing to roll back. If you merge this and want to
+undo it:
+
+**Fastest, no git:** Vercel dashboard, Deployments, pick the build from
+`c5b82e1`, Promote to Production.
+
+**By git:**
+
+```
+git revert -m 1 <merge-sha>
 git push origin main
 ```
 
-### To roll back
-Before merging, nothing to undo; just delete the branch.
+To discard the branch entirely without merging:
 
-After merging, either revert the merge:
-```bash
-git revert -m 1 <merge-commit-sha>
-git push origin main
 ```
-or, faster, in the Vercel dashboard open Deployments, find the last good
-production deployment (the one before this merge) and use "Promote to
-Production". That takes effect immediately and does not need a git change.
-
-**No DNS, nameserver or Namecheap setting was touched, per guardrail 1.**
+git branch -D feat/landing-redesign
+git push origin --delete feat/landing-redesign
+```

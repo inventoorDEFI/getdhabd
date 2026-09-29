@@ -106,116 +106,98 @@ export const T = {
   },
   openSource: { ar: 'افتح المصدر', en: 'Open the source' },
 
-  navHome: { ar: 'ضبط', en: 'Dhabt' },
+  // --- landing, ported from design/landing.html -----------------------------
+  // Keys and copy are the designer's. The design's own dictionary already used
+  // this { ar, en } shape, so these are a straight lift.
+  brand: { ar: 'ضبط', en: 'Dhabt' },
+  navApp: { ar: 'أداة الفحص', en: 'The tool' },
+  lblSheet: { ar: 'الورقة', en: 'Sheet' },
+  lblDate: { ar: 'التاريخ', en: 'Date' },
+  scale: { ar: 'المقياس', en: 'Scale' },
 
-  // --- landing: hero ---------------------------------------------------------
-  // Adjusted from the brief: the app checks the plot envelope and life safety,
-  // not facades or architectural style. See LANDING-NOTES.md conflict 4.
-  heroLine: {
-    ar: 'افحص تصميمك قبل التقديم، وتأكد من مطابقته للاشتراطات قبل ما يرجع لك',
-    en: 'Check your design before you submit, so it matches the requirements the first time.',
+  heroA: { ar: 'نحافظ على هوية المكان في كل ما يُبنى،', en: 'Keep the identity of place in everything that gets built.' },
+  heroB: { ar: 'ونفحص تصميمك قبل التقديم', en: 'Check your design before you submit.' },
+  heroSub: {
+    ar: 'ضبط يقرأ واجهات مشروعك، ويحدد الطراز المعماري الذي ينطبق على موقعه، ويقارن التصميم بموجهات العمارة السعودية قبل أن تقدّم على رخصة البناء.',
+    en: 'Dhabt reads your project elevations, identifies the architectural style that applies to the site, and compares the design with the Saudi Architecture design guidelines before you apply for a building permit.',
   },
-  heroSupport: {
-    ar: 'ضبط يقرأ مخططات المشروع ويطابقها مع اشتراطات البناء السكني وكود البناء السعودي، ويعطيك تقريرًا واضحًا بكل ملاحظة قبل ما ترفعها على بلدي.',
-    en: 'Dhabt reads your drawings, checks them against the residential building requirements and the Saudi Building Code, and gives you a clear report on every issue before you submit to Balady.',
-  },
-  ctaPrimary: { ar: 'ابدأ الفحص', en: 'Start a check' },
-  ctaHow: { ar: 'كيف يعمل', en: 'How it works' },
+  cta: { ar: 'ابدأ الفحص', en: 'Start a check' },
+  cta2: { ar: 'اطّلع على تقرير توضيحي', en: 'See a sample report' },
 
-  // --- problem ---------------------------------------------------------------
-  problemTitle: { ar: 'الفحص اليوم يدوي بالكامل', en: 'Checking is manual today' },
-  problemP1: {
-    ar: 'المكتب الهندسي يفتح الاشتراطات، ويقرأ البند، ويقيس على المخطط بنفسه. كل ارتداد وكل عرض درج وكل نسبة بناء تُراجع بالعين والمسطرة، على عشرات اللوحات.',
-    en: 'The engineering office opens the requirements, reads the clause, and measures against the drawing by hand. Every setback, every stair width, every coverage ratio is checked by eye across dozens of sheets.',
-  },
-  problemP2: {
-    ar: 'والأخطاء التي ترجع المعاملة غالبًا بسيطة ومتكررة: ارتداد ناقص بعشرة سنتيمترات، درج أضيق من الحد، نسبة بناء تجاوزت المسموح. أخطاء تُكتشف بالقياس لا بالخبرة، ولا أحد يملك وقتًا لقياس كل شيء مرتين.',
-    en: 'The errors that send an application back are usually small and repetitive: a setback ten centimetres short, a stair narrower than the limit, a coverage ratio over the allowance. Errors found by measuring, not by experience, and nobody has time to measure everything twice.',
-  },
-  problemP3: {
-    ar: 'وبعضها لا يظهر إلا بعد البناء، عند الفحص الميداني، حين تكون الخرسانة قد صُبّت وتكلفة التعديل صارت حقيقية.',
-    en: 'Some do not surface until after building, at site inspection, once the concrete is poured and the cost of changing it is real.',
-  },
+  figAlt: { ar: 'رسم خطي لواجهة مبنى تحت القياس، نافذة واحدة مؤشَّرة ثم معدّلة', en: 'Line drawing of a building elevation being measured, one window flagged and then corrected' },
+  figCaption: { ar: 'الشكل 1 · واجهة نموذجية تحت القياس', en: 'Fig. 1 · A generic elevation under measurement' },
+  measuring: { ar: 'جارٍ قياس الفتحات', en: 'Measuring openings' },
+  ratio: { ar: 'نسبة الفتحات', en: 'Opening ratio' },
+  limit: { ar: 'الحد', en: 'Limit' },
+  over: { ar: 'تتجاوز الحد', en: 'Exceeds the limit' },
+  within: { ar: 'ضمن الحد · قبل التعديل 42%', en: 'Within limit · was 42%' },
 
-  // --- how it works ----------------------------------------------------------
-  howTitle: { ar: 'كيف يعمل', en: 'How it works' },
-  how1T: { ar: 'ارفع المخططات', en: 'Upload the drawings' },
-  how1B: {
-    ar: 'المكتب يرفع حزمة المخططات كملف واحد، مع أبعاد الأرض والنطاق.',
-    en: 'The office uploads the drawing set as one file, with the plot dimensions and the zone.',
+  a01Name: { ar: 'المشكلة', en: 'The problem' },
+  a01Title: { ar: 'لكل منطقة عمارتها، والتصميم الجديد لازم يعرفها', en: 'Every region has its architecture. New designs need to know it.' },
+  a01p1: {
+    ar: 'في 16 مارس 2025 أُطلقت خريطة العمارة السعودية بتسعة عشر طرازًا معماريًا، كل طراز يعكس جغرافيا منطقته ومناخها وثقافتها، ولكل طراز ثلاثة أنماط: تقليدي وانتقالي ومعاصر.',
+    en: 'On 16 March 2025 the Saudi Architecture Characters Map was launched with 19 architectural styles, each reflecting the geography, climate and culture of its region, and each with three patterns: traditional, transitional and contemporary.',
   },
-  // Adjusted: there is no architectural style identification in the app.
-  how2T: { ar: 'يحدد البنود المنطبقة', en: 'It scopes the rules' },
-  how2B: {
-    ar: 'نوع المبنى والنطاق والأمانة يحددون أي البنود المحمّلة تنطبق على هذا المشروع.',
-    en: 'Building type, zone and municipality decide which of the loaded clauses apply to this project.',
+  a01p2: {
+    ar: 'الموجهات التصميمية صارت جزءًا من رحلة رخصة البناء، ويتوسع تطبيقها مدينة بعد مدينة. والأسئلة الشائعة للبرنامج نفسه تذكر أن مشاريع وصلت إلى استوديو التصميم أُعيدت لأنها لم تأخذ الموجهات في الاعتبار. ومطابقة التصميم معها اليوم تتم يدويًا.',
+    en: 'The design guidelines are now part of the building permit journey and are being applied city by city. The programme\u2019s own FAQ says projects that reached the design studio were returned because they did not take the guidelines into account. Checking a design against them today is manual.',
   },
-  how3T: { ar: 'يقيس ويطابق', en: 'It measures and compares' },
-  how3B: {
-    ar: 'يستخرج الأبعاد من اللوحات ويقارنها بالحدود في البنود، لا بما يتذكره نموذج.',
-    en: 'Dimensions are read off the sheets and compared with the limits in the clauses, not with what a model remembers.',
-  },
-  how4T: { ar: 'تقرير بالعربي', en: 'An Arabic report' },
-  how4B: {
-    ar: 'كل ملاحظة ومعها موقعها على اللوحة، ورقم البند وصفحته، وسبب الملاحظة.',
-    en: 'Every issue with its location on the sheet, the clause number and page, and the reason behind it.',
-  },
+  n1Label: { ar: 'إطلاق خريطة العمارة السعودية', en: 'Saudi Architecture Characters Map launched' },
+  n2Val: { ar: '19 طرازًا', en: '19 styles' },
+  n2Label: { ar: 'كل طراز من جغرافيا منطقته ومناخها وثقافتها', en: 'Each from the geography, climate and culture of its region' },
+  n3Val: { ar: '3 أنماط', en: '3 patterns' },
+  n3Label: { ar: 'تقليدي، انتقالي، معاصر', en: 'Traditional, transitional, contemporary' },
 
-  // --- why -------------------------------------------------------------------
-  whyTitle: { ar: 'ليش ضبط', en: 'Why Dhabt exists' },
-  whyBody: {
-    ar: 'الخبرة في الاشتراطات موجودة، لكنها محصورة في عدد محدود من المكاتب الكبيرة. ضبط ينقل هذه الخبرة إلى يد من يصمم، قبل التقديم لا بعد الرجوع. مكتب صغير في الأحساء أو أبها يحصل على نفس المراجعة التي يحصل عليها مكتب كبير في الرياض.',
-    en: 'The expertise exists, but it sits with a small number of large firms. Dhabt puts it in the hands of the people designing, before submission rather than after a return. A small office in Al-Ahsa or Abha gets the same review a large Riyadh firm gets.',
-  },
+  a02Name: { ar: 'طريقة العمل', en: 'How it works' },
+  a02Title: { ar: 'من المخطط إلى التقرير في أربع خطوات', en: 'From drawing to report in four steps' },
 
-  // --- who -------------------------------------------------------------------
-  whoTitle: { ar: 'لمن', en: 'Who it is for' },
-  who1: {
-    ar: 'المكاتب الهندسية المعتمدة في بلدي والمعماريون الذين يجهزون معاملات الرخص.',
-    en: 'Balady-approved engineering offices and architects preparing permit submissions.',
+  a03Name: { ar: 'التقرير', en: 'The report' },
+  a03Title: { ar: 'كل ملاحظة بمكانها ومرجعها وسببها', en: 'Every finding with its place, its guideline and its reason' },
+  a03Cap: { ar: 'مثال توضيحي', en: 'Illustrative example' },
+  a03Body: {
+    ar: 'التقرير لا يكتفي بمطابق أو غير مطابق. كل ملاحظة تشير إلى مكانها على الواجهة، وترتبط بالموجه الخاص بها، وتشرح السبب التراثي وراءه، عشان يكون قرار التعديل عند المهندس واضحًا.',
+    en: 'The report does not stop at pass or fail. Each finding points to its place on the elevation, links to its guideline and explains the heritage reason behind it, so the engineer can decide on the change with the full picture.',
   },
-  who2: {
-    ar: 'المطورون الذين تقع مشاريعهم تحت اشتراطات البناء السكني.',
-    en: 'Developers whose projects fall under the residential building requirements.',
-  },
+  rTitle: { ar: 'تقرير فحص الواجهات', en: 'Facade review report' },
+  rProject: { ar: 'فيلا سكنية · مشروع توضيحي', en: 'Residential villa · illustrative project' },
+  rStyleL: { ar: 'الطراز', en: 'Style' },
+  rStyleV: { ar: 'طراز الموقع', en: 'Site style' },
+  rPatL: { ar: 'النمط', en: 'Pattern' },
+  rPatV: { ar: 'انتقالي', en: 'Transitional' },
+  rElev: { ar: 'الواجهة الشمالية', en: 'North elevation' },
+  rSummary: { ar: 'ملاحظة واحدة · بندان مطابقان', en: '1 issue · 2 pass' },
+  lblLoc: { ar: 'الموقع', en: 'Location' },
+  lblRef: { ar: 'الموجه', en: 'Guideline' },
+  lblWhy: { ar: 'السبب التراثي', en: 'Heritage reason' },
 
-  // --- boundaries ------------------------------------------------------------
-  notTitle: { ar: 'ما الذي لا يفعله ضبط', en: 'What Dhabt is not' },
-  not1: {
-    ar: 'ضبط لا يصدر رخصًا، وليس تابعًا لبلدي ولا لوزارة الشؤون البلدية والإسكان ولا لمركز دعم هيئات التطوير.',
-    en: 'Dhabt does not issue permits and is not affiliated with Balady, the Ministry of Municipalities and Housing, or the Development Authorities Support Center.',
+  a04Name: { ar: 'الأنماط الثلاثة', en: 'The three patterns' },
+  a04Title: { ar: 'مبنى واحد، ثلاثة أنماط', en: 'One building, three patterns' },
+  a04Body: {
+    ar: 'كل طراز يُطبَّق بثلاثة أنماط. نفس الكتلة ونفس الموقع، والفرق في الفتحات والدروة والتفاصيل. ضبط يفحص التصميم على النمط اللي اخترته.',
+    en: 'Every style can be applied in three patterns. Same massing, same site; the difference is in the openings, the parapet and the detail. Dhabt checks the design against the pattern you chose.',
   },
-  not2: {
-    ar: 'هو أداة مساندة للقرار. القرار التصميمي النهائي والاعتماد يبقيان عند المهندس المرخص.',
-    en: 'It is a decision-support tool. The final design decision and sign-off stay with the licensed engineer.',
-  },
-  not3: {
-    ar: 'ولا يغني عن مراجعة الاستوديو التصميمي.',
-    en: 'It does not replace the design studio review.',
+  p1: { ar: 'تقليدي', en: 'Traditional' },
+  p2: { ar: 'انتقالي', en: 'Transitional' },
+  p3: { ar: 'معاصر', en: 'Contemporary' },
+  elev: { ar: 'واجهة', en: 'Elevation' },
+
+  a05Name: { ar: 'الطرز', en: 'Styles' },
+  a05Title: { ar: 'جدول الطرز المعمارية التسعة عشر', en: 'Schedule of the 19 architectural styles' },
+  colNo: { ar: 'رقم', en: 'No.' },
+  colName: { ar: 'الطراز', en: 'Style' },
+
+  a06Name: { ar: 'المراجع', en: 'Reference sources' },
+  disclaimer: {
+    ar: 'ضبط غير تابع لهذه الجهات. القرار النهائي في التصميم يبقى للمهندس المرخّص.',
+    en: 'Dhabt is not affiliated with these entities. The final design decision stays with the licensed engineer.',
   },
 
-  // --- coming soon: the design guidelines layer, explicitly not built ---------
-  soonLabel: { ar: 'قريبًا', en: 'Coming soon' },
-  soonTitle: { ar: 'موجهات العمارة السعودية', en: 'Saudi Architecture design guidelines' },
-  soonBody: {
-    ar: 'في ١٦ مارس ٢٠٢٥ أُطلقت خارطة طُرز العمارة السعودية بتسعة عشر طرازًا، لكل طراز ما يعكس جغرافية منطقته ومناخها وثقافتها، وثلاثة أنماط: تقليدي وانتقالي ومعاصر. الموجهات جزء من رحلة رخصة البناء وتُطبَّق على المدن على مراحل، وفيها قواعد قابلة للقياس مثل حدود نسبة الفتحات في الواجهة ونسب ألوان التمييز.',
-    en: 'On 16 March 2025 the Saudi Architecture Characters Map launched with nineteen styles, each reflecting the geography, climate and culture of its region, and each with three patterns: traditional, transitional and contemporary. The guidelines are part of the building permit journey and are being applied city by city in phases, and they contain measurable rules such as limits on the share of a facade given to openings and on accent colours.',
+  closeTitle: { ar: 'افحص مشروعك القادم قبل التقديم', en: 'Check your next project before you submit' },
+  closeBody: {
+    ar: 'ارفع الواجهات، واستلم تقريرًا عربيًا يبين كل ملاحظة وسببها.',
+    en: 'Upload the elevations and receive an Arabic report that shows each finding and its reason.',
   },
-  soonNote: {
-    ar: 'فحص الواجهات مقابل هذه الموجهات غير مبني بعد في ضبط. الفحوصات الحالية تغطي الارتدادات والارتفاع ونسبة البناء والمواقف والدرج والممرات والأبواب والمخارج.',
-    en: 'Checking elevations against these guidelines is not built in Dhabt yet. The current checks cover setbacks, height, coverage, parking, stairs, corridors, doors and exits.',
-  },
-
-  // --- status ----------------------------------------------------------------
-  statusTitle: { ar: 'قيد التطوير', en: 'In development' },
-  statusBody: {
-    ar: 'ضبط تحت البناء الآن. قراءة ملفات PDF واستخراج الأبعاد لم تكتمل بعد، والبنود المعروضة في التقرير التجريبي بيانات اختبار وليست بنودًا نظامية، وكل بند فيها موسوم بذلك.',
-    en: 'Dhabt is being built. PDF reading and dimension extraction are not finished, and the clauses in the sample report are test data rather than regulatory clauses, each one marked as such.',
-  },
-
-  closeTitle: { ar: 'جاهز تبدأ', en: 'Ready to start' },
-  seeSampleShort: { ar: 'شاهد تقريرًا تجريبيًا', en: 'See a sample report' },
-  copyright: { ar: '© ٢٠٢٦ ضبط', en: '© 2026 Dhabt' },
+  copy: { ar: '© 2026 ضبط', en: '© 2026 Dhabt' },
 
   langSwitch: { ar: 'English', en: 'العربية' },
 } as const
@@ -255,3 +237,100 @@ export const CHECK_NAMES: Record<string, { ar: string; en: string }> = {
 export function checkName(ruleKey: string, lang: Lang): string {
   return CHECK_NAMES[ruleKey]?.[lang] ?? ruleKey
 }
+
+
+// --- structured landing content ---------------------------------------------
+// These are lists, not strings, so they sit outside T rather than being forced
+// through t(), whose return type is string.
+
+export interface LandingStep { readonly n: string; readonly h: string; readonly p: string }
+
+export const LANDING_STEPS: Record<Lang, readonly LandingStep[]> = {
+  ar: [
+    { n: '01', h: 'ارفع المخططات', p: 'واجهات المشروع ومخططاته كما تجهّزها للتقديم.' },
+    { n: '02', h: 'تحديد الطراز', p: 'يحدد ضبط الطراز المعماري الذي ينطبق على موقع المشروع، ونمطه.' },
+    { n: '03', h: 'الفحص', p: 'يقيس الواجهة: الفتحات والدراوي ومساحات الألوان، ويقارنها بالموجهات.' },
+    { n: '04', h: 'التقرير', p: 'تقرير عربي يبين كل ملاحظة، ومكانها على المخطط، والموجه المرتبط بها، والسبب التراثي وراءها.' },
+  ],
+  en: [
+    { n: '01', h: 'Upload', p: 'The project elevations and drawings, as you prepare them for submission.' },
+    { n: '02', h: 'Style', p: 'Dhabt identifies the architectural style and pattern that apply to the site.' },
+    { n: '03', h: 'Check', p: 'It measures the facade: openings, parapets and colour areas, and compares them with the guidelines.' },
+    { n: '04', h: 'Report', p: 'An Arabic report showing each issue, where it is on the drawing, the guideline it relates to, and the heritage reason behind it.' },
+  ],
+}
+
+export interface LandingFinding {
+  readonly n: string
+  readonly tone: 'issue' | 'pass'
+  readonly status: string
+  readonly h: string
+  readonly v: string
+  readonly loc: string
+  readonly ref: string
+  readonly why: string
+}
+
+export const LANDING_FINDINGS: Record<Lang, readonly LandingFinding[]> = {
+  ar: [
+    { n: '1', tone: 'issue', status: 'غير مطابق', h: 'نسبة الفتحات في الواجهة', v: '42% / الحد 35%', loc: 'الدور الأول · المحور B', ref: 'موجهات الطراز · الفتحات', why: 'الفتحات المحدودة تخفف الحرارة وتحفظ خصوصية البيت، وهي من ملامح العمارة في المنطقة.' },
+    { n: '2', tone: 'pass', status: 'مطابق', h: 'ارتفاع الدروة', v: '1.20 م', loc: 'السطح · المحاور A إلى C', ref: 'موجهات الطراز · الدراوي', why: 'الدروة تستر السطح وترسم خط السماء الذي يميز الطراز.' },
+    { n: '3', tone: 'pass', status: 'مطابق', h: 'مساحة اللون الأساسي', v: '78%', loc: 'الواجهة كاملة', ref: 'موجهات الطراز · الألوان', why: 'الألوان الترابية مأخوذة من مواد البناء المحلية في المنطقة.' },
+  ],
+  en: [
+    { n: '1', tone: 'issue', status: 'Issue', h: 'Facade opening ratio', v: '42% / limit 35%', loc: 'First floor · grid B', ref: 'Style guidelines · Openings', why: 'Limited openings reduce heat gain and keep the home private, a defining trait of the region\u2019s architecture.' },
+    { n: '2', tone: 'pass', status: 'Pass', h: 'Parapet height', v: '1.20 m', loc: 'Roof · grids A to C', ref: 'Style guidelines · Parapets', why: 'The parapet screens the roof and draws the skyline that marks the style.' },
+    { n: '3', tone: 'pass', status: 'Pass', h: 'Primary colour area', v: '78%', loc: 'Whole elevation', ref: 'Style guidelines · Colour', why: 'Earth tones come from the local building materials of the region.' },
+  ],
+}
+
+export interface LandingSource { readonly h: string; readonly b: string }
+
+export const LANDING_SOURCES: Record<Lang, readonly LandingSource[]> = {
+  ar: [
+    { h: 'موجهات العمارة السعودية التصميمية', b: 'مركز دعم هيئات التطوير' },
+    { h: 'اشتراطات المباني السكنية', b: 'وزارة البلديات والإسكان' },
+    { h: 'كود البناء السعودي', b: 'مركز كود البناء السعودي' },
+  ],
+  en: [
+    { h: 'Saudi Architecture design guidelines', b: 'Development Authorities Support Center' },
+    { h: 'Residential Buildings Requirements', b: 'Ministry of Municipalities and Housing' },
+    { h: 'Saudi Building Code', b: 'Saudi Building Code Center' },
+  ],
+}
+
+/**
+ * The nineteen Saudi Architecture styles, replacing the design's VERIFY NAMES
+ * placeholder.
+ *
+ * Arabic is the official orthography from architsaudi.dasc.gov.sa, diacritics
+ * included. Ten were read directly off that site; the remaining nine come from
+ * corroborating coverage and are flagged in LANDING-NOTES.md as needing a second
+ * check against the site's own style pages.
+ *
+ * English is a transliteration, not an official rendering. The programme
+ * publishes no English style names, so these are marked as unofficial.
+ */
+export interface ArchStyle { readonly ar: string; readonly en: string; readonly verified: boolean }
+
+export const ARCH_STYLES: readonly ArchStyle[] = [
+  { ar: 'العِمَارَة النجدية', en: 'Najdi', verified: false },
+  { ar: 'العِمَارَة النجدية الشمالية', en: 'Northern Najdi', verified: false },
+  { ar: 'عِمَارَة ساحل تبوك', en: 'Tabuk Coast', verified: true },
+  { ar: 'عِمَارَة المدينة المنورة', en: 'Madinah', verified: false },
+  { ar: 'عِمَارَة ريف المدينة المنورة', en: 'Madinah Countryside', verified: true },
+  { ar: 'العِمَارَة الحجازية الساحلية', en: 'Hejazi Coast', verified: true },
+  { ar: 'عِمَارَة الطائف', en: 'Taif', verified: false },
+  { ar: 'عِمَارَة جبال السروات', en: 'Sarawat Mountains', verified: false },
+  { ar: 'عِمَارَة أصدار عسير', en: 'Asir Asdar', verified: true },
+  { ar: 'عِمَارَة سفوح تهامة', en: 'Tihama Foothills', verified: true },
+  { ar: 'عِمَارَة ساحل تهامة', en: 'Tihama Coast', verified: true },
+  { ar: 'عِمَارَة مرتفعات أبها', en: 'Abha Highlands', verified: true },
+  { ar: 'عِمَارَة جزر فرسان', en: 'Farasan Islands', verified: true },
+  { ar: 'عِمَارَة بيشة الصحراوية', en: 'Bisha Desert', verified: true },
+  { ar: 'عِمَارَة نجران', en: 'Najran', verified: false },
+  { ar: 'عِمَارَة واحات الأحساء', en: 'Al-Ahsa Oases', verified: false },
+  { ar: 'عِمَارَة القطيف', en: 'Qatif', verified: false },
+  { ar: 'عِمَارَة الساحل الشرقي', en: 'East Coast', verified: false },
+  { ar: 'العِمَارَة النجدية الشرقية', en: 'Eastern Najdi', verified: true },
+]

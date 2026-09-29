@@ -30,10 +30,18 @@
   --color-nc-bg: #f2f3f4;
   --color-nc-line: #d6d9dc;
 
-  /* Landing tokens, exactly as specified in the brief. */
+  /* Landing tokens, from design/landing.html. slate/wash/line are the
+     designer's names for values the app already had under other names. */
   --color-slate: #5b6169;
   --color-wash: #f2f3f4;
   --color-rule: #c9ccd0;
+
+  /* Product-visual verdict colours used inside the landing's report mock.
+     Lighter than the app's own fail/pass (#8c1d18 / #1b5e44); the design calls
+     them "product visuals only", so they are separate tokens rather than a
+     redefinition. */
+  --color-issue: #b4413c;
+  --color-ok: #3f7d58;
 
   --color-accent: #15548a;
   --color-accent-soft: #edf3f8;
@@ -133,4 +141,31 @@ body {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-accent);
+}
+
+
+/**
+ * Landing sheet ruling.
+ *
+ * From design/landing.html `.hero-grid`: four equal columns divided by hairlines
+ * at rgba(201,204,208,.09), drawn over the dark hero. Decorative.
+ */
+.sheet-rule {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  pointer-events: none;
+}
+.sheet-rule i { flex: 1; border-inline-start: 1px solid rgba(201, 204, 208, 0.09); }
+.sheet-rule i:last-child { border-inline-end: 1px solid rgba(201, 204, 208, 0.09); }
+
+/**
+ * The landing runs to 1320px, wider than the app's max-w-5xl (1024px), because
+ * the drawing-sheet layout needs the width for its two-column sheets. Scoped to
+ * the landing so app pages keep their own measure.
+ */
+.sheet-wrap {
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4vw, 56px);
 }
