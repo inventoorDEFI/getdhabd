@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ضبط | Dhabt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  /* Brand tokens */
+  --ink: #15181C;
+  --slate: #5B6169;
+  --line: #C9CCD0;
+  --wash: #F2F3F4;
+  --white: #FFFFFF;
+  --issue: #B4413C;   /* product visuals only */
+  --pass: #3F7D58;    /* product visuals only */
+
+  --font-ar: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', system-ui, sans-serif;
+  --font-la: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mo: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+
+  --pad: clamp(20px, 4vw, 56px);
+  --max: 1320px;
+  --heavy: 2px;
+  --hair: 1px;
+  --grid-dark: rgba(201, 204, 208, .09);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--white); color: var(--ink); overflow-x: hidden; }
+body { line-height: 1.75; -webkit-font-smoothing: antialiased; }
+[dir="rtl"] body { font-family: var(--font-ar); }
+[dir="ltr"] body { font-family: var(--font-la); }
+h1, h2, h3, p, figure, dl, dd, ol { margin: 0; }
+ol { list-style: none; padding: 0; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+a:hover { color: var(--slate); }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+svg { display: block; max-width: 100%; direction: ltr; }
+
+/* Figures, sheet numbers, dimensions. Leaf nodes only. */
+.mono { font-family: var(--font-mo); direction: ltr; unicode-bidi: isolate; }
+
+.wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--pad); }
+.dark { background: var(--ink); color: var(--white); }
+.dark a:hover { color: var(--line); }
+
+/* Title block: header + footer */
+.titleblock { display: flex; flex-wrap: wrap; border: var(--hair) solid var(--slate); font-size: 13px; }
+.titleblock > * { padding: 10px 18px; display: flex; align-items: center; }
+.titleblock > * + * { border-inline-start: var(--hair) solid var(--slate); }
+.tb-brand { font-weight: 700; font-size: 22px; line-height: 1; text-decoration: none; color: var(--white); }
+.tb-nav { flex: 1 1 200px; flex-wrap: wrap; gap: 4px 22px; color: var(--line); }
+.tb-nav a { text-decoration: none; white-space: nowrap; }
+.tb-cell span, .btn, .lang-btn { white-space: nowrap; }
+.tb-cell { flex-direction: column; align-items: flex-start; justify-content: center; padding-block: 6px; }
+.tb-cell small { font-size: 10px; color: var(--line); line-height: 1.4; }
+.tb-cell span { line-height: 1.4; }
+.tb-grow { flex: 1 1 180px; color: var(--line); }
+.lang-btn { background: none; border: 0; color: var(--white); cursor: pointer; font: inherit; }
+[dir="rtl"] .lang-btn { font-family: var(--font-la); }
+[dir="ltr"] .lang-btn { font-family: var(--font-ar); }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; gap: 14px; padding: 14px 26px; font-weight: 600; font-size: 16px; text-decoration: none; border-radius: 0; }
+.btn::after { content: ""; width: 28px; height: 1px; background: currentColor; }
+.btn-light { background: var(--white); color: var(--ink); }
+.btn-light:hover { background: var(--line); color: var(--ink); }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; }
+.hero-grid { position: absolute; inset: 0; display: flex; pointer-events: none; }
+.hero-grid i { flex: 1; border-inline-start: var(--hair) solid var(--grid-dark); }
+.hero-grid i:last-child { border-inline-end: var(--hair) solid var(--grid-dark); }
+.hero-inner { position: relative; padding-block: 20px var(--pad); }
+.hero-body { display: flex; flex-wrap: wrap; gap: 48px 64px; align-items: flex-end; padding-block: clamp(48px, 8vw, 104px) 8px; }
+.hero-text { flex: 1 1 360px; min-width: 0; max-width: 560px; }
+.hero-kicker { font-size: 12px; letter-spacing: .12em; color: var(--line); display: inline-block; }
+.hero-mark { font-weight: 700; font-size: clamp(88px, 14vw, 168px); line-height: 1; margin-block: 12px 36px; }
+.hero h1 { font-size: clamp(26px, 3.4vw, 40px); line-height: 1.35; font-weight: 600; text-wrap: balance; }
+.hero h1 span { font-weight: 300; }
+.hero-sub { margin-top: 24px; max-width: 46ch; color: var(--line); font-size: 17px; text-wrap: pretty; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 36px; }
+.link-quiet { color: var(--line); font-size: 15px; }
+
+.hero-fig { flex: 1.3 1 420px; min-width: 0; border: var(--hair) solid var(--slate); }
+.hero-fig-draw { position: relative; }
+.fig-caption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; border-top: var(--hair) solid var(--slate); padding: 10px 14px; font-size: 12px; color: var(--line); }
+#flag-win, #flag-dim line, #flag-leader { transition: x .9s ease, width .9s ease, stroke .5s, x1 .9s, x2 .9s; }
+#flag { transition: stroke .5s; }
+.tag { position: absolute; top: 5%; left: 61%; right: 3%; border: var(--hair) solid var(--white); background: var(--ink); padding: 8px 12px; font-size: 12px; line-height: 1.5; transition: border-color .5s; }
+.tag-row { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.tag-dot { width: 8px; height: 8px; flex: none; background: var(--white); transition: background .5s; }
+.tag-sub { color: var(--line); margin-top: 2px; }
+
+/* Sheets */
+.sheet { padding-top: clamp(72px, 10vw, 136px); }
+.sheet-head { display: flex; flex-wrap: wrap; align-items: stretch; border-top: var(--heavy) solid var(--ink); border-bottom: var(--hair) solid var(--line); }
+.sheet-no { padding: 14px 0; padding-inline-end: 24px; border-inline-end: var(--hair) solid var(--line); font-size: 28px; font-weight: 500; line-height: 1.2; }
+.sheet-name { flex: 1 1 200px; padding: 14px 24px; font-size: 13px; color: var(--slate); }
+.sheet-scale { padding: 14px 0; padding-inline-start: 24px; border-inline-start: var(--hair) solid var(--line); font-size: 12px; color: var(--slate); }
+.sheet-scale .mono { display: block; color: var(--ink); }
+.cols { display: flex; flex-wrap: wrap; gap: 48px clamp(40px, 6vw, 96px); padding-top: 48px; }
+.col-main { flex: 3 1 480px; min-width: 0; }
+.col-side { flex: 1 1 240px; min-width: 0; }
+.h2 { font-size: clamp(26px, 3.2vw, 40px); line-height: 1.35; font-weight: 600; text-wrap: balance; }
+.lead { font-size: 18px; max-width: 62ch; text-wrap: pretty; }
+.muted { color: var(--slate); }
+.body { font-size: 16px; color: var(--slate); max-width: 44ch; text-wrap: pretty; }
+
+/* A-01 notes */
+.notes { display: flex; flex-direction: column; gap: 28px; border-inline-start: var(--hair) solid var(--line); padding-inline-start: 24px; }
+.note { position: relative; }
+.note::before { content: ""; position: absolute; inset-inline-start: -29px; top: 10px; width: 9px; height: 9px; border: var(--hair) solid var(--ink); background: var(--white); border-radius: 50%; }
+.note-val { font-size: 22px; line-height: 1.3; font-weight: 600; }
+.note-val.mono { font-weight: 400; display: inline-block; }
+.note-label { font-size: 14px; color: var(--slate); }
+
+/* A-02 steps on one leader line */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); row-gap: 48px; margin-top: 56px; }
+.step { position: relative; border-top: var(--hair) solid var(--ink); padding-top: 28px; padding-inline-end: 28px; }
+.step::before { content: ""; position: absolute; top: -5px; inset-inline-start: 0; width: 9px; height: 9px; background: var(--ink); border-radius: 50%; }
+.step svg { margin-bottom: 20px; }
+.step-no { font-size: 12px; color: var(--slate); display: inline-block; }
+.step h3 { margin: 4px 0 8px; font-size: 20px; font-weight: 600; }
+.step p { color: var(--slate); font-size: 15px; max-width: 30ch; text-wrap: pretty; }
+
+/* A-03 report */
+.caption-tag { display: inline-block; border: var(--hair) solid var(--slate); color: var(--slate); padding: 0 8px; font-size: 13px; margin-bottom: 10px; }
+.report { border: var(--heavy) solid var(--ink); background: var(--white); }
+.report-head { display: flex; flex-wrap: wrap; border-bottom: var(--hair) solid var(--ink); }
+.report-title { flex: 1 1 220px; padding: 16px 20px; }
+.report-title strong { display: block; font-size: 20px; font-weight: 600; line-height: 1.4; }
+.report-title span { font-size: 14px; color: var(--slate); }
+.report-meta { display: flex; font-size: 12px; }
+.report-meta div { padding: 16px 18px; border-inline-start: var(--hair) solid var(--line); }
+.report-meta dt { color: var(--slate); }
+.report-meta dd { font-size: 14px; }
+.report-body { display: flex; flex-wrap: wrap; }
+.report-elev { flex: 1 1 220px; padding: 18px; border-inline-end: var(--hair) solid var(--line); background: var(--wash); }
+.report-elev svg { max-width: 320px; }
+.report-elev figcaption { margin-top: 10px; font-size: 12px; color: var(--slate); display: flex; justify-content: space-between; gap: 8px; }
+.findings { flex: 2 1 300px; min-width: 0; }
+.summary { padding: 12px 20px; border-bottom: var(--hair) solid var(--line); font-size: 13px; color: var(--slate); }
+.finding { display: flex; gap: 14px; padding: 18px 20px; border-bottom: var(--hair) solid var(--line); }
+.finding:last-child { border-bottom: 0; }
+.bubble { flex: none; width: 22px; height: 22px; border: var(--hair) solid var(--ink); border-radius: 50%; display: grid; place-items: center; font-size: 11px; line-height: 1; }
+.finding-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
+.status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; }
+.status::before { content: ""; width: 8px; height: 8px; background: currentColor; }
+.status.is-issue { color: var(--issue); }
+.status.is-pass { color: var(--pass); }
+.finding-h { font-weight: 600; font-size: 16px; }
+.finding-v { font-family: var(--font-mo); font-size: 13px; unicode-bidi: isolate; }
+.finding dl { margin-top: 8px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 14px; font-size: 13px; }
+.finding dt { color: var(--slate); }
+.finding dd { text-wrap: pretty; }
+
+/* A-04 patterns */
+.patterns { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 48px 0; margin-top: 56px; border-bottom: var(--hair) solid var(--line); }
+.pattern { padding: 0 16px 28px; border-inline-start: var(--hair) solid var(--line); }
+.pattern:last-child { border-inline-end: var(--hair) solid var(--line); }
+.elev-label { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+.elev-label .ring { flex: none; width: 30px; height: 30px; border: var(--hair) solid var(--ink); border-radius: 50%; display: grid; place-items: center; font-size: 13px; line-height: 1; }
+.elev-label strong { flex: 1; border-bottom: var(--heavy) solid var(--ink); padding-bottom: 2px; font-weight: 600; font-size: 17px; }
+.elev-label .mono { font-size: 12px; color: var(--slate); }
+
+/* A-05 schedule */
+.small-no { font-size: 12px; color: var(--slate); display: inline-block; }
+.h3 { margin-top: 6px; font-size: 22px; line-height: 1.45; font-weight: 600; max-width: 18ch; }
+.verify { display: inline-block; margin-top: 14px; border: var(--hair) solid var(--issue); color: var(--issue); font-size: 12px; padding: 2px 8px; }
+.schedule { flex: 2.5 1 480px; min-width: 0; border-top: var(--heavy) solid var(--ink); }
+.schedule-head { display: flex; gap: 16px; padding: 8px 0; border-bottom: var(--hair) solid var(--ink); font-size: 12px; color: var(--slate); }
+.schedule-head span:first-child, .schedule li .mono { width: 40px; flex: none; }
+.schedule ol { columns: 2 240px; column-gap: 40px; }
+.schedule li { break-inside: avoid; display: flex; gap: 16px; padding: 9px 0; border-bottom: var(--hair) solid var(--line); font-size: 14px; }
+.schedule li .mono { color: var(--slate); text-align: start; }
+.schedule li .ph { font-family: var(--font-mo); font-size: 12px; color: var(--slate); letter-spacing: .04em; }
+
+/* A-06 sources */
+.sources { border-top: var(--heavy) solid var(--ink); }
+.sources li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 24px; padding: 14px 0; border-bottom: var(--hair) solid var(--line); }
+.sources strong { font-weight: 500; font-size: 16px; }
+.sources span { font-size: 14px; color: var(--slate); }
+
+/* Close */
+.close-inner { padding-block: clamp(72px, 10vw, 128px) 24px; }
+.close-body { display: flex; flex-wrap: wrap; gap: 32px 64px; align-items: flex-end; justify-content: space-between; padding-bottom: clamp(64px, 9vw, 112px); }
+.close-body h2 { font-size: clamp(30px, 4.4vw, 56px); line-height: 1.25; font-weight: 600; max-width: 18ch; text-wrap: balance; }
+.close-body p { margin-top: 20px; color: var(--line); font-size: 17px; max-width: 44ch; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<section class="dark hero" data-screen-label="Hero">
+  <div class="hero-grid" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap hero-inner">
+    <header class="titleblock">
+      <a class="tb-brand" href="/" data-href="/" data-t="brand">ضبط</a>
+      <nav class="tb-nav">
+        <a href="/app" data-href="/app" data-t="navApp">أداة الفحص</a>
+        <a href="/reports/demo" data-href="/reports/demo" data-t="navReport">تقرير توضيحي</a>
+      </nav>
+      <div class="tb-cell"><small data-t="lblSheet">الورقة</small><span class="mono">A-00</span></div>
+      <button type="button" class="lang-btn" data-t="langOther">English</button>
+    </header>
+
+    <div class="hero-body">
+      <div class="hero-text">
+        <span class="mono hero-kicker">A-00 · 1:1</span>
+        <div class="hero-mark" data-t="brand">ضبط</div>
+        <h1><span data-t="heroA" style="font-weight:600">نحافظ على هوية المكان في كل ما يُبنى،</span> <span data-t="heroB">ونفحص تصميمك قبل التقديم</span></h1>
+        <p class="hero-sub" data-t="heroSub"></p>
+        <div class="actions">
+          <a class="btn btn-light" href="/app" data-href="/app" data-t="cta">ابدأ الفحص</a>
+          <a class="link-quiet" href="/reports/demo" data-href="/reports/demo" data-t="cta2"></a>
+        </div>
+      </div>
+
+      <figure class="hero-fig">
+        <div class="hero-fig-draw">
+          <svg viewBox="0 0 560 440" width="100%" role="img" data-t-aria="figAlt" fill="none" stroke-linecap="square">
+            <g stroke="#5B6169" stroke-width="1" stroke-dasharray="2 5">
+              <line x1="90" y1="34" x2="90" y2="428"/><line x1="280" y1="34" x2="280" y2="428"/><line x1="470" y1="34" x2="470" y2="428"/>
+              <line x1="30" y1="250" x2="530" y2="250"/><line x1="30" y1="390" x2="530" y2="390"/>
+            </g>
+            <g stroke="#5B6169" fill="#15181C"><circle cx="90" cy="22" r="11"/><circle cx="280" cy="22" r="11"/><circle cx="470" cy="22" r="11"/><circle cx="18" cy="250" r="11"/><circle cx="18" cy="390" r="11"/></g>
+            <g fill="#C9CCD0" font-family="IBM Plex Mono, monospace" font-size="11" text-anchor="middle"><text x="90" y="26">A</text><text x="280" y="26">B</text><text x="470" y="26">C</text><text x="18" y="254">2</text><text x="18" y="394">1</text></g>
+            <g stroke="#FFFFFF">
+              <line x1="40" y1="390" x2="520" y2="390" stroke-width="2.5"/>
+              <rect x="90" y="80" width="380" height="310" stroke-width="2"/>
+              <line x1="90" y1="110" x2="470" y2="110" stroke-width="1"/>
+              <line x1="90" y1="250" x2="470" y2="250" stroke-width="1"/>
+              <g stroke-width="1.25">
+                <rect x="130" y="150" width="50" height="62"/><rect x="380" y="150" width="50" height="62"/>
+                <rect x="130" y="296" width="50" height="54"/><rect x="380" y="296" width="50" height="54"/>
+                <rect x="254" y="300" width="52" height="90"/><line x1="280" y1="300" x2="280" y2="390"/>
+              </g>
+            </g>
+            <g id="flag" stroke="#FFFFFF">
+              <rect id="flag-win" x="226" y="146" width="108" height="72" stroke-width="2.5"/>
+              <line x1="280" y1="146" x2="280" y2="218" stroke-width="1"/>
+              <g id="flag-dim" stroke-width="1">
+                <line id="d-main" x1="226" y1="130" x2="334" y2="130"/>
+                <line id="d-a" x1="226" y1="124" x2="226" y2="138"/>
+                <line id="d-b" x1="334" y1="124" x2="334" y2="138"/>
+                <polyline id="flag-leader" points="334,146 354,118 342,52"/>
+              </g>
+            </g>
+            <g stroke="#C9CCD0" stroke-width="1">
+              <line x1="505" y1="80" x2="505" y2="110"/><line x1="499" y1="80" x2="511" y2="80"/><line x1="499" y1="110" x2="511" y2="110"/>
+              <line x1="90" y1="416" x2="470" y2="416"/><line x1="90" y1="410" x2="90" y2="422"/><line x1="470" y1="410" x2="470" y2="422"/>
+            </g>
+            <g fill="#C9CCD0" font-family="IBM Plex Mono, monospace" font-size="11"><text x="515" y="99">1.20</text><text x="280" y="436" text-anchor="middle">14.40</text></g>
+          </svg>
+          <div class="tag" id="tag" aria-live="polite">
+            <div class="tag-row"><span class="tag-dot" id="tag-dot" aria-hidden="true"></span><span id="tag-main"></span></div>
+            <div class="tag-sub" id="tag-sub"></div>
+          </div>
+        </div>
+        <figcaption class="fig-caption"><span data-t="figCaption"></span><span class="mono">FIG. 01 · 1:100</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<main>
+<section class="wrap sheet" data-screen-label="A-01 Problem">
+  <div class="sheet-head">
+    <div class="sheet-no mono">A-01</div>
+    <div class="sheet-name" data-t="a01Name">المشكلة</div>
+    <div class="sheet-scale"><span data-t="scale">المقياس</span><span class="mono">NTS</span></div>
+  </div>
+  <div class="cols">
+    <div class="col-main">
+      <h2 class="h2" style="max-width:22ch;margin-bottom:32px" data-t="a01Title"></h2>
+      <p class="lead" style="margin-bottom:20px" data-t="a01p1"></p>
+      <p class="lead muted" data-t="a01p2"></p>
+    </div>
+    <aside class="col-side notes">
+      <div class="note"><div class="note-val mono">16.03.2025</div><div class="note-label" data-t="n1Label"></div></div>
+      <div class="note"><div class="note-val" data-t="n2Val"></div><div class="note-label" data-t="n2Label"></div></div>
+      <div class="note"><div class="note-val" data-t="n3Val"></div><div class="note-label" data-t="n3Label"></div></div>
+    </aside>
+  </div>
+</section>
+
+<section class="wrap sheet" data-screen-label="A-02 How it works">
+  <div class="sheet-head">
+    <div class="sheet-no mono">A-02</div>
+    <div class="sheet-name" data-t="a02Name"></div>
+    <div class="sheet-scale"><span data-t="scale">المقياس</span><span class="mono">NTS</span></div>
+  </div>
+  <h2 class="h2" style="max-width:24ch;margin-top:48px" data-t="a02Title"></h2>
+  <ol class="steps">
+    <li class="step">
+      <svg viewBox="0 0 160 110" width="160" height="110" fill="none" stroke="#15181C" aria-hidden="true">
+        <path d="M30 8 H112 L130 26 V104 H30 Z" stroke-width="1.5"/><path d="M112 8 V26 H130" stroke-width="1"/>
+        <rect x="46" y="44" width="68" height="44" stroke-width="1"/><line x1="46" y1="56" x2="114" y2="56" stroke-width="0.75"/>
+        <rect x="56" y="64" width="12" height="14" stroke-width="0.75"/><rect x="92" y="64" width="12" height="14" stroke-width="0.75"/>
+        <line x1="46" y1="96" x2="84" y2="96" stroke="#5B6169" stroke-width="0.75"/>
+      </svg>
+      <span class="step-no mono">01</span><h3 data-t="steps.0.h"></h3><p data-t="steps.0.p"></p>
+    </li>
+    <li class="step">
+      <svg viewBox="0 0 160 110" width="160" height="110" fill="none" stroke="#15181C" aria-hidden="true">
+        <path d="M20 40 l8 -10 l8 10 l8 -10 l8 10 l8 -10 l8 10 l8 -10 l8 10 l8 -10 l8 10" stroke-width="1"/>
+        <rect x="20" y="40" width="80" height="62" stroke-width="1.5"/>
+        <rect x="34" y="56" width="10" height="12" stroke-width="0.75"/><rect x="76" y="56" width="10" height="12" stroke-width="0.75"/><rect x="52" y="78" width="16" height="24" stroke-width="0.75"/>
+        <line x1="96" y1="44" x2="128" y2="22" stroke-width="0.75"/><circle cx="138" cy="16" r="11" stroke-width="1"/>
+        <line x1="10" y1="102" x2="150" y2="102" stroke-width="2"/>
+      </svg>
+      <span class="step-no mono">02</span><h3 data-t="steps.1.h"></h3><p data-t="steps.1.p"></p>
+    </li>
+    <li class="step">
+      <svg viewBox="0 0 160 110" width="160" height="110" fill="none" stroke="#15181C" aria-hidden="true">
+        <rect x="46" y="34" width="56" height="62" stroke-width="2"/><line x1="74" y1="34" x2="74" y2="96" stroke-width="0.75"/>
+        <line x1="46" y1="18" x2="102" y2="18" stroke-width="0.75"/><line x1="46" y1="12" x2="46" y2="24" stroke-width="0.75"/><line x1="102" y1="12" x2="102" y2="24" stroke-width="0.75"/>
+        <line x1="120" y1="34" x2="120" y2="96" stroke-width="0.75"/><line x1="114" y1="34" x2="126" y2="34" stroke-width="0.75"/><line x1="114" y1="96" x2="126" y2="96" stroke-width="0.75"/>
+        <line x1="20" y1="34" x2="20" y2="96" stroke="#5B6169" stroke-width="0.75" stroke-dasharray="2 3"/>
+      </svg>
+      <span class="step-no mono">03</span><h3 data-t="steps.2.h"></h3><p data-t="steps.2.p"></p>
+    </li>
+    <li class="step">
+      <svg viewBox="0 0 160 110" width="160" height="110" fill="none" stroke="#15181C" aria-hidden="true">
+        <rect x="36" y="6" width="88" height="100" stroke-width="1.5"/><line x1="48" y1="22" x2="100" y2="22" stroke-width="2"/>
+        <rect x="48" y="40" width="7" height="7" stroke-width="1"/><line x1="62" y1="44" x2="112" y2="44" stroke-width="0.75"/>
+        <rect x="48" y="60" width="7" height="7" stroke-width="1"/><line x1="62" y1="64" x2="104" y2="64" stroke-width="0.75"/>
+        <rect x="48" y="80" width="7" height="7" stroke-width="1"/><line x1="62" y1="84" x2="108" y2="84" stroke-width="0.75"/>
+      </svg>
+      <span class="step-no mono">04</span><h3 data-t="steps.3.h"></h3><p data-t="steps.3.p"></p>
+    </li>
+  </ol>
+</section>
+
+<section class="wrap sheet" data-screen-label="A-03 Report">
+  <div class="sheet-head">
+    <div class="sheet-no mono">A-03</div>
+    <div class="sheet-name" data-t="a03Name"></div>
+    <div class="sheet-scale"><span data-t="scale">المقياس</span><span class="mono">1:1</span></div>
+  </div>
+  <div class="cols">
+    <aside class="col-side" style="flex-basis:260px">
+      <h2 class="h2" style="margin-bottom:24px" data-t="a03Title"></h2>
+      <p class="body" data-t="a03Body"></p>
+    </aside>
+    <div class="col-main" style="flex-grow:2.2;flex-basis:520px">
+      <span class="caption-tag" data-t="a03Cap">مثال توضيحي</span>
+      <article class="report">
+        <header class="report-head">
+          <div class="report-title"><strong data-t="rTitle"></strong><span data-t="rProject"></span></div>
+          <dl class="report-meta">
+            <div><dt data-t="rStyleL"></dt><dd data-t="rStyleV"></dd></div>
+            <div><dt data-t="rPatL"></dt><dd data-t="rPatV"></dd></div>
+          </dl>
+        </header>
+        <div class="report-body">
+          <figure class="report-elev">
+            <svg viewBox="0 0 240 200" width="100%" fill="none" aria-hidden="true">
+              <g stroke="#C9CCD0" stroke-dasharray="2 4"><line x1="30" y1="10" x2="30" y2="190"/><line x1="120" y1="10" x2="120" y2="190"/><line x1="210" y1="10" x2="210" y2="190"/></g>
+              <g stroke="#15181C">
+                <line x1="10" y1="170" x2="230" y2="170" stroke-width="2"/>
+                <rect x="30" y="40" width="180" height="130" stroke-width="1.5"/>
+                <line x1="30" y1="56" x2="210" y2="56" stroke-width="0.75"/><line x1="30" y1="108" x2="210" y2="108" stroke-width="0.75"/>
+                <g stroke-width="0.9"><rect x="48" y="70" width="22" height="26"/><rect x="170" y="70" width="22" height="26"/><rect x="48" y="126" width="22" height="24"/><rect x="170" y="126" width="22" height="24"/><rect x="108" y="128" width="24" height="42"/></g>
+              </g>
+              <rect x="94" y="68" width="52" height="30" stroke="#B4413C" stroke-width="2"/>
+              <g stroke="#5B6169" stroke-width="0.75"><line x1="146" y1="68" x2="160" y2="24"/><line x1="210" y1="48" x2="222" y2="24"/><line x1="60" y1="150" x2="48" y2="186"/></g>
+              <g stroke="#15181C" fill="#FFFFFF"><circle cx="160" cy="18" r="8"/><circle cx="222" cy="18" r="8"/><circle cx="42" cy="190" r="8"/></g>
+              <g fill="#15181C" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle"><text x="160" y="21">1</text><text x="222" y="21">2</text><text x="42" y="193">3</text></g>
+            </svg>
+            <figcaption><span data-t="rElev"></span><span class="mono">1:200</span></figcaption>
+          </figure>
+          <div class="findings">
+            <div class="summary" data-t="rSummary"></div>
+            <ol>
+              <li class="finding">
+                <span class="bubble mono">1</span>
+                <div>
+                  <div class="finding-top"><span class="status is-issue" data-t="findings.0.status"></span><span class="finding-h" data-t="findings.0.h"></span><span class="finding-v" data-t="findings.0.v"></span></div>
+                  <dl><dt data-t="lblLoc"></dt><dd data-t="findings.0.loc"></dd><dt data-t="lblRef"></dt><dd data-t="findings.0.ref"></dd><dt data-t="lblWhy"></dt><dd data-t="findings.0.why"></dd></dl>
+                </div>
+              </li>
+              <li class="finding">
+                <span class="bubble mono">2</span>
+                <div>
+                  <div class="finding-top"><span class="status is-pass" data-t="findings.1.status"></span><span class="finding-h" data-t="findings.1.h"></span><span class="finding-v" data-t="findings.1.v"></span></div>
+                  <dl><dt data-t="lblLoc"></dt><dd data-t="findings.1.loc"></dd><dt data-t="lblRef"></dt><dd data-t="findings.1.ref"></dd><dt data-t="lblWhy"></dt><dd data-t="findings.1.why"></dd></dl>
+                </div>
+              </li>
+              <li class="finding">
+                <span class="bubble mono">3</span>
+                <div>
+                  <div class="finding-top"><span class="status is-pass" data-t="findings.2.status"></span><span class="finding-h" data-t="findings.2.h"></span><span class="finding-v" data-t="findings.2.v"></span></div>
+                  <dl><dt data-t="lblLoc"></dt><dd data-t="findings.2.loc"></dd><dt data-t="lblRef"></dt><dd data-t="findings.2.ref"></dd><dt data-t="lblWhy"></dt><dd data-t="findings.2.why"></dd></dl>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="wrap sheet" data-screen-label="A-04 Patterns">
+  <div class="sheet-head">
+    <div class="sheet-no mono">A-04</div>
+    <div class="sheet-name" data-t="a04Name"></div>
+    <div class="sheet-scale"><span data-t="scale">المقياس</span><span class="mono">1:200</span></div>
+  </div>
+  <div class="cols" style="gap:24px clamp(40px,6vw,96px);align-items:flex-end">
+    <h2 class="h2" style="flex:1 1 320px" data-t="a04Title"></h2>
+    <p class="body" style="flex:1.4 1 360px;max-width:52ch" data-t="a04Body"></p>
+  </div>
+  <div class="patterns">
+    <figure class="pattern">
+      <svg viewBox="0 0 240 200" width="100%" fill="none" stroke="#15181C" aria-hidden="true">
+        <line x1="4" y1="180" x2="236" y2="180" stroke-width="2.5"/>
+        <path d="M30 56 l10 -12 l10 12 l10 -12 l10 12 l10 -12 l10 12 l10 -12 l10 12 l10 -12 l10 12 l10 -12 l10 12 l10 -12 l10 12 l10 -12 l10 12 l10 -12 l10 12" stroke-width="1"/>
+        <rect x="30" y="56" width="180" height="124" stroke-width="2"/>
+        <line x1="30" y1="66" x2="210" y2="66" stroke-width="0.75"/><line x1="30" y1="118" x2="210" y2="118" stroke-width="0.75"/>
+        <g stroke-width="1"><rect x="52" y="84" width="14" height="16"/><rect x="90" y="84" width="14" height="16"/><rect x="136" y="84" width="14" height="16"/><rect x="174" y="84" width="14" height="16"/>
+        <rect x="52" y="138" width="14" height="16"/><rect x="174" y="138" width="14" height="16"/><path d="M108 180 V144 a12 12 0 0 1 24 0 V180"/></g>
+        <g stroke-width="0.75"><path d="M84 72 l4 -4 l4 4 z"/><path d="M116 72 l4 -4 l4 4 z"/><path d="M148 72 l4 -4 l4 4 z"/></g>
+      </svg>
+      <figcaption class="elev-label"><span class="ring mono">1</span><strong><span data-t="elev"></span> · <span data-t="p1"></span></strong><span class="mono">1:200</span></figcaption>
+    </figure>
+    <figure class="pattern">
+      <svg viewBox="0 0 240 200" width="100%" fill="none" stroke="#15181C" aria-hidden="true">
+        <line x1="4" y1="180" x2="236" y2="180" stroke-width="2.5"/>
+        <path d="M30 56 V44 H90 V38 H150 V44 H210 V56" stroke-width="1"/>
+        <rect x="30" y="56" width="180" height="124" stroke-width="2"/>
+        <line x1="30" y1="64" x2="210" y2="64" stroke-width="0.75"/><line x1="30" y1="118" x2="210" y2="118" stroke-width="0.75"/>
+        <g stroke-width="1"><rect x="48" y="80" width="26" height="30"/><rect x="107" y="80" width="26" height="30"/><rect x="166" y="80" width="26" height="30"/>
+        <rect x="48" y="134" width="26" height="28"/><rect x="166" y="134" width="26" height="28"/><rect x="106" y="132" width="28" height="48"/></g>
+        <g stroke-width="0.75"><line x1="44" y1="76" x2="78" y2="76"/><line x1="103" y1="76" x2="137" y2="76"/><line x1="162" y1="76" x2="196" y2="76"/></g>
+      </svg>
+      <figcaption class="elev-label"><span class="ring mono">2</span><strong><span data-t="elev"></span> · <span data-t="p2"></span></strong><span class="mono">1:200</span></figcaption>
+    </figure>
+    <figure class="pattern">
+      <svg viewBox="0 0 240 200" width="100%" fill="none" stroke="#15181C" aria-hidden="true">
+        <line x1="4" y1="180" x2="236" y2="180" stroke-width="2.5"/>
+        <rect x="30" y="48" width="180" height="132" stroke-width="2"/>
+        <line x1="30" y1="58" x2="210" y2="58" stroke-width="0.75"/>
+        <g stroke-width="1"><rect x="48" y="76" width="22" height="92"/><rect x="54" y="82" width="10" height="80" stroke-width="0.6"/>
+        <rect x="92" y="80" width="100" height="18"/><line x1="84" y1="118" x2="210" y2="118"/><rect x="92" y="130" width="40" height="50"/><rect x="152" y="130" width="40" height="30"/></g>
+        <line x1="84" y1="126" x2="140" y2="126" stroke-width="2"/>
+      </svg>
+      <figcaption class="elev-label"><span class="ring mono">3</span><strong><span data-t="elev"></span> · <span data-t="p3"></span></strong><span class="mono">1:200</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="wrap sheet" data-screen-label="A-05 Styles">
+  <div class="cols" style="padding-top:0;gap:40px clamp(40px,6vw,96px)">
+    <div class="col-side" style="flex-basis:260px">
+      <span class="small-no mono">A-05</span>
+      <h2 class="h3" data-t="a05Title"></h2>
+      <span class="verify mono">VERIFY NAMES</span>
+    </div>
+    <div class="schedule">
+      <div class="schedule-head"><span data-t="colNo"></span><span data-t="colName"></span></div>
+      <!-- Replace each VERIFY NAMES with a verified style name. -->
+      <ol id="styles"></ol>
+    </div>
+  </div>
+</section>
+
+<section class="wrap sheet" style="padding-bottom:clamp(72px,10vw,136px)" data-screen-label="A-06 References">
+  <div class="cols" style="padding-top:0;gap:40px clamp(40px,6vw,96px)">
+    <div class="col-side" style="flex-basis:260px">
+      <span class="small-no mono">A-06</span>
+      <h2 class="h3" data-t="a06Name"></h2>
+    </div>
+    <div class="schedule" style="border-top:0">
+      <ol class="sources">
+        <li><strong data-t="sources.0.h"></strong><span data-t="sources.0.b"></span></li>
+        <li><strong data-t="sources.1.h"></strong><span data-t="sources.1.b"></span></li>
+        <li><strong data-t="sources.2.h"></strong><span data-t="sources.2.b"></span></li>
+      </ol>
+      <p class="muted" style="margin-top:20px;font-size:14px;max-width:60ch" data-t="disclaimer"></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<section class="dark" data-screen-label="Close">
+  <div class="wrap close-inner">
+    <div class="close-body">
+      <div style="flex:1 1 360px;min-width:0">
+        <h2 data-t="closeTitle"></h2>
+        <p data-t="closeBody"></p>
+      </div>
+      <a class="btn btn-light" href="/app" data-href="/app" data-t="cta">ابدأ الفحص</a>
+    </div>
+    <footer class="titleblock">
+      <a class="tb-brand" href="/" data-href="/" data-t="brand" style="font-size:24px">ضبط</a>
+      <div class="tb-grow" data-t="copy">© 2026 ضبط</div>
+      <div class="tb-cell"><small data-t="lblSheet"></small><span class="mono">A-07</span></div>
+      <div class="tb-cell"><small data-t="lblDate"></small><span class="mono">2026</span></div>
+      <button type="button" class="lang-btn" data-t="langOther">English</button>
+    </footer>
+  </div>
+</section>
+
+<script>
+(function () {
+  'use strict';
+  /* Copy dictionary. Shape matches T in src/lib/i18n.ts: key: { ar, en }. */
+  var D = {
+    brand: { ar: 'ضبط', en: 'Dhabt' },
+    langOther: { ar: 'English', en: 'العربية' },
+    navApp: { ar: 'أداة الفحص', en: 'The tool' },
+    navReport: { ar: 'تقرير توضيحي', en: 'Sample report' },
+    lblSheet: { ar: 'الورقة', en: 'Sheet' },
+    heroA: { ar: 'نحافظ على هوية المكان في كل ما يُبنى،', en: 'Keep the identity of place in everything that gets built.' },
+    heroB: { ar: 'ونفحص تصميمك قبل التقديم', en: 'Check your design before you submit.' },
+    heroSub: {
+      ar: 'ضبط يقرأ واجهات مشروعك، ويحدد الطراز المعماري الذي ينطبق على موقعه، ويقارن التصميم بموجهات العمارة السعودية قبل أن تقدّم على رخصة البناء.',
+      en: 'Dhabt reads your project elevations, identifies the architectural style that applies to the site, and compares the design with the Saudi Architecture design guidelines before you apply for a building permit.'
+    },
+    cta: { ar: 'ابدأ الفحص', en: 'Start a check' },
+    cta2: { ar: 'اطّلع على تقرير توضيحي', en: 'See a sample report' },
+    figAlt: { ar: 'رسم خطي لواجهة مبنى تحت القياس، نافذة واحدة مؤشَّرة ثم معدّلة', en: 'Line drawing of a building elevation being measured, one window flagged and then corrected' },
+    figCaption: { ar: 'الشكل 1 · واجهة نموذجية تحت القياس', en: 'Fig. 1 · A generic elevation under measurement' },
+    measuring: { ar: 'جارٍ قياس الفتحات', en: 'Measuring openings' },
+    ratio: { ar: 'نسبة الفتحات', en: 'Opening ratio' },
+    limit: { ar: 'الحد', en: 'Limit' },
+    over: { ar: 'تتجاوز الحد', en: 'Exceeds the limit' },
+    within: { ar: 'ضمن الحد · قبل التعديل 42%', en: 'Within limit · was 42%' },
+    scale: { ar: 'المقياس', en: 'Scale' },
+    a01Name: { ar: 'المشكلة', en: 'The problem' },
+    a01Title: { ar: 'لكل منطقة عمارتها، والتصميم الجديد لازم يعرفها', en: 'Every region has its architecture. New designs need to know it.' },
+    a01p1: {
+      ar: 'في 16 مارس 2025 أُطلقت خريطة العمارة السعودية بتسعة عشر طرازًا معماريًا، كل طراز يعكس جغرافيا منطقته ومناخها وثقافتها، ولكل طراز ثلاثة أنماط: تقليدي وانتقالي ومعاصر.',
+      en: 'On 16 March 2025 the Saudi Architecture Characters Map was launched with 19 architectural styles, each reflecting the geography, climate and culture of its region, and each with three patterns: traditional, transitional and contemporary.'
+    },
+    a01p2: {
+      ar: 'الموجهات التصميمية صارت جزءًا من رحلة رخصة البناء، ويتوسع تطبيقها مدينة بعد مدينة. والأسئلة الشائعة للبرنامج نفسه تذكر أن مشاريع وصلت إلى استوديو التصميم أُعيدت لأنها لم تأخذ الموجهات في الاعتبار. ومطابقة التصميم معها اليوم تتم يدويًا.',
+      en: 'The design guidelines are now part of the building permit journey and are being applied city by city. The programme\u2019s own FAQ says projects that reached the design studio were returned because they did not take the guidelines into account. Checking a design against them today is manual.'
+    },
+    n1Label: { ar: 'إطلاق خريطة العمارة السعودية', en: 'Saudi Architecture Characters Map launched' },
+    n2Val: { ar: '19 طرازًا', en: '19 styles' },
+    n2Label: { ar: 'كل طراز من جغرافيا منطقته ومناخها وثقافتها', en: 'Each from the geography, climate and culture of its region' },
+    n3Val: { ar: '3 أنماط', en: '3 patterns' },
+    n3Label: { ar: 'تقليدي، انتقالي، معاصر', en: 'Traditional, transitional, contemporary' },
+    a02Name: { ar: 'طريقة العمل', en: 'How it works' },
+    a02Title: { ar: 'من المخطط إلى التقرير في أربع خطوات', en: 'From drawing to report in four steps' },
+    a03Name: { ar: 'التقرير', en: 'The report' },
+    a03Title: { ar: 'كل ملاحظة بمكانها ومرجعها وسببها', en: 'Every finding with its place, its guideline and its reason' },
+    a03Cap: { ar: 'مثال توضيحي', en: 'Illustrative example' },
+    a03Body: {
+      ar: 'التقرير لا يكتفي بمطابق أو غير مطابق. كل ملاحظة تشير إلى مكانها على الواجهة، وترتبط بالموجه الخاص بها، وتشرح السبب التراثي وراءه، عشان يكون قرار التعديل عند المهندس واضحًا.',
+      en: 'The report does not stop at pass or fail. Each finding points to its place on the elevation, links to its guideline and explains the heritage reason behind it, so the engineer can decide on the change with the full picture.'
+    },
+    rTitle: { ar: 'تقرير فحص الواجهات', en: 'Facade review report' },
+    rProject: { ar: 'فيلا سكنية · مشروع توضيحي', en: 'Residential villa · illustrative project' },
+    rStyleL: { ar: 'الطراز', en: 'Style' },
+    rStyleV: { ar: 'طراز الموقع', en: 'Site style' },
+    rPatL: { ar: 'النمط', en: 'Pattern' },
+    rPatV: { ar: 'انتقالي', en: 'Transitional' },
+    rElev: { ar: 'الواجهة الشمالية', en: 'North elevation' },
+    rSummary: { ar: 'ملاحظة واحدة · بندان مطابقان', en: '1 issue · 2 pass' },
+    lblLoc: { ar: 'الموقع', en: 'Location' },
+    lblRef: { ar: 'الموجه', en: 'Guideline' },
+    lblWhy: { ar: 'السبب التراثي', en: 'Heritage reason' },
+    findings: {
+      ar: [
+        { n: '1', color: '#B4413C', status: 'غير مطابق', h: 'نسبة الفتحات في الواجهة', v: '42% / الحد 35%', loc: 'الدور الأول · المحور B', ref: 'موجهات الطراز · الفتحات', why: 'الفتحات المحدودة تخفف الحرارة وتحفظ خصوصية البيت، وهي من ملامح العمارة في المنطقة.' },
+        { n: '2', color: '#3F7D58', status: 'مطابق', h: 'ارتفاع الدروة', v: '1.20 م', loc: 'السطح · المحاور A إلى C', ref: 'موجهات الطراز · الدراوي', why: 'الدروة تستر السطح وترسم خط السماء الذي يميز الطراز.' },
+        { n: '3', color: '#3F7D58', status: 'مطابق', h: 'مساحة اللون الأساسي', v: '78%', loc: 'الواجهة كاملة', ref: 'موجهات الطراز · الألوان', why: 'الألوان الترابية مأخوذة من مواد البناء المحلية في المنطقة.' }
+      ],
+      en: [
+        { n: '1', color: '#B4413C', status: 'Issue', h: 'Facade opening ratio', v: '42% / limit 35%', loc: 'First floor · grid B', ref: 'Style guidelines · Openings', why: 'Limited openings reduce heat gain and keep the home private, a defining trait of the region\u2019s architecture.' },
+        { n: '2', color: '#3F7D58', status: 'Pass', h: 'Parapet height', v: '1.20 m', loc: 'Roof · grids A to C', ref: 'Style guidelines · Parapets', why: 'The parapet screens the roof and draws the skyline that marks the style.' },
+        { n: '3', color: '#3F7D58', status: 'Pass', h: 'Primary colour area', v: '78%', loc: 'Whole elevation', ref: 'Style guidelines · Colour', why: 'Earth tones come from the local building materials of the region.' }
+      ]
+    },
+    a04Name: { ar: 'الأنماط الثلاثة', en: 'The three patterns' },
+    a04Title: { ar: 'مبنى واحد، ثلاثة أنماط', en: 'One building, three patterns' },
+    a04Body: {
+      ar: 'كل طراز يُطبَّق بثلاثة أنماط. نفس الكتلة ونفس الموقع، والفرق في الفتحات والدروة والتفاصيل. ضبط يفحص التصميم على النمط اللي اخترته.',
+      en: 'Every style can be applied in three patterns. Same massing, same site; the difference is in the openings, the parapet and the detail. Dhabt checks the design against the pattern you chose.'
+    },
+    p1: { ar: 'تقليدي', en: 'Traditional' },
+    p2: { ar: 'انتقالي', en: 'Transitional' },
+    p3: { ar: 'معاصر', en: 'Contemporary' },
+    elev: { ar: 'واجهة', en: 'Elevation' },
+    a05Name: { ar: 'الطرز', en: 'Styles' },
+    a05Title: { ar: 'جدول الطرز المعمارية التسعة عشر', en: 'Schedule of the 19 architectural styles' },
+    colNo: { ar: 'رقم', en: 'No.' },
+    colName: { ar: 'الطراز', en: 'Style' },
+    a06Name: { ar: 'المراجع', en: 'Reference sources' },
+    sources: {
+      ar: [
+        { h: 'موجهات العمارة السعودية التصميمية', b: 'مركز دعم هيئات التطوير' },
+        { h: 'اشتراطات المباني السكنية', b: 'وزارة البلديات والإسكان' },
+        { h: 'كود البناء السعودي', b: 'مركز كود البناء السعودي' }
+      ],
+      en: [
+        { h: 'Saudi Architecture design guidelines', b: 'Development Authorities Support Center' },
+        { h: 'Residential Buildings Requirements', b: 'Ministry of Municipalities and Housing' },
+        { h: 'Saudi Building Code', b: 'Saudi Building Code Center' }
+      ]
+    },
+    disclaimer: { ar: 'ضبط غير تابع لهذه الجهات. القرار النهائي في التصميم يبقى للمهندس المرخّص.', en: 'Dhabt is not affiliated with these entities. The final design decision stays with the licensed engineer.' },
+    closeTitle: { ar: 'افحص مشروعك القادم قبل التقديم', en: 'Check your next project before you submit' },
+    closeBody: { ar: 'ارفع الواجهات، واستلم تقريرًا عربيًا يبين كل ملاحظة وسببها.', en: 'Upload the elevations and receive an Arabic report that shows each finding and its reason.' },
+    copy: { ar: '© 2026 ضبط', en: '© 2026 Dhabt' },
+    lblDate: { ar: 'التاريخ', en: 'Date' },
+    steps: {
+      ar: [
+        { n: '01', h: 'ارفع المخططات', p: 'واجهات المشروع ومخططاته كما تجهّزها للتقديم.' },
+        { n: '02', h: 'تحديد الطراز', p: 'يحدد ضبط الطراز المعماري الذي ينطبق على موقع المشروع، ونمطه.' },
+        { n: '03', h: 'الفحص', p: 'يقيس الواجهة: الفتحات والدراوي ومساحات الألوان، ويقارنها بالموجهات.' },
+        { n: '04', h: 'التقرير', p: 'تقرير عربي يبين كل ملاحظة، ومكانها على المخطط، والموجه المرتبط بها، والسبب التراثي وراءها.' }
+      ],
+      en: [
+        { n: '01', h: 'Upload', p: 'The project elevations and drawings, as you prepare them for submission.' },
+        { n: '02', h: 'Style', p: 'Dhabt identifies the architectural style and pattern that apply to the site.' },
+        { n: '03', h: 'Check', p: 'It measures the facade: openings, parapets and colour areas, and compares them with the guidelines.' },
+        { n: '04', h: 'Report', p: 'An Arabic report showing each issue, where it is on the drawing, the guideline it relates to, and the heritage reason behind it.' }
+      ]
+    }
+  };
+
+  var lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ar';
+  var html = document.documentElement;
+
+  function get(path) {
+    return path.split('.').reduce(function (o, k) { return o == null ? o : o[k]; }, null) ;
+  }
+  function lookup(path) {
+    var parts = path.split('.');
+    var entry = D[parts[0]];
+    if (!entry) return '';
+    var v = entry[lang];
+    for (var i = 1; i < parts.length && v != null; i++) v = v[parts[i]];
+    return v == null ? '' : v;
+  }
+
+  function renderStyles() {
+    var ol = document.getElementById('styles');
+    if (!ol) return;
+    var out = '';
+    for (var i = 1; i <= 19; i++) {
+      out += '<li><span class="mono">' + String(i).padStart(2, '0') + '</span><span class="ph">VERIFY NAMES</span></li>';
+    }
+    ol.innerHTML = out;
+  }
+
+  function apply() {
+    html.lang = lang;
+    html.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.title = lang === 'ar' ? 'ضبط | Dhabt' : 'Dhabt | ضبط';
+    var q = lang === 'en' ? '?lang=en' : '';
+    document.querySelectorAll('[data-t]').forEach(function (el) { el.textContent = lookup(el.getAttribute('data-t')); });
+    document.querySelectorAll('[data-t-aria]').forEach(function (el) { el.setAttribute('aria-label', lookup(el.getAttribute('data-t-aria'))); });
+    document.querySelectorAll('[data-href]').forEach(function (el) { el.setAttribute('href', el.getAttribute('data-href') + q); });
+    paintHero();
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      lang = lang === 'ar' ? 'en' : 'ar';
+      var url = new URL(location.href);
+      if (lang === 'en') url.searchParams.set('lang', 'en'); else url.searchParams.delete('lang');
+      history.replaceState(null, '', url);
+      apply();
+    });
+  });
+
+  /* Hero: measure -> flag (42%) -> correct (33%). */
+  var phase = 0;
+  var COLORS = { measure: '#FFFFFF', issue: '#B4413C', pass: '#3F7D58' };
+  function setAttrs(id, attrs) { var el = document.getElementById(id); for (var k in attrs) el.setAttribute(k, attrs[k]); }
+  function paintHero() {
+    var fixed = phase >= 2;
+    var w = fixed ? 70 : 108, x = 280 - w / 2, end = x + w;
+    var color = phase === 0 ? COLORS.measure : fixed ? COLORS.pass : COLORS.issue;
+    setAttrs('flag-win', { x: x, width: w });
+    setAttrs('d-main', { x1: x, x2: end });
+    setAttrs('d-a', { x1: x, x2: x });
+    setAttrs('d-b', { x1: end, x2: end });
+    setAttrs('flag-leader', { points: end + ',146 ' + (end + 20) + ',118 342,52' });
+    document.getElementById('flag').setAttribute('stroke', color);
+    document.getElementById('tag').style.borderColor = color;
+    document.getElementById('tag-dot').style.background = color;
+    document.getElementById('tag').style.direction = html.dir;
+    var t = function (k) { return lookup(k); };
+    document.getElementById('tag-main').textContent = phase === 0 ? t('measuring') : t('ratio') + ' ' + (fixed ? '33%' : '42%') + ' / ' + t('limit') + ' 35%';
+    document.getElementById('tag-sub').textContent = phase === 0 ? '…' : fixed ? t('within') : t('over');
+  }
+
+  var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) phase = 2;
+  else setInterval(function () { phase = (phase + 1) % 4; paintHero(); }, 1900);
+
+  renderStyles();
+  apply();
+})();
+</script>
+</body>
+</html>
